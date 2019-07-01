@@ -1,10 +1,10 @@
-class V1::OwnersController < ApplicationController
+class Api::V1::OwnersController < ApplicationController
   def index
     @owner = Owner.first
     if @owner.blank?
-      render json: {status: "No owner found. Please create one."}, status: :unauthorized
+      render json: {status: "No Macosa account found. Please create one."}, status: :unauthorized
     else
-      render json: {status: 'Confirmed, owner exists'}, status: :ok
+      render json: {status: 'Confirmed, Macosa account exists'}, status: :ok
     end
   end
 
@@ -14,11 +14,11 @@ class V1::OwnersController < ApplicationController
     @owner = Owner.first
 
     if @owner
-      render json: {status: "Owner already created, please login or reset."}, status: :unauthorized
+      render json: {status: "Macosa already created, please login or reset."}, status: :unauthorized
     else
       @owner = Owner.create(owner_params)
       if @owner.save
-        response = { message: 'Owner account created successfully'}
+        response = { message: 'Macosa created successfully'}
         render json: response, status: :created
       else
         render json: @owner.errors, status: :bad
@@ -35,4 +35,7 @@ class V1::OwnersController < ApplicationController
       # :company_id --add company_id after defining the other half of the relationship
     )
   end
+
+  # def user_params
+  # end
 end
