@@ -11,17 +11,16 @@
 
 
 
-# This file is not part of source control. Please create a copy.
+# This file is not included in source control. To include it, edit this file to suit your database adapter
+# To have git track this file, remove it from .gitignore.
+
 default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password: password@1
+  username: YourRootUsername
+  password: YourPassword
   socket: /var/run/mysqld/mysqld.sock
-
-
-
 
 development:
   <<: *default
