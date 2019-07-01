@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_01_152845) do
+ActiveRecord::Schema.define(version: 2019_07_01_153834) do
+
+  create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "email"
+    t.string "website"
+    t.string "address"
+    t.bigint "company_type_id"
+    t.string "background"
+    t.bigint "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_type_id"], name: "index_companies_on_company_type_id"
+    t.index ["owner_id"], name: "index_companies_on_owner_id"
+  end
 
   create_table "company_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "typename"
@@ -25,4 +40,6 @@ ActiveRecord::Schema.define(version: 2019_07_01_152845) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "companies", "company_types"
+  add_foreign_key "companies", "owners"
 end
