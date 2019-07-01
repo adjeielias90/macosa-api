@@ -11,12 +11,18 @@ class V1::OwnersController < ApplicationController
 
    # POST /register
    def register
-    @owner = Owner.create(owner_params)
-    if @owner.save
-      response = { message: 'Owner account created successfully'}
-      render json: response, status: :created
+    @owner = Owner.first
+
+    if @owner
+      render json: {status: "Owner already created, please login or reset."}, status: :unauthorized
     else
-      render json: @owner.errors, status: :bad
+      @owner = Owner.create(owner_params)
+      if @owner.save
+        response = { message: 'Owner account created successfully'}
+        render json: response, status: :created
+      else
+        render json: @owner.errors, status: :bad
+      end
     end
   end
 
