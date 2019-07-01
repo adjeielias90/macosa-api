@@ -5,4 +5,5 @@ class Owner < ApplicationRecord
 
   #encrypt password
   # has_secure_password
+  has_one :company
 end
