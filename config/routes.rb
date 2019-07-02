@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :owners
+      resources :owners do
+        post 'login'
+      end
       resources :companies
       resources :contacts
       post 'owner/register', to: 'owners#register'

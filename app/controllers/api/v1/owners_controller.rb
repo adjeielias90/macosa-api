@@ -26,6 +26,9 @@ class Api::V1::OwnersController < ApplicationController
     end
   end
 
+
+
+
   private
 
   def owner_params
@@ -35,6 +38,10 @@ class Api::V1::OwnersController < ApplicationController
       # :company_id --add company_id after defining the other half of the relationship
     )
   end
+
+  # def user_params
+  #   params.require(:owner).permit(:firstname, :lastname, :title, :company_id, :phone, :email, :background, :admin)
+  # end
 
   # def user_params
   # end
