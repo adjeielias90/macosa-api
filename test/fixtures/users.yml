@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  firstname: MyString
+  lastname: MyString
+  title: MyString
+  company: one
+  phone: MyString
+  email: MyString
+  password_digest: MyString
+  confirmation_token: MyString
+  confirmed_at: 2019-07-02 11:53:09
+  confirmation_sent_at: 2019-07-02 11:53:09
+  background: MyString
+
+two:
+  firstname: MyString
+  lastname: MyString
+  title: MyString
+  company: two
+  phone: MyString
+  email: MyString
+  password_digest: MyString
+  confirmation_token: MyString
+  confirmed_at: 2019-07-02 11:53:09
+  confirmation_sent_at: 2019-07-02 11:53:09
+  background: MyString
