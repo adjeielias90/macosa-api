@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApplicationController
     @owner = Owner.first
 
     if @owner
-      user = User.new(user_params)
+      user = @owner.users.new(user_params)
 
       if user.save
         #Invoke email function here
@@ -12,16 +12,25 @@ class Api::V1::UsersController < ApplicationController
         render json: {errors: user.errors.full_messages}, status: :bad_request
       end
     else
-      owner = Owner.new(owner_params)
-      tenant = owner.create_tenant(name: tenant_params[:company_name])
-      user = tenant.users.new(user_params)
+      @owner = Owner.new(owner_params)
+
+      if @owner.save
+
+        @user = @owner.users.new(user_params)
 
 
-      if user.save && owner.save && tenant.save
-        render json: {status: 'Macosa account created along with admin account. Please login.'}, status: :created
+        if @user.save
+          render json: {status: 'Macosa account created along with admin account. Please login.'}, status: :created
+        else
+          render json: {status: @user.errors.full_messages}, status: :bad_request
+        end
+
       else
-        render json: {status: errors.full_messages}, status: :bad_request
+        render json: {error: @owner.errors.full_messages}
       end
+
+      # @tenant = @owner.create_tenant(name: tenant_params[:company_name])
+
     end
 
   end
