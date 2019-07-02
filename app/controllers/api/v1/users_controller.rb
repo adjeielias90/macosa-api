@@ -12,13 +12,12 @@ class Api::V1::UsersController < ApplicationController
         render json: {errors: user.errors.full_messages}, status: :bad_request
       end
     else
-
       owner = Owner.new(owner_params)
-      tenant = owner.create_tenant(tenant_params)
+      tenant = owner.create_tenant(name: tenant_params[:company_name])
       user = tenant.users.new(user_params)
 
 
-      if user.save && owner.save
+      if user.save && owner.save && tenant.save
         render json: {status: 'Macosa account created along with admin account. Please login.'}, status: :created
       else
         render json: {status: errors.full_messages}, status: :bad_request
@@ -38,6 +37,6 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def tenant_params
-      params.permit(:)
+      params.permit(:company_name)
     end
 end
