@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_secure_password
   # Do not move has_secure_password below the validations
   # doing this causes a validation error to trigger on the hashing of the password.
-  belongs_to :tenant
+  belongs_to :owner
   validates_presence_of :email
   validates_uniqueness_of :email, case_sensitive: false
   validates_format_of :email, with: /@/
