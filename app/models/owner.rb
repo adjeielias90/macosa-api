@@ -5,5 +5,6 @@ class Owner < ApplicationRecord
 
   #encrypt password
   has_secure_password
-  has_one :company
+  # remove 'dependent: :destroy' to enforce FK constraint
+  has_one :company, dependent: :destroy
 end
