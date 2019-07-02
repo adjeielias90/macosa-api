@@ -3,11 +3,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :owners do
-        post 'login'
-      end
+      resources :owners
       resources :companies
       resources :contacts
+      resources :users, only: :create
       post 'owner/register', to: 'owners#register'
     end
   end
