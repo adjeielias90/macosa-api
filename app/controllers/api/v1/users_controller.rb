@@ -12,8 +12,11 @@ class Api::V1::UsersController < ApplicationController
         render json: {errors: user.errors.full_messages}, status: :bad_request
       end
     else
-      user = User.new(user_params)
       owner = Owner.new(owner_params)
+      company = owner.create_company()
+      user = User.new(user_params)
+
+
       if user.save && owner.save
         render json: {status: 'Macosa account created along with admin account. Please login.'}, status: :created
       else
