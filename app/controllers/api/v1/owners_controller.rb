@@ -17,6 +17,8 @@ class Api::V1::OwnersController < ApplicationController
       render json: {status: "Macosa already created, please login or reset."}, status: :unauthorized
     else
       @owner = Owner.create(owner_params)
+      # Invoke send mail method here.
+
       if @owner.save
         response = { message: 'Macosa created successfully'}
         render json: response, status: :created

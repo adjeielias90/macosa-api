@@ -3,6 +3,8 @@ class Owner < ApplicationRecord
   validates_presence_of :email, :password_digest
   validates :email, uniqueness: true
 
+  belongs_to :tenant
+
   #encrypt password
   has_secure_password
   # remove 'dependent: :destroy' to enforce FK constraint

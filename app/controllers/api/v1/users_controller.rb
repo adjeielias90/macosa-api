@@ -12,9 +12,10 @@ class Api::V1::UsersController < ApplicationController
         render json: {errors: user.errors.full_messages}, status: :bad_request
       end
     else
+
       owner = Owner.new(owner_params)
-      company = owner.create_company()
-      user = User.new(user_params)
+      tenant = owner.create_tenant(tenant_params)
+      user = tenant.users.new(user_params)
 
 
       if user.save && owner.save
@@ -29,10 +30,14 @@ class Api::V1::UsersController < ApplicationController
 
   private
     def user_params
-      params.permit(:firstname, :lastname, :title, :company_id, :phone, :email, :password, :password_confirmation, :background, :is_admin)
+      params.permit(:firstname, :lastname, :title, :phone, :email, :password, :password_confirmation, :background, :is_admin)
     end
 
     def owner_params
       params.permit(:email, :password)
+    end
+
+    def tenant_params
+      params.permit(:)
     end
 end

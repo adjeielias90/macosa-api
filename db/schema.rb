@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_02_121208) do
+ActiveRecord::Schema.define(version: 2019_07_02_153822) do
 
   create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -51,13 +51,21 @@ ActiveRecord::Schema.define(version: 2019_07_02_121208) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "tenant_id"
+  end
+
+  create_table "tenants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "website"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "firstname", null: false
     t.string "lastname", null: false
     t.string "title"
-    t.bigint "company_id"
     t.string "phone"
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -68,11 +76,10 @@ ActiveRecord::Schema.define(version: 2019_07_02_121208) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_admin"
-    t.index ["company_id"], name: "index_users_on_company_id"
+    t.bigint "tenant_id"
   end
 
   add_foreign_key "companies", "company_types"
   add_foreign_key "companies", "owners"
   add_foreign_key "contacts", "companies"
-  add_foreign_key "users", "companies"
 end
