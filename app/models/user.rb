@@ -28,7 +28,10 @@ class User < ApplicationRecord
     save
   end
 
-
+  def revoke_as_admin
+    self.is_admin = false
+    save
+  end
 
   def is_admin?
     self.is_admin == true
