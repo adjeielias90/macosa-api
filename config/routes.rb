@@ -5,7 +5,12 @@ Rails.application.routes.draw do
       resources :companies
       resources :contacts
       resources :company_types
-      resources :users, only: :create
+      resources :users, only: :create do
+        collection do
+          post 'login'
+          post 'confirm'
+        end
+      end
       post 'owner', to: 'owners#register'
 
       match '*a', to: 'base#undefined_route', via: :all

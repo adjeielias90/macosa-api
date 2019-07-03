@@ -3,8 +3,8 @@ class Api::V1::CompanyTypesController < Api::V1::BaseController
 
   # GET /companies
   def index
-    @companies_types = CompanyType.all
-    render json: {success: "Test passed"}, status: :ok
+    @company_types = CompanyType.all
+    render json: @company_types, status: :ok
   end
 
   # GET /companies/1
@@ -15,7 +15,7 @@ class Api::V1::CompanyTypesController < Api::V1::BaseController
   # POST /companies
   def create
     if CompanyType.find_by(typename: company_type_params[:typename])
-      render json: {duplicate: "Company type already exists"}
+      render json: {duplicate: "Company type already exists"}, status: :unprocessable_entity
     else
       @company_type = CompanyType.new(company_type_params)
 
