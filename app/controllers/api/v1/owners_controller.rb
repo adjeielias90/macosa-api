@@ -1,4 +1,4 @@
-class Api::V1::OwnersController < ApplicationController
+class Api::V1::OwnersController < Api::V1::BaseController
   def index
     @owner = Owner.first
     if @owner.blank?
@@ -11,19 +11,54 @@ class Api::V1::OwnersController < ApplicationController
 
    # POST /register
    def register
+    # @owner = Owner.first
+
+    # if @owner
+    #   render json: {status: "Macosa already created, please login or reset."}, status: :unauthorized
+    # else
+    #   @owner = Owner.create(owner_params)
+    #   # Invoke send mail method here.
+
+    #   if @owner.save
+    #     response = { message: 'Macosa created successfully'}
+    #     render json: response, status: :created
+    #   else
+    #     render json: @owner.errors, status: :bad
+    #   end
+    # end
     @owner = Owner.first
 
     if @owner
-      render json: {status: "Macosa already created, please login or reset."}, status: :unauthorized
-    else
-      @owner = Owner.create(owner_params)
-      if @owner.save
-        response = { message: 'Macosa created successfully'}
-        render json: response, status: :created
+      user = @owner.users.new(user_params)
+
+      if user.save
+        #Invoke email function here
+        render json: {status: 'User created successfully'}, status: :created
       else
-        render json: @owner.errors, status: :bad
+        render json: {errors: user.errors.full_messages}, status: :bad_request
       end
+    else
+      @owner = Owner.new(owner_params)
+
+      if @owner.save
+
+        @user = @owner.users.new(user_params)
+
+
+        if @user.save
+          render json: {status: 'Macosa account created along with admin account. Please login.'}, status: :created
+        else
+          render json: {status: @user.errors.full_messages}, status: :bad_request
+        end
+
+      else
+        render json: {error: @owner.errors.full_messages}
+      end
+
+      # @tenant = @owner.create_tenant(name: tenant_params[:company_name])
+
     end
+
   end
 
 
@@ -31,18 +66,11 @@ class Api::V1::OwnersController < ApplicationController
 
   private
 
-  def owner_params
-    params.permit(
-      :email,
-      :password
-      # :company_id --add company_id after defining the other half of the relationship
-    )
-  end
+    def user_params
+      params.permit(:firstname, :lastname, :title, :phone, :email, :password, :password_confirmation, :is_admin, :owner_id)
+    end
 
-  # def user_params
-  #   params.require(:owner).permit(:firstname, :lastname, :title, :company_id, :phone, :email, :background, :admin)
-  # end
-
-  # def user_params
-  # end
+    def owner_params
+      params.permit(:email, :password, :name, :website)
+    end
 end

@@ -1,4 +1,4 @@
-class Api::V1::ContactsController < ApplicationController
+class Api::V1::ContactsController < Api::V1::BaseController
   before_action :set_contact, only: [:show, :update, :destroy]
 
   # Authorize request before processing
