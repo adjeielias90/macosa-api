@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_02_170751) do
+ActiveRecord::Schema.define(version: 2019_07_03_104826) do
 
   create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2019_07_02_170751) do
     t.datetime "confirmation_sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_admin"
+    t.boolean "is_admin", default: false
     t.bigint "owner_id"
   end
 
