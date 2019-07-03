@@ -1,6 +1,9 @@
 class Api::V1::ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :update, :destroy]
 
+  # Authorize request before processing
+  # before_action :authenticate_request!
+
   # GET /contacts
   def index
     @contacts = Contact.all
