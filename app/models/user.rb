@@ -11,27 +11,24 @@ class User < ApplicationRecord
 
 
   before_save :downcase_email
-  # before_save :generate_confirmation_instructions!
+  before_save :generate_confirmation_instructions!
 
   def downcase_email
     self.email = self.email.delete('').downcase
   end
 
-  def generate_confirmation_instructions!
+  def generate_confirmation_instructions
     self.confirmation_token = SecureRandom.hex(10)
     self.confirmation_sent_at = Time.now.utc
     save
   end
 
-  def set_as_admin!
+  def set_as_admin
     self.is_admin = true
     save
   end
 
-  def revoke_as_admin!
-    self.is_admin = false
-    save
-  end
+
 
   def is_admin?
     self.is_admin == true
