@@ -6,7 +6,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     if @owner
       user = @owner.users.new(user_params)
-
+      user.generate_confirmation_instructions!
       if user.save
         #Invoke email function here
         render json: {status: 'User created successfully'}, status: :created
@@ -41,7 +41,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   private
     def user_params
-      params.permit(:firstname, :lastname, :title, :phone, :email, :password, :password_confirmation, :is_admin, :owner_id)
+      params.permit(:firstname, :lastname, :title, :phone, :email, :password, :password_confirmation, :confirmation_token, :confirmation_sent_at, :is_admin, :user, :owner_id)
     end
 
 
