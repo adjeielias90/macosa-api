@@ -4,8 +4,9 @@ Rails.application.routes.draw do
       resources :owners
       resources :companies
       resources :contacts
+      resources :company_types
       resources :users, only: :create
-      post 'owner/register', to: 'owners#register'
+      post 'owner', to: 'owners#register'
 
       match '*a', to: 'base#undefined_route', via: :all
     end

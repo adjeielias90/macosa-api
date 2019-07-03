@@ -22,8 +22,12 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
 
+
+
   private
     def user_params
       params.permit(:firstname, :lastname, :title, :phone, :email, :password, :password_confirmation, :is_admin, :owner_id)
     end
+
+
 end
