@@ -51,7 +51,6 @@ class Api::V1::UsersController < Api::V1::BaseController
   def invitation
     @owner = Owner.first
 
-
     if @current_user.email == @owner.email
     # @admin = current_user
       if !Invitation.find_by(email: invitation_params[:email])
@@ -71,7 +70,6 @@ class Api::V1::UsersController < Api::V1::BaseController
       else
         render json: {duplicate: 'Invitation has been sent to this email already.'}
       end
-
 
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :bad_request

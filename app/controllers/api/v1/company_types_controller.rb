@@ -1,6 +1,5 @@
 class Api::V1::CompanyTypesController < Api::V1::BaseController
   before_action :set_company_type, only: [:show, :update, :destroy]
-
   # Authorize request before processing
   before_action :authenticate_request!
 
