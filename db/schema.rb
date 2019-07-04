@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_03_104826) do
+ActiveRecord::Schema.define(version: 2019_07_04_124752) do
 
   create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -46,6 +46,16 @@ ActiveRecord::Schema.define(version: 2019_07_03_104826) do
     t.index ["company_id"], name: "index_contacts_on_company_id"
   end
 
+  create_table "invitations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "token"
+    t.string "email"
+    t.boolean "confirmed"
+    t.bigint "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_invitations_on_owner_id"
+  end
+
   create_table "owners", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -74,4 +84,5 @@ ActiveRecord::Schema.define(version: 2019_07_03_104826) do
   add_foreign_key "companies", "company_types"
   add_foreign_key "companies", "owners"
   add_foreign_key "contacts", "companies"
+  add_foreign_key "invitations", "owners"
 end

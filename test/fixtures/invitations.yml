@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  token: MyString
+  email: MyString
+  confirmed: false
+  owner: one
+
+two:
+  token: MyString
+  email: MyString
+  confirmed: false
+  owner: two
