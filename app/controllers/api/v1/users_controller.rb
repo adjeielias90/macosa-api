@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::BaseController
   # Authorize request before processing
-  before_action :authenticate_request!
+  before_action :authenticate_request!, except: [:login]
 
   def create
     @owner = Owner.first
@@ -20,6 +20,8 @@ class Api::V1::UsersController < Api::V1::BaseController
       else
         render json: {error: @owner.errors.full_messages}
       end
+
+
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :bad_request
     end

@@ -3,21 +3,22 @@ class ApplicationController < ActionController::API
 
   protected
     # Validates the token and user and sets the @current_user scope
+
+
     def authenticate_request!
       if !payload
-        return invalid_authentication
-      elsif !JsonWebToken.valid_payload(payload.first)
         return invalid_token
+      elsif !JsonWebToken.valid_payload(payload.first)
+        return invalid_authentication
       end
-    end
 
-    load_current_user!
-    invalid_authentication unless @current_user
+      load_current_user!
+      invalid_authentication unless @current_user
     end
 
     # Returns 401 response. To handle malformed / invalid requests.
     def invalid_authentication
-      render json: {invalid_token: 'Access denied. No token found in request headers'}, status: :unauthorized
+      render json: {authentication_error: 'Access denied. No token present in auth headers'}, status: :unauthorized
     end
 
 
@@ -25,14 +26,15 @@ class ApplicationController < ActionController::API
       render json: {invalid_token: 'Token expired or invalid'}, status: :unauthorized
     end
 
+
   private
     # Deconstructs the Authorization header and decodes the JWT token.
     def payload
-    auth_header = request.headers['Authorization']
-    token = auth_header.split(' ').last
-    JsonWebToken.decode(token)
-    rescue
-    nil
+      auth_header = request.headers['Authorization']
+      token = auth_header.split(' ').last
+      JsonWebToken.decode(token)
+      rescue
+      nil
     end
 
     # Sets the @current_user with the user_id from payload
