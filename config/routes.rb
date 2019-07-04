@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         collection do
           post 'login'
           post 'confirm'
+          post 'invitation'
         end
       end
       post 'owner', to: 'owners#register'

@@ -48,9 +48,46 @@ class Api::V1::UsersController < Api::V1::BaseController
 
 
 
+  def invitation
+    @owner = Owner.first
+
+
+    if @current_user.email == @owner.email
+    # @admin = current_user
+      if !Invitation.find_by(email: invitation_params[:email])
+        if @owner
+          invitation = @owner.invitations.new(invitation_params)
+          invitation.generate_invitation_instructions!
+          if invitation.save
+            #Invoke send invitation email function here
+            render json: {status: 'Invitation sent successfully'}, status: :created
+          else
+            render json: {errors: invitation.errors.full_messages}, status: :bad_request
+          end
+        else
+          render json: {error: @owner.errors.full_messages}
+        end
+
+      else
+        render json: {duplicate: 'Invitation has been sent to this email already.'}
+      end
+
+
+    else
+      render json: {errors:'You are not authorized to perform this action.'}, status: :bad_request
+    end
+  end
+
+
+
   private
     def user_params
       params.permit(:firstname, :lastname, :title, :phone, :email, :password, :password_confirmation, :is_admin, :user, :owner_id)
+    end
+
+
+    def invitation_params
+      params.permit(:email, :confirmed, :token)
     end
 
 
