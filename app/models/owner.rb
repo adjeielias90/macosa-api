@@ -3,6 +3,7 @@ class Owner < ApplicationRecord
   validates_presence_of :email, :password_digest
   validates :email, uniqueness: true
   has_many :users
+  has_many :invitations
 
   #encrypt password
   has_secure_password
