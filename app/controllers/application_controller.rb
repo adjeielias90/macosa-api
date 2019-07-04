@@ -4,8 +4,11 @@ class ApplicationController < ActionController::API
   protected
     # Validates the token and user and sets the @current_user scope
     def authenticate_request!
-    if !payload || !JsonWebToken.valid_payload(payload.first)
-      return invalid_authentication
+      if !payload
+        return invalid_authentication
+      elsif !JsonWebToken.valid_payload(payload.first)
+        return invalid_token
+      end
     end
 
     load_current_user!
@@ -14,7 +17,12 @@ class ApplicationController < ActionController::API
 
     # Returns 401 response. To handle malformed / invalid requests.
     def invalid_authentication
-    render json: {error: 'Invalid Request'}, status: :unauthorized
+      render json: {invalid_token: 'Access denied. No token found in request headers'}, status: :unauthorized
+    end
+
+
+    def invalid_token
+      render json: {invalid_token: 'Token expired or invalid'}, status: :unauthorized
     end
 
   private
