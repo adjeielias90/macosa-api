@@ -1,20 +1,27 @@
 class Api::V1::UsersController < Api::V1::BaseController
-
+  # Authorize request before processing
+  # before_action :authenticate_request!
 
   def create
     @owner = Owner.first
 
-    if @owner
-      user = @owner.users.new(user_params)
-      user.generate_confirmation_instructions!
-      if user.save
-        #Invoke email function here
-        render json: {status: 'User created successfully'}, status: :created
+
+    if @current_user.is_admin?
+    # @admin = current_user
+      if @owner
+        user = @owner.users.new(user_params)
+        user.generate_confirmation_instructions!
+        if user.save
+          #Invoke email function here
+          render json: {status: 'User created successfully'}, status: :created
+        else
+          render json: {errors: user.errors.full_messages}, status: :bad_request
+        end
       else
-        render json: {errors: user.errors.full_messages}, status: :bad_request
+        render json: {error: @owner.errors.full_messages}
       end
     else
-      render json: {error: @owner.errors.full_messages}
+      render json: {errors:'You are not authorized to perform this action.'}, status: :bad_request
     end
 
     # @tenant = @owner.create_tenant(name: tenant_params[:company_name])

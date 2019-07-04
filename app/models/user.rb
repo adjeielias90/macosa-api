@@ -37,7 +37,11 @@ class User < ApplicationRecord
   end
 
   def is_admin?
-    self.is_admin == true
+    if self.is_admin == true
+      return true
+    else
+      return false
+    end
   end
 
 
