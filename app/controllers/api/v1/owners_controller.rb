@@ -2,7 +2,7 @@ class Api::V1::OwnersController < Api::V1::BaseController
   def index
     @owner = Owner.first
     if @owner.blank?
-      render json: {status: "No Macosa account found. Please create one."}, status: :unauthorized
+      render json: {status: "No Macosa account found. Please create one."}, status: :not_found
     else
       render json: {status: 'Confirmed, Macosa account exists'}, status: :ok
     end
