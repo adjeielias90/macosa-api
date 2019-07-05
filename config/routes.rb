@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      post 'owners', to: 'owners#register'
       resources :owners
       resources :companies
       resources :contacts
@@ -14,7 +15,7 @@ Rails.application.routes.draw do
         end
       end
       resources :invitations
-      post 'owners', to: 'owners#register'
+
 
       match '*a', to: 'base#undefined_route', via: :all
     end
