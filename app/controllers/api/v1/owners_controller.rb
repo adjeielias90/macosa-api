@@ -30,7 +30,7 @@ class Api::V1::OwnersController < Api::V1::BaseController
 
     if @owner
       user = @owner.users.new(user_params)
-      puts(user_params)
+      puts (user_params)
       if user.save
         #Invoke email function here
         render json: {status: 'User created successfully'}, status: :created
@@ -39,15 +39,17 @@ class Api::V1::OwnersController < Api::V1::BaseController
       end
     else
       @owner = Owner.new(owner_params)
+
       if @owner.save
 
         @user = @owner.users.new(user_params)
 
 
         if @user.save
-          render json: {status: 'Macosa account created along with admin account. Please login.'}, status: :created
+          render json: {data: @user}, status: :created
+          # 'Macosa account created along with admin account. Please login.'
         else
-          render json: {status: @user.errors.full_messages}, status: :bad_request
+          render json: {data: @user.errors.full_messages}, status: :bad_request
         end
 
       else
