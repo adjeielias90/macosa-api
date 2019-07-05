@@ -9,9 +9,11 @@ Rails.application.routes.draw do
         collection do
           post 'login'
           post 'confirm'
-          post 'invitation'
+          post 'invitations'
+          get 'confirm_email'
         end
       end
+      resources :invitations
       post 'owner', to: 'owners#register'
 
       match '*a', to: 'base#undefined_route', via: :all

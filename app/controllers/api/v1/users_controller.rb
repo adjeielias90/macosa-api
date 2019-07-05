@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::BaseController
   # Authorize request before processing
-  before_action :authenticate_request!, except: [:login]
+  before_action :authenticate_request!, except: [:login, :confirm_email]
 
   def create
     @owner = Owner.first
@@ -9,13 +9,21 @@ class Api::V1::UsersController < Api::V1::BaseController
     if @current_user.is_admin?
     # @admin = current_user
       if @owner
-        user = @owner.users.new(user_params)
-        user.generate_confirmation_instructions!
-        if user.save
-          #Invoke email function here
-          render json: {status: 'User created successfully'}, status: :created
+        if invitation = Invitation.find_by(email: params[:email].to_s.downcase)
+          if invitation.email_confirmed?
+            user = @owner.users.new(user_params)
+            user.generate_confirmation_instructions!
+            if user.save
+              #Invoke email function here
+              render json: {status: 'User created successfully'}, status: :created
+            else
+              render json: {errors: user.errors.full_messages}, status: :bad_request
+            end
+          else
+            render json: {errors: "User invited, but email not confirmed"}, status: :unauthorized
+          end
         else
-          render json: {errors: user.errors.full_messages}, status: :bad_request
+          render json: {error: "User has not been invited"}, status: :bad_request
         end
       else
         render json: {error: @owner.errors.full_messages}
@@ -43,7 +51,17 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
-  def confirm
+  def confirm_email
+    token = params[:token].to_s
+
+    invitation = Invitation.find_by(token: token)
+    if invitation && invitation.token_valid?
+      invitation.mark_as_confirmed!
+      render json: {status: "Email confirmed...redirecting.."}
+      # redirect_to "https://frontendDomain/user/invitation/token"
+    else
+      render json: {status: "Invalid token or Token expired"}
+    end
   end
 
 
