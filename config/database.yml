@@ -16,8 +16,8 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password: password@1
+  username: p496rueDFN
+  password: z4oZv2BKPc
   url: http://remotemysql.com/
   socket: /var/run/mysqld/mysqld.sock
 
