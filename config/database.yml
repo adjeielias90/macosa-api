@@ -18,7 +18,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: p496rueDFN
   password: z4oZv2BKPc
-  url: http://remotemysql.com/
+  host: remotemysql.com
   socket: /var/run/mysqld/mysqld.sock
 
 
@@ -28,14 +28,14 @@ default: &default
 
 development:
   <<: *default
-  database: p496rueDFN
+  database: p496rueDFH
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: p496rueDFN
+  database: p496rueDFH
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
