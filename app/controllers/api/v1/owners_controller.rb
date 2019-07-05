@@ -39,7 +39,6 @@ class Api::V1::OwnersController < Api::V1::BaseController
       end
     else
       @owner = Owner.new(owner_params)
-
       if @owner.save
 
         @user = @owner.users.new(user_params)
