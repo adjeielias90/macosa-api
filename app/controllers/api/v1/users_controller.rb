@@ -4,8 +4,6 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def create
     @owner = Owner.first
-
-
     if @current_user.is_admin?
     # @admin = current_user
       if @owner
@@ -29,19 +27,15 @@ class Api::V1::UsersController < Api::V1::BaseController
       else
         render json: {error: @owner.errors.full_messages}
       end
-
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :bad_request
     end
-
     # @tenant = @owner.create_tenant(name: tenant_params[:company_name])
-
   end
 
 
   def login
     user = User.find_by(email: params[:email].to_s.downcase)
-
     if user && user.authenticate(params[:password])
       auth_token = JsonWebToken.encode({user_id: user.id})
       # use the reverse of this statement to extract user_id from token
@@ -53,7 +47,6 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def confirm_email
     token = params[:token].to_s
-
     invitation = Invitation.find_by(token: token)
     if invitation && invitation.token_valid?
       invitation.mark_as_confirmed!
@@ -68,7 +61,6 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def invitation
     @owner = Owner.first
-
     if @current_user.email == @owner.email
     # @admin = current_user
       if !Invitation.find_by(email: invitation_params[:email])
@@ -78,7 +70,6 @@ class Api::V1::UsersController < Api::V1::BaseController
           if invitation.save
             @invitation = invitation
             #Invoke send invitation email function here
-
             if InvitationMailer.invite_email(@invitation).deliver_now
               render json: {status: 'Invitation sent successfully'}, status: :created
             else
@@ -90,11 +81,9 @@ class Api::V1::UsersController < Api::V1::BaseController
         else
           render json: {error: @owner.errors.full_messages}
         end
-
       else
         render json: {duplicate: 'Invitation has been sent to this email already.'}
       end
-
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :bad_request
     end
