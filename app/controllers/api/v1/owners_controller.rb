@@ -30,7 +30,7 @@ class Api::V1::OwnersController < Api::V1::BaseController
 
     if @owner
       user = @owner.users.new(user_params)
-
+      puts(user_params)
       if user.save
         #Invoke email function here
         render json: {status: 'User created successfully'}, status: :created
