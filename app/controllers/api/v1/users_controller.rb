@@ -30,7 +30,6 @@ class Api::V1::UsersController < Api::V1::BaseController
         render json: {error: @owner.errors.full_messages}
       end
 
-
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :bad_request
     end
