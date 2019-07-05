@@ -9,7 +9,7 @@ Rails.application.routes.draw do
         collection do
           post 'login'
           post 'confirm'
-          post 'invitations'
+          post 'invitation'
           get 'confirm_email'
         end
       end

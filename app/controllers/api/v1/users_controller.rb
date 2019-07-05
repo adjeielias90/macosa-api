@@ -12,7 +12,8 @@ class Api::V1::UsersController < Api::V1::BaseController
         if invitation = Invitation.find_by(email: params[:email].to_s.downcase)
           if invitation.email_confirmed?
             user = @owner.users.new(user_params)
-            user.generate_confirmation_instructions!
+            invitation.destroy
+            # user.generate_confirmation_instructions!
             if user.save
               #Invoke email function here
               render json: {status: 'User created successfully'}, status: :created
@@ -23,7 +24,7 @@ class Api::V1::UsersController < Api::V1::BaseController
             render json: {errors: "User invited, but email not confirmed"}, status: :unauthorized
           end
         else
-          render json: {error: "User has not been invited"}, status: :bad_request
+          render json: {error: "User has not yet been invited"}, status: :bad_request
         end
       else
         render json: {error: @owner.errors.full_messages}
@@ -104,7 +105,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   private
     def user_params
-      params.permit(:firstname, :lastname, :title, :phone, :email, :password, :password_confirmation, :is_admin, :user, :owner_id)
+      params.permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :is_admin, :user, :owner_id)
     end
 
 
