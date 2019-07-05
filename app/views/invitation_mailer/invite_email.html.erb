@@ -1,7 +1,8 @@
-<h1>Welcome to Macosa, <%= @invitation.email %></h1>
+<h3>Welcome to Macosa, <%= @invitation.email %></h3>
   <p>
     You have received an invitation to sign up to Macosa,
     Follow this link to confirm your email:<br>
     <p>http://localhost:3000/api/v1/users/confirm_email?token=<%=@invitation.token%></p>
   </p>
-<p>Thanks for joining and have a great day!</p>
+  <small>Macosa is developed and maintained by Apotica</small>
+<p>If you have any problems with this email contact your administrator</p>
