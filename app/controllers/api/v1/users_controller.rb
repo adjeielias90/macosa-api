@@ -45,6 +45,7 @@ class Api::V1::UsersController < Api::V1::BaseController
       end
     else
       render json: {error: 'User not found'}, status: :ok
+    end
   end
 
   def confirm_email
