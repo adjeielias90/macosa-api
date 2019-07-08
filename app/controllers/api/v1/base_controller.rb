@@ -1,5 +1,5 @@
 class Api::V1::BaseController < ApplicationController
-  rescue_from ::Exception, :with => :rescue_exception
+  # rescue_from ::Exception, :with => :rescue_exception
   rescue_from ActiveRecord::RecordNotFound , :with => :raise_not_found_error
   #rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
   rescue_from ActionController::RoutingError, :with => :routing_error
