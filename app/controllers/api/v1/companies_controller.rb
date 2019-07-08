@@ -6,7 +6,7 @@ class Api::V1::CompaniesController < ApplicationController
   # GET /companies
   def index
     @companies = Company.all
-    render json: {success: "Test passed"}, status: :ok
+    render json: {companies: @companies}, status: :ok
   end
 
   # GET /companies/1

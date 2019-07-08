@@ -8,7 +8,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
   def index
     @contacts = Contact.all
 
-    render json: {success: "Test passed"}, status: :ok
+    render json: {contacts: @contacts}, status: :ok
   end
 
   # GET /contacts/1
