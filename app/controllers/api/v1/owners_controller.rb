@@ -4,7 +4,7 @@ class Api::V1::OwnersController < Api::V1::BaseController
     if @owner.blank?
       render json: {status: "No Macosa account found. Please create one."}, status: :not_found
     else
-      render json: {data: attributes: owners: @owner}, status: :ok
+      render json: {owner: @owner}, status: :ok
     end
   end
 
@@ -29,7 +29,7 @@ class Api::V1::OwnersController < Api::V1::BaseController
     @owner = Owner.first
 
     if @owner
-      render json: {owners: @owner}, status: :ok
+      render json: {owner: @owner}, status: :ok
       # @user = @owner.users.new(user_params)
       # puts (user_params)
       # if @user.save
@@ -74,7 +74,7 @@ class Api::V1::OwnersController < Api::V1::BaseController
 
     def owner_params
 
-
+      # app crashing
       params.require(:owner).permit(:email, :password, :name, :website)
     end
 end
