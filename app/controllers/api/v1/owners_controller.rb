@@ -2,7 +2,7 @@ class Api::V1::OwnersController < Api::V1::BaseController
   def index
     @owner = Owner.all
     if @owner.blank?
-      render json: {status: @owner}, status: :not_found
+      render json: {owner: @owner}, status: :not_found
     else
       render json: {owner: @owner}, status: :ok
     end
