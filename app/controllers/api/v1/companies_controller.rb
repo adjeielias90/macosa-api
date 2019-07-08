@@ -1,9 +1,8 @@
-class Api::V1::CompaniesController < Api::V1::BaseController
+class Api::V1::CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :update, :destroy]
 
   # Authorize request before processing
   # before_action :authenticate_request!
-
   # GET /companies
   def index
     @companies = Company.all
@@ -48,6 +47,6 @@ class Api::V1::CompaniesController < Api::V1::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def company_params
-      params.require(:data).require(:attributes).permit(:name, :phone, :email, :website, :address, :company_type_id, :background, :owner_id)
+      params.require(:company).permit(:name, :phone, :email, :website, :address, :company_type_id, :background, :owner_id)
     end
 end
