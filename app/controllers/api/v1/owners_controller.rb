@@ -4,7 +4,7 @@ class Api::V1::OwnersController < Api::V1::BaseController
     if @owner.blank?
       render json: {status: "No Macosa account found. Please create one."}, status: :not_found
     else
-      render json: {data: @owner}, status: :ok
+      render json: {owners: @owner}, status: :ok
     end
   end
 
