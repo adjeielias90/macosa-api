@@ -41,9 +41,9 @@ module MacosaApi
     end
 
 
-    config.jwt do |jwt|
-      jwt.secret = ENV['SECRET_KEY_BASE']
-    end
+    # config.jwt do |jwt|
+    #   jwt.secret = ENV['SECRET_KEY_BASE']
+    # end
 
 
     config.api_only = true
