@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::BaseController
   # Authorize request before processing
-  before_action :authenticate_request!, except: [:login, :confirm_email]
+  # before_action :authenticate_request!, except: [:login, :confirm_email]
 
   def create
     @owner = Owner.first
