@@ -93,12 +93,12 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   private
     def user_params
-      params.permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :is_admin, :user, :owner_id)
+      params.require(:data).require(:attributes).permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :is_admin, :user, :owner_id)
     end
 
 
     def invitation_params
-      params.permit(:email, :confirmed, :token)
+      params.require(:data).require(:attributes).permit(:email, :confirmed, :token)
     end
 
 

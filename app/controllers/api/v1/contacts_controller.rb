@@ -49,6 +49,6 @@ class Api::V1::ContactsController < Api::V1::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def contact_params
-      params.require(:contact).permit(:title, :firstname, :lastname, :phone, :email, :background, :company_id)
+      params.require(:data).require(:attributes).permit(:title, :firstname, :lastname, :phone, :email, :background, :company_id)
     end
 end

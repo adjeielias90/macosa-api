@@ -52,6 +52,6 @@ class Api::V1::CompanyTypesController < Api::V1::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def company_type_params
-      params.require(:company_type).permit(:typename)
+      params.require(:data).require(:attributes).permit(:typename)
     end
 end
