@@ -29,13 +29,13 @@ class Api::V1::OwnersController < Api::V1::BaseController
     @owner = Owner.first
 
     if @owner
-      user = @owner.users.new(user_params)
+      @user = @owner.users.new(user_params)
       puts (user_params)
-      if user.save
+      if @user.save
         #Invoke email function here
-        render json: {status: 'User created successfully'}, status: :created
+        render json: {data: @user}, status: :created
       else
-        render json: {errors: user.errors.full_messages}, status: :bad_request
+        render json: {errors: @user.errors.full_messages}, status: :bad_request
       end
     else
       @owner = Owner.new(owner_params)
