@@ -73,6 +73,8 @@ class Api::V1::OwnersController < Api::V1::BaseController
     end
 
     def owner_params
+
+
       params.require(:owner).permit(:email, :password, :name, :website)
     end
 end
