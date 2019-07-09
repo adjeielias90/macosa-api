@@ -23,6 +23,7 @@ module MacosaApi
     config.load_defaults 5.2
 
     #autoloads lib folder during production
+    config.enable_dependency_loading = true
     config.eager_load_paths << Rails.root.join('lib')
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
