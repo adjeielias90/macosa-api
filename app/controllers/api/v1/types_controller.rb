@@ -5,12 +5,12 @@ class Api::V1::TypesController < Api::V1::BaseController
   def index
     @types = Type.all
 
-    render json: @types
+    render json: {types: @types}
   end
 
   # GET /types/1
   def show
-    render json: @type
+    render json: {type: @type}
   end
 
   # POST /types
