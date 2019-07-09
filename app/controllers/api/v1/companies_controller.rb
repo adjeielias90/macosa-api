@@ -11,7 +11,7 @@ class Api::V1::CompaniesController < ApplicationController
 
   # GET /companies/1
   def show
-    render json: @company
+    render json: {company: @company}
   end
 
   # POST /companies
@@ -19,7 +19,7 @@ class Api::V1::CompaniesController < ApplicationController
     @company = Company.new(company_params)
 
     if @company.save
-      render json: @company, status: :created
+      render json: {company: @company}, status: :created
     else
       render json: @company.errors, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class Api::V1::CompaniesController < ApplicationController
   # PATCH/PUT /companies/1
   def update
     if @company.update(company_params)
-      render json: @company
+      render json: {company: @company}
     else
       render json: @company.errors, status: :unprocessable_entity
     end
