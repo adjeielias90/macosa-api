@@ -1,6 +1,7 @@
 class CreateCompanies < ActiveRecord::Migration[5.2]
   def change
     create_table :companies do |t|
+      # app crashing
       t.string :name
       t.string :phone
       t.string :email
