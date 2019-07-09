@@ -73,7 +73,8 @@ class Api::V1::OwnersController < Api::V1::BaseController
     end
 
     def owner_params
-      # app still crashing
+      # fix app still crashing on postman. append params .require(:modelName) if app crashes in
+      # production
       params.permit(:email, :password, :name, :website)
     end
 end
