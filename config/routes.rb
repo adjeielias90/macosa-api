@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resources :owners
       resources :companies
       resources :contacts
-      resources :company_types
+      resources :types
       resources :users, only: :create do
         collection do
           post 'login'
