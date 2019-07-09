@@ -2,7 +2,7 @@ class Api::V1::CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :update, :destroy]
 
   # Authorize request before processing
-  # before_action :authenticate_request!
+  before_action :authenticate_request!
   # GET /companies
   def index
     @companies = Company.all
