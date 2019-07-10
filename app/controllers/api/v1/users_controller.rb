@@ -1,5 +1,6 @@
 class Api::V1::UsersController < Api::V1::BaseController
   # Authorize request before processing
+  before_action :set_type, only: [:show, :update, :destroy]
   # before_action :authenticate_request!, except: [:login, :confirm_email]
 
   def index
@@ -99,8 +100,28 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
 
+  def update
+    if @user.update(user_params)
+      render json: @user
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /types/1
+  def destroy
+    @user.destroy
+  end
+
+
+
 
   private
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+
     def user_params
       params.require(:user).permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :is_admin, :owner_id)
     end

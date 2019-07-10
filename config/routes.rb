@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :companies
       resources :contacts
       resources :types
-      resources :users, only: [:create, :index] do
+      resources :users, only: [:create, :index, :delete, :update] do
         collection do
           post 'login'
           post 'confirm'
