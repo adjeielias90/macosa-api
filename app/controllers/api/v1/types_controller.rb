@@ -1,5 +1,6 @@
 class Api::V1::TypesController < Api::V1::BaseController
   before_action :set_type, only: [:show, :update, :destroy]
+  before_action :authenticate_request!
 
   # GET /types
   def index
@@ -14,12 +15,16 @@ class Api::V1::TypesController < Api::V1::BaseController
 
   # POST /types
   def create
-    @type = Type.new(type_params)
+    if @current_user.is_admin?
+      @type = Type.new(type_params)
 
-    if @type.save
-      render json: @type, status: :created, location: @type
+      if @type.save
+        render json: @type, status: :created, location: @type
+      else
+        render json: @type.errors, status: :unprocessable_entity
+      end
     else
-      render json: @type.errors, status: :unprocessable_entity
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
   end
 

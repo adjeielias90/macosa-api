@@ -34,7 +34,7 @@ class Api::V1::UsersController < Api::V1::BaseController
         render json: {error: @owner.errors.full_messages}
       end
     else
-      render json: {errors:'You are not authorized to perform this action.'}, status: :bad_request
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
     # @tenant = @owner.create_tenant(name: tenant_params[:company_name])
   end
