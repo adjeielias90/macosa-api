@@ -107,16 +107,24 @@ class Api::V1::UsersController < Api::V1::BaseController
 
 
   def update
-    if @user.update(update_params)
-      render json: @user
+    if @current_user.is_admin?
+      if @user.update(update_params)
+        render json: @user
+      else
+        render json: @user.errors, status: :unprocessable_entity
+      end
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
   end
 
   # DELETE /types/1
   def destroy
-    @user.destroy
+    if @current_user.is_admin?
+      @user.destroy
+    else
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
+    end
   end
 
 
