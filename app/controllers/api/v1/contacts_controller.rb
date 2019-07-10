@@ -2,43 +2,55 @@ class Api::V1::ContactsController < Api::V1::BaseController
   before_action :set_contact, only: [:show, :update, :destroy]
 
   # Authorize request before processing
-  # before_action :authenticate_request!
+  before_action :authenticate_request!
 
   # GET /contacts
   def index
     @contacts = Contact.all
-
     render json: {contacts: @contacts}, status: :ok
   end
 
   # GET /contacts/1
   def show
-    render json: @contact
+    render json: {contact: @contact}, status: :ok
   end
 
   # POST /contacts
   def create
-    @contact = Contact.new(contact_params)
+    if @current_user.is_admin?
+      @contact = Contact.new(contact_params)
 
-    if @contact.save
-      render json: @contact, status: :created, location: @contact
+      if @contact.save
+        render json: {contact: @contact}, status: :created
+      else
+        render json: {errors: @contact.errors}, status: :unprocessable_entity
+      end
     else
-      render json: @contact.errors, status: :unprocessable_entity
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
   end
 
   # PATCH/PUT /contacts/1
   def update
-    if @contact.update(contact_params)
-      render json: @contact
+    if @current_user.is_admin?
+      if @contact.update(contact_params)
+        render json: @contact
+      else
+        render json: @contact.errors, status: :unprocessable_entity
+      end
     else
-      render json: @contact.errors, status: :unprocessable_entity
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
   end
 
   # DELETE /contacts/1
   def destroy
-    @contact.destroy
+    if @current_user.is_admin?
+      @contact.destroy
+      reder json: {success: "Contact deleted"}, status: :ok
+    else
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
+    end
   end
 
   private

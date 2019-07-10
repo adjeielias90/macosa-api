@@ -11,32 +11,44 @@ class Api::V1::CompaniesController < ApplicationController
 
   # GET /companies/1
   def show
-    render json: {company: @company}
+    render json: {company: @company}, status: :ok
   end
 
   # POST /companies
   def create
-    @company = Company.new(company_params)
+    if @current_user.is_admin?
+      @company = Company.new(company_params)
 
-    if @company.save
-      render json: {company: @company}, status: :created
+      if @company.save
+        render json: {company: @company}, status: :created
+      else
+        render json: @company.errors, status: :unprocessable_entity
+      end
     else
-      render json: @company.errors, status: :unprocessable_entity
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
   end
 
   # PATCH/PUT /companies/1
   def update
-    if @company.update(company_params)
-      render json: {company: @company}
+    if @current_user.ia_admin?
+      if @company.update(company_params)
+        render json: {company: @company}
+      else
+        render json: @company.errors, status: :unprocessable_entity
+      end
     else
-      render json: @company.errors, status: :unprocessable_entity
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
   end
 
   # DELETE /companies/1
   def destroy
-    @company.destroy
+    if @current_user.is_admin
+      @company.destroy
+    else
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
+    end
   end
 
   private
