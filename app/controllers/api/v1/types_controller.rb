@@ -4,7 +4,6 @@ class Api::V1::TypesController < Api::V1::BaseController
   # GET /types
   def index
     @types = Type.all
-
     render json: {types: @types}
   end
 
