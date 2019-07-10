@@ -109,9 +109,9 @@ class Api::V1::UsersController < Api::V1::BaseController
   def update
     if @current_user.is_admin?
       if @user.update(update_params)
-        render json: @user
+        render json: {user: @user}
       else
-        render json: @user.errors, status: :unprocessable_entity
+        render json: {error: @user.errors}, status: :unprocessable_entity
       end
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
@@ -122,6 +122,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   def destroy
     if @current_user.is_admin?
       @user.destroy
+      render json: {user: @user}
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
