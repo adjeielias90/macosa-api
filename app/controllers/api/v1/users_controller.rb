@@ -1,7 +1,7 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  # Authorize request before processing
   before_action :set_type, only: [:show, :update, :destroy]
-  # before_action :authenticate_request!, except: [:login, :confirm_email]
+  # Authorize request before processing
+  before_action :authenticate_request!, except: [:login, :confirm_email]
 
   def index
     @users = User.all
