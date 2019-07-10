@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  before_action :set_type, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy]
   # Authorize request before processing
   before_action :authenticate_request!, except: [:login, :confirm_email]
 
@@ -65,6 +65,10 @@ class Api::V1::UsersController < Api::V1::BaseController
     else
       render json: {status: "Invalid token or Token expired"}
     end
+  end
+
+  def show
+    render json: {user: @user}, status: :ok
   end
 
   def add_admin
