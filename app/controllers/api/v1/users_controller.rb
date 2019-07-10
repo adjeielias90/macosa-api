@@ -107,7 +107,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
 
   def update
-    if @user.update(user_params)
+    if @user.update(update_params)
       render json: @user
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -130,6 +130,10 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     def user_params
       params.require(:user).permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :is_admin, :owner_id)
+    end
+
+    def update_params
+      params.permit(:firstname, :lastname, :phone, :email, :is_admin, :owner_id)
     end
 
 
