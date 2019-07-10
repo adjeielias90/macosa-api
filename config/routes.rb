@@ -13,6 +13,7 @@ Rails.application.routes.draw do
           post 'confirm'
           post 'invitation'
           get 'confirm_email'
+          get 'users'
         end
       end
       resources :invitations

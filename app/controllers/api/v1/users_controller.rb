@@ -2,6 +2,11 @@ class Api::V1::UsersController < Api::V1::BaseController
   # Authorize request before processing
   # before_action :authenticate_request!, except: [:login, :confirm_email]
 
+  def index
+    @users = Users.all
+    render json: {users: @users }
+  end
+
   def create
     @owner = Owner.first
     if @current_user.is_admin?
