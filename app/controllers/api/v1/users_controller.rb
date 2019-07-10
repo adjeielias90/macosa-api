@@ -3,7 +3,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   # before_action :authenticate_request!, except: [:login, :confirm_email]
 
   def index
-    @users = Users.all
+    @users = User.all
     render json: {users: @users }
   end
 
