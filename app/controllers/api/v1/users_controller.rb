@@ -67,7 +67,9 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
-
+  def add_admin
+    # invoke function to set user as admin here.
+  end
 
   def invitation
     @owner = Owner.first
