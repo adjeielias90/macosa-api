@@ -1,12 +1,16 @@
 class Api::V1::InvitationsController < Api::V1::BaseController
   # Authorize request before processing
-  # before_action :authenticate_request!, except: [:login]
+  before_action :authenticate_request!, except: [:login]
 
   def show
-    if invitation = Invitation.find_by(token: params[:id].to_s.downcase)
-      render json: {invitation: invitation}, status: :ok
+    if @current_user.is_admin?
+      if invitation = Invitation.find_by(token: params[:id].to_s.downcase)
+        render json: {invitation: invitation}, status: :ok
+      else
+        render json: {errors: invitation.errors.full_messages}, status: :bad_request
+      end
     else
-      render json: {errors: invitation.errors.full_messages}, status: :bad_request
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
   end
 

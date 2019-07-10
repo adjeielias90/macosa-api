@@ -47,6 +47,7 @@ class Api::V1::OwnersController < Api::V1::BaseController
 
 
         if @user.save
+          @user.set_as_admin!
           render json: {owner: @user}, status: :created
           # 'Macosa account created along with admin account. Please login.'
         else

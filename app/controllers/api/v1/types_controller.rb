@@ -5,12 +5,12 @@ class Api::V1::TypesController < Api::V1::BaseController
   # GET /types
   def index
     @types = Type.all
-    render json: {types: @types}
+    render json: {types: @types}, status: :ok
   end
 
   # GET /types/1
   def show
-    render json: {type: @type}
+    render json: {type: @type}, status: :ok
   end
 
   # POST /types
@@ -19,9 +19,9 @@ class Api::V1::TypesController < Api::V1::BaseController
       @type = Type.new(type_params)
 
       if @type.save
-        render json: @type, status: :created, location: @type
+        render json: {type: @type}, status: :created
       else
-        render json: @type.errors, status: :unprocessable_entity
+        render json: {errors: @type.errors}, status: :unprocessable_entity
       end
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
@@ -30,16 +30,30 @@ class Api::V1::TypesController < Api::V1::BaseController
 
   # PATCH/PUT /types/1
   def update
-    if @type.update(type_params)
-      render json: @type
+    if @current_user.is_admin?
+      if @type.update(type_params)
+        render json: {type: @type}, status: :ok
+      else
+        render json: {errors: @type.errors}, status: :unprocessable_entity
+      end
     else
-      render json: @type.errors, status: :unprocessable_entity
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
+
   end
 
   # DELETE /types/1
   def destroy
-    @type.destroy
+    if @current_user.is_admin?
+      if @type.destroy
+        render json: {sucesss: "Type deleted"}, status: :ok
+      else
+        render json: @type.errors, status: :unprocessable_entity
+      end
+    else
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
+    end
+
   end
 
   private
