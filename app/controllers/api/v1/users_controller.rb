@@ -131,7 +131,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
-  # DELETE /types/1
+  # DELETE /types/2
   def destroy
     @owner = Owner.first
     if @user.email != @owner.email
