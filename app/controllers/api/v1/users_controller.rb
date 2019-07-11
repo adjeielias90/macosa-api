@@ -169,7 +169,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
 
     def invitation_params
-      params.permit(:email, :confirmed, :token)
+      params.permit(:email, :firstname, :lastname, :is_admin)
     end
 
 
