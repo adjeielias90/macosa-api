@@ -60,10 +60,10 @@ class Api::V1::UsersController < Api::V1::BaseController
     invitation = Invitation.find_by(token: token)
     if invitation && invitation.token_valid?
       invitation.mark_as_confirmed!
-      render json: {status: "Email confirmed...redirecting.."}
+      render json: {status: "Email confirmed...redirecting.."}, status: :ok
       # redirect_to "https://frontendDomain/user/invitation/token"
     else
-      render json: {status: "Invalid token or Token expired"}
+      render json: {status: "Invalid token or Token expired"}, status: :ok
     end
   end
 
@@ -95,10 +95,10 @@ class Api::V1::UsersController < Api::V1::BaseController
             render json: {errors: invitation.errors.full_messages}, status: :bad_request
           end
         else
-          render json: {error: @owner.errors.full_messages}
+          render json: {error: @owner.errors.full_messages}, status: :ok
         end
       else
-        render json: {duplicate: 'Invitation has been sent to this email already.'}
+        render json: {duplicate: 'Invitation has been sent to this email already.'}, status: :ok
       end
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :bad_request
@@ -115,8 +115,16 @@ class Api::V1::UsersController < Api::V1::BaseController
         else
           render json: {error: @user.errors}, status: :unprocessable_entity
         end
-      else
-        render json: {error: "Master account privileges cannot be revoked"}
+      elsif @user.email ==  @owner.email
+        if params[:is_admin]
+          render json: {errors: "You cannot change privileges for master account"}, status: :ok
+        else
+          if @user.update(owner_update_params)
+            render json: {user: @user}
+          else
+            render json: {error: @user.errors}, status: :unprocessable_entity
+          end
+        end
       end
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
@@ -134,7 +142,7 @@ class Api::V1::UsersController < Api::V1::BaseController
         render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
       end
     else
-      render json: {error: "Master account cannot be deleted"}
+      render json: {error: "Master account cannot be deleted"}, status: :unauthorized
     end
   end
 
@@ -149,6 +157,10 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     def user_params
       params.require(:user).permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :is_admin, :owner_id)
+    end
+
+    def owner_update_params
+      params.require(:user).permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :owner_id)
     end
 
     def update_params
