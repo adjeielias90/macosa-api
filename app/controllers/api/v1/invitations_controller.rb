@@ -2,6 +2,13 @@ class Api::V1::InvitationsController < Api::V1::BaseController
   # Authorize request before processing
   before_action :authenticate_request!
 
+  def index
+    @invitations = Invitation.all
+    render json: {invitations: @invtations }
+  end
+
+
+
   def show
     if @current_user.is_admin?
       if invitation = Invitation.find_by(token: params[:id].to_s.downcase)
