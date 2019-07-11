@@ -116,9 +116,9 @@ class Api::V1::UsersController < Api::V1::BaseController
           render json: {error: @user.errors}, status: :unprocessable_entity
         end
       elsif @user.email ==  @owner.email
-        if params[:is_admin]
+        if !params[:is_admin]
           render json: {errors: "You cannot change privileges for the master account"}, status: :unauthorized
-        elsif !params[:is_admin]
+        elsif params[:is_admin]
           if @user.update(update_params)
             render json: {user: @user}
           else
