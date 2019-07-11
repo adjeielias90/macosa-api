@@ -107,11 +107,16 @@ class Api::V1::UsersController < Api::V1::BaseController
 
 
   def update
+    @owner = Owner.first
     if @current_user.is_admin?
-      if @user.update(update_params)
-        render json: {user: @user}
+      if @user.email != @owner.email
+        if @user.update(update_params)
+          render json: {user: @user}
+        else
+          render json: {error: @user.errors}, status: :unprocessable_entity
+        end
       else
-        render json: {error: @user.errors}, status: :unprocessable_entity
+        render json: {error: "Master account privileges cannot be revoked"}
       end
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
@@ -120,11 +125,16 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   # DELETE /types/1
   def destroy
-    if @current_user.is_admin?
-      @user.destroy
-      render json: {user: @user}
+    @owner = Owner.first
+    if @user.email != @owner.email
+      if @current_user.is_admin?
+        @user.destroy
+        render json: {user: @user}
+      else
+        render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
+      end
     else
-      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
+      render json: {error: "Master account cannot be deleted"}
     end
   end
 
