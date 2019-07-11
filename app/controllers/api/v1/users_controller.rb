@@ -80,6 +80,8 @@ class Api::V1::UsersController < Api::V1::BaseController
     if @current_user.email == @owner.email
     # @admin = current_user
       if Invitation.exists?(email: params[:email])
+        render json: {duplicate: 'Invitation has been sent to this email already.'}, status: :ok
+      else
         if @owner
           invitation = @owner.invitations.new(invitation_params)
           invitation.generate_invitation_instructions!
@@ -97,8 +99,6 @@ class Api::V1::UsersController < Api::V1::BaseController
         else
           render json: {error: @owner.errors.full_messages}, status: :ok
         end
-      else
-        render json: {duplicate: 'Invitation has been sent to this email already.'}, status: :ok
       end
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :bad_request
