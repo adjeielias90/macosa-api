@@ -5,7 +5,11 @@ class Api::V1::InvitationsController < Api::V1::BaseController
   def show
     if @current_user.is_admin?
       if invitation = Invitation.find_by(token: params[:id].to_s.downcase)
-        render json: {invitation: invitation}, status: :ok
+        if invitation.email_confirmed?
+          render json: {invitation: invitation}, status: :ok
+        else
+          render json: {errors: "Email not verified"}, status: :unauthorized
+        end
       else
         render json: {errors: invitation.errors.full_messages}, status: :bad_request
       end
