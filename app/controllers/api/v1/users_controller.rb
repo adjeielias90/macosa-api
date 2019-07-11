@@ -168,9 +168,4 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
 
 
-    def invitation_params
-      params.require(:user).permit(:email, :firstname, :lastname, :is_admin)
-    end
-
-
 end

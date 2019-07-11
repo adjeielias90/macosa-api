@@ -59,7 +59,8 @@ class Api::V1::InvitationsController < Api::V1::BaseController
 
 
 
-
-
-
+private
+  def invitation_params
+    params.require(:invitation).permit(:email, :firstname, :lastname, :is_admin)
+  end
 end
