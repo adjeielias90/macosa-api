@@ -3,8 +3,8 @@ class Api::V1::InvitationsController < Api::V1::BaseController
   before_action :authenticate_request!
 
   def index
-    @invitations = Invitation.all
-    render json: {invitations: @invtations }, status: :ok
+    invitations = Invitation.all
+    render json: {invitations: invtations }, status: :ok
   end
 
 
@@ -24,5 +24,12 @@ class Api::V1::InvitationsController < Api::V1::BaseController
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
+
   end
+
+
+
+
+
+
 end
