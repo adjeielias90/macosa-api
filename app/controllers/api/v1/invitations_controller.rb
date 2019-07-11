@@ -4,7 +4,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
 
   def index
     invitations = Invitation.all
-    render json: {invitations: invtations }, status: :ok
+    render json: {invitations: invitations }, status: :ok
   end
 
 
