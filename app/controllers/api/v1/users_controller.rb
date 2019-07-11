@@ -142,7 +142,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
 
     def update_params
-      params.permit(:firstname, :lastname, :phone, :email, :is_admin, :owner_id)
+      params.require(:user).permit(:firstname, :lastname, :phone, :email, :is_admin, :owner_id)
     end
 
 
