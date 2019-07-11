@@ -11,6 +11,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
 
   def show
     if @current_user.is_admin?
+
       if invitation = Invitation.find_by(token: params[:id].to_s.downcase)
         if invitation.email_confirmed?
           render json: {invitation: invitation}, status: :ok
@@ -24,5 +25,4 @@ class Api::V1::InvitationsController < Api::V1::BaseController
       render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
   end
-
 end

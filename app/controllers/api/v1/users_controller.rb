@@ -79,7 +79,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     @owner = Owner.first
     if @current_user.email == @owner.email
     # @admin = current_user
-      if Invitation.find_by(email: params[:email]) == null
+      if Invitation.exists?(email: params[:email])
         if @owner
           invitation = @owner.invitations.new(invitation_params)
           invitation.generate_invitation_instructions!
