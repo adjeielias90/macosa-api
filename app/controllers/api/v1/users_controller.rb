@@ -118,8 +118,8 @@ class Api::V1::UsersController < Api::V1::BaseController
       elsif @user.email ==  @owner.email
         if params[:is_admin]
           render json: {errors: "You cannot change privileges for the master account"}, status: :unauthorized
-        elsif !params[:is_admin] || params[:is_admin] = ''
-          if @user.update(owner_update_params)
+        elsif !params[:is_admin]
+          if @user.update(update_params)
             render json: {user: @user}
           else
             render json: {error: @user.errors}, status: :unprocessable_entity
@@ -159,9 +159,9 @@ class Api::V1::UsersController < Api::V1::BaseController
       params.require(:user).permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :is_admin, :owner_id)
     end
 
-    def owner_update_params
-      params.require(:user).permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :owner_id)
-    end
+    # def owner_update_params
+    #   params.require(:user).permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :owner_id)
+    # end
 
     def update_params
       params.require(:user).permit(:firstname, :lastname, :phone, :email, :is_admin, :owner_id)
