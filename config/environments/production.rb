@@ -103,7 +103,7 @@ Rails.application.configure do
   # domain:               'example.com',
   user_name:            'kassettemailer@gmail.com',
   password:             '9ccc1234',
-  authentication:       'tls',
+  authentication:       'plain',
   enable_starttls_auto: true
   }
 
