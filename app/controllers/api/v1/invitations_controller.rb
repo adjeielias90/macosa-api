@@ -21,7 +21,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
             @invitation = invitation
             #Invoke send invitation email function here
             if InvitationMailer.invite_email(@invitation).deliver_now
-              render json: {status: 'Invitation sent successfully'}, status: :created
+              render json: {invitation: @invitation}, status: :created
             else
               render json: {status: 'An error occured while trying to send invitation mail'}, status: :bad_request
             end
