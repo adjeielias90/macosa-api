@@ -60,8 +60,8 @@ class Api::V1::UsersController < Api::V1::BaseController
     invitation = Invitation.find_by(token: token)
     if invitation && invitation.token_valid?
       invitation.mark_as_confirmed!
-      render json: {status: "Email confirmed...redirecting.."}, status: :ok
-      # redirect_to "https://frontendDomain/user/invitation/token"
+      # render json: {status: "Email confirmed...redirecting.."}, status: :ok
+      redirect_to "https://macosa.herokuapp.com/invitation/"+invitation.token
     else
       render json: {status: "Invalid token or Token expired"}, status: :ok
     end
