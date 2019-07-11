@@ -11,7 +11,7 @@ Rails.application.routes.draw do
         collection do
           post 'login'
           post 'confirm'
-          post 'invitation'
+          # post 'invitation'
           get 'confirm_email'
           # get 'users'
         end

@@ -75,35 +75,35 @@ class Api::V1::UsersController < Api::V1::BaseController
     # invoke function to set user as admin here.
   end
 
-  def invitation
-    @owner = Owner.first
-    if @current_user.email == @owner.email
-    # @admin = current_user
-      if Invitation.exists?(email: params[:email])
-        render json: {duplicate: 'Invitation has been sent to this email already.'}, status: :ok
-      else
-        if @owner
-          invitation = @owner.invitations.new(invitation_params)
-          invitation.generate_invitation_instructions!
-          if invitation.save
-            @invitation = invitation
-            #Invoke send invitation email function here
-            if InvitationMailer.invite_email(@invitation).deliver_now
-              render json: {status: 'Invitation sent successfully'}, status: :created
-            else
-              render json: {status: 'An error occured while trying to send invitation mail'}, status: :bad_request
-            end
-          else
-            render json: {errors: invitation.errors.full_messages}, status: :bad_request
-          end
-        else
-          render json: {error: @owner.errors.full_messages}, status: :ok
-        end
-      end
-    else
-      render json: {errors:'You are not authorized to perform this action.'}, status: :bad_request
-    end
-  end
+  # def invitation
+  #   @owner = Owner.first
+  #   if @current_user.email == @owner.email
+  #   # @admin = current_user
+  #     if Invitation.exists?(email: params[:email])
+  #       render json: {duplicate: 'Invitation has been sent to this email already.'}, status: :ok
+  #     else
+  #       if @owner
+  #         invitation = @owner.invitations.new(invitation_params)
+  #         invitation.generate_invitation_instructions!
+  #         if invitation.save
+  #           @invitation = invitation
+  #           #Invoke send invitation email function here
+  #           if InvitationMailer.invite_email(@invitation).deliver_now
+  #             render json: {status: 'Invitation sent successfully'}, status: :created
+  #           else
+  #             render json: {status: 'An error occured while trying to send invitation mail'}, status: :bad_request
+  #           end
+  #         else
+  #           render json: {errors: invitation.errors.full_messages}, status: :bad_request
+  #         end
+  #       else
+  #         render json: {error: @owner.errors.full_messages}, status: :ok
+  #       end
+  #     end
+  #   else
+  #     render json: {errors:'You are not authorized to perform this action.'}, status: :bad_request
+  #   end
+  # end
 
 
   def update
