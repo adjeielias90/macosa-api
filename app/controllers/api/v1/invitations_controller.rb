@@ -6,8 +6,12 @@ class Api::V1::InvitationsController < Api::V1::BaseController
     # invitations = Invitation.all
 
 
-    if params[:token] && (invitation = Invitation.where(email: params[:q]))
-      redirect_to invitation_path(invitation)
+    if params[:token] && (invitation = Invitation.where(token: params[:token]))
+      if invitation.email_confirmed?
+        render json: {invitation: invitation}, status: :ok
+      else
+        render json: {errors: "Email not verified"}, status: :unauthorized
+      end
     else
       @invitations = Invitation.all
       render json: {invitations: invitations }, status: :ok
