@@ -6,7 +6,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
     # invitations = Invitation.all
 
 
-    if params[:token] && (invitation = Invitation.where(token: params[:token]))
+    if params[:token] && (invitation = Invitation.where(token: params[:token]).first)
       if invitation.email_confirmed?
         render json: {invitation: invitation}, status: :ok
       else
