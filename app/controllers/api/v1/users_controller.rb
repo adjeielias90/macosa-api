@@ -15,12 +15,12 @@ class Api::V1::UsersController < Api::V1::BaseController
       if @owner
         if invitation = Invitation.find_by(email: params[:user][:email].to_s.downcase)
           if invitation.email_confirmed?
-            user = @owner.users.new(user_params)
+            @user = @owner.users.new(user_params)
             # user.generate_confirmation_instructions!
-            if user.save
+            if @user.save
               #Invoke email function here
               if invitation.destroy
-                render json: {status: 'User created successfully, invitation removed'}, status: :created
+                render json: {user: @user }, status: :created
               else
                 render json: {error: "An error occured while deleting the invitation"}, status: :bad_request
               end
