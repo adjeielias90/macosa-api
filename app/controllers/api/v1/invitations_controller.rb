@@ -63,7 +63,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
           render json: {errors: "Email not verified"}, status: :unauthorized
         end
       else
-        render json: {errors: @invitation.errors.full_messages}, status: :bad_request
+        render json: {invitation: {}}, status: :ok
       end
     # else
     #   render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
