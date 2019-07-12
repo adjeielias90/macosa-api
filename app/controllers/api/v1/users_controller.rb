@@ -19,8 +19,11 @@ class Api::V1::UsersController < Api::V1::BaseController
             # user.generate_confirmation_instructions!
             if user.save
               #Invoke email function here
-              render json: {status: 'User created successfully'}, status: :created
-              invitation.destroy
+              if invitation.destroy
+                render json: {status: 'User created successfully, invitation removed'}, status: :created
+              else
+                render json: {error: "An error occured while deleting the invitation"}, status: :bad_request
+              end
             else
               render json: {errors: user.errors.full_messages}, status: :bad_request
             end
