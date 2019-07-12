@@ -3,8 +3,15 @@ class Api::V1::InvitationsController < Api::V1::BaseController
   before_action :authenticate_request!
 
   def index
-    invitations = Invitation.all
-    render json: {invitations: invitations }, status: :ok
+    # invitations = Invitation.all
+
+
+    if params[:token] && (invitation = Invitation.where(email: params[:q]))
+      redirect_to invitation_path(invitation)
+    else
+      @invitations = Invitation.all
+      render json: {invitations: invitations }, status: :ok
+    end
   end
 
   def create
@@ -61,6 +68,6 @@ class Api::V1::InvitationsController < Api::V1::BaseController
 
 private
   def invitation_params
-    params.require(:invitation).permit(:email, :firstname, :lastname, :is_admin)
+    params.require(:invitation).permit(:email, :firstname, :lastname, :is_admin, :token)
   end
 end
