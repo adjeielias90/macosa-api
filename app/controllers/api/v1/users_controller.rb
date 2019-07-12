@@ -61,7 +61,8 @@ class Api::V1::UsersController < Api::V1::BaseController
     if invitation && invitation.token_valid?
       invitation.mark_as_confirmed!
       # render json: {status: "Email confirmed...redirecting.."}, status: :ok
-      redirect_to "https://macosa.herokuapp.com/"#invitation/"+invitation.token
+      # redirect_to "https://macosa.herokuapp.com/"#invitation/"+invitation.token
+      redirect_to "https://61260c9a.ngrok.io/invitation/"+invitation.token
     else
       render json: {status: "Invalid token or Token expired"}, status: :ok
     end
