@@ -7,10 +7,14 @@ class Api::V1::InvitationsController < Api::V1::BaseController
 
 
     if params[:token] && (invitation = Invitation.find_by(token: params[:token].to_s.downcase))
-      if invitation.email_confirmed?
-        render json: {invitation: invitation}, status: :ok
+      if invitation.exists?
+        if invitation.email_confirmed?
+          render json: {invitation: invitation}, status: :ok
+        else
+          render json: {errors: "Email not verified"}, status: :unauthorized
+        end
       else
-        render json: {errors: "Email not verified"}, status: :unauthorized
+        render json: {invitation: "{}"}, status: :ok
       end
     else
       @invitations = Invitation.all
