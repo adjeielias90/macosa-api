@@ -4,8 +4,6 @@ class Api::V1::InvitationsController < Api::V1::BaseController
 
   def index
     # invitations = Invitation.all
-
-
     if params[:token]
       if invitation = Invitation.find_by(token: params[:token].to_s.downcase)
         if invitation.email_confirmed?
@@ -14,7 +12,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
           render json: {errors: "Email not verified"}, status: :unauthorized
         end
       else
-        render json: {invitation: {} }, status: :ok
+        render json: {invitation: {}}, status: :ok
       end
     elsif !params[:token]
       @invitations = Invitation.all

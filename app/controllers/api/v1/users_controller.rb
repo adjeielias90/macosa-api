@@ -13,7 +13,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     if @current_user.is_admin?
     # @admin = current_user
       if @owner
-        if invitation = Invitation.find_by(email: params[:email].to_s.downcase)
+        if invitation = Invitation.find_by(email: params[:user][:email].to_s.downcase)
           if invitation.email_confirmed?
             user = @owner.users.new(user_params)
             # user.generate_confirmation_instructions!
