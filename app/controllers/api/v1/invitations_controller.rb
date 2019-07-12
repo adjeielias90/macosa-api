@@ -59,7 +59,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
         else
           render json: {errors: "Email not verified"}, status: :unauthorized
         end
-      elsif @invitation.nil
+      elsif @invitation == nil
         render json: {errors: @invitation.errors.full_messages}, status: :bad_request
       else
         render json: {errors: @invitation.errors.full_messages}, status: :bad_request
