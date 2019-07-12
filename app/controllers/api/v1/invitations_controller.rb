@@ -52,7 +52,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
 
   def show
     if @current_user.is_admin?
-      @invitation = Invitation.find_by(token: params[:token].to_s.downcase)
+      @invitation = Invitation.where(token: params[:token].to_s.downcase).first
       if @invitation
         if @invitation.email_confirmed?
           render json: {invitation: @invitation}, status: :ok
