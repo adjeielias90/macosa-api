@@ -1,5 +1,6 @@
 class Api::V1::InvitationsController < Api::V1::BaseController
   # Authorize request before processing
+  # app crashing
   before_action :authenticate_request!, except: [:show, :index]
 
   def index
