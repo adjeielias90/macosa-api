@@ -1,6 +1,6 @@
 class Api::V1::InvitationsController < Api::V1::BaseController
   # Authorize request before processing
-  before_action :authenticate_request!
+  before_action :authenticate_request!, except: [:show]
 
   def index
     # invitations = Invitation.all
