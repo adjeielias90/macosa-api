@@ -14,7 +14,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
       end
     else
       @invitations = Invitation.all
-      render json: {invitations: invitations }, status: :ok
+      render json: {invitations: @invitations }, status: :ok
     end
   end
 
