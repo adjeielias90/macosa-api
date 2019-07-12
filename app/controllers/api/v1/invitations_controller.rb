@@ -14,7 +14,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
           render json: {errors: "Email not verified"}, status: :unauthorized
         end
       else
-        render json: {invitation: "{}"}, status: :ok
+        render json: {invitation: "Empty object"}, status: :ok
       end
     else
       @invitations = Invitation.all
