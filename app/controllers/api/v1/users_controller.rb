@@ -188,9 +188,10 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     if user && user.reset_token_valid?
       # auth_token = JsonWebToken.encode({subscriber_id: subscriber.id})
-      render json: {redirect: "redirecting to frontend with token..."}, status: :ok
+      # render json: {redirect: "redirecting to frontend with token..."}, status: :ok
+      redirect_to "https://64a3fd4b.ngrok.io/password/"+user.reset_token
     else
-      render json: {error: 'Invalid or Expired token, redirecting to password reset...'}, status: :unauthorized
+      redirect_to "https://64a3fd4b.ngrok.io/password/reset"
     end
   end
 
