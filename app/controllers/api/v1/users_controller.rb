@@ -146,6 +146,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def verify_token
+    # checks for the authenticity of the reset token
   end
 
   # DELETE /types/2

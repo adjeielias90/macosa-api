@@ -26,6 +26,16 @@ class User < ApplicationRecord
     save
   end
 
+  def generate_reset_instructions!
+    self.reset_token = SecureRandom.hex(15)
+    self.reset_sent_at = Time.now.utc
+    save
+  end
+
+  def reset_token_valid?
+    (self.reset_sent_at + 1.days) > Time.now.utc
+  end
+
   def set_as_admin!
     self.is_admin = true
     save
