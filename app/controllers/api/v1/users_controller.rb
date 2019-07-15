@@ -154,7 +154,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
-  def update_password
+  def password_update
     # updates users password after checking reset token
     # reset token not present on invalid triggers a 401
     @user = User.find_by(reset_token: params[:reset_token].to_s) rescue nil

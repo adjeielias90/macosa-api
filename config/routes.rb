@@ -16,7 +16,7 @@ Rails.application.routes.draw do
           post 'password_reset'
           get 'verify_reset_email'
           get 'password_reset'
-          put 'update_password'
+          put 'password_update'
           # get 'users'
         end
       end
