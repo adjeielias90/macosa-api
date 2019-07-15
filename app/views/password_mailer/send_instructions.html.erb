@@ -1,0 +1,9 @@
+<h3>Hello, <%= @invitation.email %></h3>
+  <p>
+    We have received a request to reset your password on Macosa,
+    <p>If you did not initiate this request, please ignore this email.</p>
+    Follow this link to reset your password:<br>
+    <p>https://macosa-api.herokuapp.com/api/v1/users/verify_token?token=<%=@user.reset_token%></p>
+  </p>
+  <small>Macosa is developed and maintained by Apotica</small>
+<p>If you have any problems with this email contact your administrator</p>

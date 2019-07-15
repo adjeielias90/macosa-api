@@ -145,6 +145,8 @@ class Api::V1::UsersController < Api::V1::BaseController
   # reset token not present on invalid triggers a 401
   end
 
+  def verify_token
+  end
 
   # DELETE /types/2
   def destroy
