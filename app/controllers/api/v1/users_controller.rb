@@ -135,6 +135,17 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
+  def send_password_reset_instructions
+    # send password reset instructions with an email as a parameter
+    # also generate reset token to handle authorization
+  end
+
+  def update_password
+  # updates users password after checking reset token
+  # reset token not present on invalid triggers a 401
+  end
+
+
   # DELETE /types/2
   def destroy
     @owner = Owner.first
