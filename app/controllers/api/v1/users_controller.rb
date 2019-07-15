@@ -234,6 +234,9 @@ class Api::V1::UsersController < Api::V1::BaseController
       params.require(:user).permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :is_admin, :owner_id)
     end
 
+    def password_params
+    end
+
     # def owner_update_params
     #   params.require(:user).permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :owner_id)
     # end
