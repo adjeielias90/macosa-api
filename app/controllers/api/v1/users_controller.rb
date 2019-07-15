@@ -149,7 +149,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     #generate reset_token
       user.generate_reset_instructions!
     #send reset instructions if it does exist
-      PasswordMailer.send_instructions(subscriber).deliver_now
+      PasswordMailer.send_instructions(user).deliver_now
       render json: {success: 'Reset email with instructions sent.' }, status: :ok
     end
   end
