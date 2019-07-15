@@ -182,15 +182,27 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
+  def verify_reset_email
+    # checks for the authenticity of the reset token
+    user = User.find_by(reset_token: params[:reset_token].to_s.downcase)
+
+    if user && user.reset_token_valid?
+      # auth_token = JsonWebToken.encode({subscriber_id: subscriber.id})
+      render json: {redirect: "redirecting to frontend with token..."}, status: :ok
+    else
+      render json: {error: 'Invalid or Expired token, redirecting to password reset...'}, status: :unauthorized
+    end
+  end
+
   def verify_token
     # checks for the authenticity of the reset token
-    subscriber = Subscriber.find_by(reset_token: params[:reset_token].to_s.downcase)
+    @user = User.find_by(reset_token: params[:token].to_s.downcase)
 
-    if subscriber && subscriber.reset_token_valid?
+    if @user && @user.reset_token_valid?
       # auth_token = JsonWebToken.encode({subscriber_id: subscriber.id})
-      render json: {redirect: subscriber.reset_token}, status: :ok
+      render json: {user: @user}, status: :ok
     else
-      render json: {error: 'Invalid or Expired token.'}, status: :unauthorized
+      render json: {error: 'Invalid or Expired token, redirecting to password reset...'}, status: :unauthorized
     end
   end
 
