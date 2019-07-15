@@ -15,7 +15,7 @@ Rails.application.routes.draw do
           get 'confirm_email'
           post 'password_reset'
           get 'verify_reset_email'
-          get 'password_reset'
+          get 'password_reset' to: 'users#verify_token'
           put 'password_update'
           # get 'users'
         end
