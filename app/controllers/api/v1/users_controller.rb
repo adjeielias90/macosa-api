@@ -185,7 +185,6 @@ class Api::V1::UsersController < Api::V1::BaseController
   def verify_reset_email
     # checks for the authenticity of the reset token
     user = User.find_by(reset_token: params[:token].to_s.downcase)
-
     if user && user.reset_token_valid?
       # auth_token = JsonWebToken.encode({subscriber_id: subscriber.id})
       # render json: {redirect: "redirecting to frontend with token..."}, status: :ok
