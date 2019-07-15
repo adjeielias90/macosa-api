@@ -138,16 +138,60 @@ class Api::V1::UsersController < Api::V1::BaseController
   def send_password_reset_instructions
     # send password reset instructions with an email as a parameter
     # also generate reset token to handle authorization
+    #post request
+    #check if email exists
+    user = User.find_by(email: params[:email].to_s.downcase)
+
+    if !user
+    #render error json if it doesnt
+      render json: {error: 'No such account exists' }, status: :forbidden
+    else
+    #generate reset_token
+      user.generate_reset_instructions!
+    #send reset instructions if it does exist
+      PasswordMailer.send_instructions(subscriber).deliver_now
+      render json: {success: 'Reset email with instructions sent.' }, status: :ok
+    end
   end
 
   def update_password
     # updates users password after checking reset token
     # reset token not present on invalid triggers a 401
+    @user = User.find_by(reset_token: params[:reset_token].to_s) rescue nil
+    if @user.present?
+      if @user.reset_token_valid?
+        if @user.update(password: params[:password])
+          if @user.save!
+            @user.mark_as_reset!
+            render json: {success: "Reset Successful"}, status: :ok
+          else
+            render json: { errors: @user.errors }, status: 422
+          end
+        else
+          render json: {error: "Unknown error occurred"}, status: 422
+        end
+      else
+        render json: {error: "Token expired."}, status: :unauthorized
+        # redirect_to "http://localhost:4200/password/forgot"
+      end
+    else
+      # flash[:error] = "Sorry. User does not exist"
+      render json: {error: 'User not found or An error occured.' }, status: :not_found
+      # redirect_to "http://localhost:4200/password/forgot"
+      # redirect_to "https://371fd396.ngrok.io/signup"
+    end
   end
 
   def verify_token
     # checks for the authenticity of the reset token
+    subscriber = Subscriber.find_by(reset_token: params[:reset_token].to_s.downcase)
 
+    if subscriber && subscriber.reset_token_valid?
+      # auth_token = JsonWebToken.encode({subscriber_id: subscriber.id})
+      render json: {redirect: subscriber.reset_token}, status: :ok
+    else
+      render json: {error: 'Invalid or Expired token.'}, status: :unauthorized
+    end
   end
 
   # DELETE /types/2
