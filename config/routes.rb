@@ -13,10 +13,10 @@ Rails.application.routes.draw do
           post 'confirm'
           # post 'invitation'
           get 'confirm_email'
-          post 'password', :to 'users#send_password_reset_instructions'
-          get 'verify_email', :to 'users#verify_reset_email'
-          get 'password', :to 'users#verify_token'
-          patch 'update_password'
+          post 'password_reset'
+          get 'verify_reset_email'
+          get 'password_reset'
+          put 'update_password'
           # get 'users'
         end
       end

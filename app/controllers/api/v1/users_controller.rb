@@ -135,7 +135,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
-  def send_password_reset_instructions
+  def password_reset
     # send password reset instructions with an email as a parameter
     # also generate reset token to handle authorization
     #post request
