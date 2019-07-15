@@ -141,12 +141,13 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def update_password
-  # updates users password after checking reset token
-  # reset token not present on invalid triggers a 401
+    # updates users password after checking reset token
+    # reset token not present on invalid triggers a 401
   end
 
   def verify_token
     # checks for the authenticity of the reset token
+
   end
 
   # DELETE /types/2

@@ -41,6 +41,12 @@ class User < ApplicationRecord
     save
   end
 
+  def mark_as_reset!
+    self.reset_token = nil
+    self.reset_at = Time.now.utc
+    save
+  end
+
   def revoke_as_admin
     self.is_admin = false
     save
