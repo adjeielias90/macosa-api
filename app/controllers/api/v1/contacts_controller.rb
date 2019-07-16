@@ -7,7 +7,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
   # GET /contacts
   def index
     @contacts = Contact.all
-    render json: @contacts, status: :ok
+    render json: {contacts: @contacts}, status: :ok
   end
 
   # GET /contacts/1
