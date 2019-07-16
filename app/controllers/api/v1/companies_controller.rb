@@ -6,12 +6,12 @@ class Api::V1::CompaniesController < ApplicationController
   # GET /companies
   def index
     @companies = Company.all
-    render json: {companies: @companies}, status: :ok
+    render json: @companies, status: :ok
   end
 
   # GET /companies/1
   def show
-    render json: {company: @company}, status: :ok
+    render json: @company, status: :ok
   end
 
   # POST /companies
@@ -20,7 +20,7 @@ class Api::V1::CompaniesController < ApplicationController
       @company = Company.new(company_params)
 
       if @company.save
-        render json: {company: @company}, status: :created
+        render json: @company, status: :created
       else
         render json: @company.errors, status: :unprocessable_entity
       end
@@ -33,7 +33,7 @@ class Api::V1::CompaniesController < ApplicationController
   def update
     if @current_user.ia_admin?
       if @company.update(company_params)
-        render json: {company: @company}
+        render json: @company
       else
         render json: @company.errors, status: :unprocessable_entity
       end
