@@ -10,22 +10,25 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def create
     @owner = Owner.first
-    if @current_user.is_admin?
     # @admin = current_user
       if @owner
         if invitation = Invitation.find_by(email: params[:user][:email].to_s.downcase)
           if invitation.email_confirmed?
-            @user = @owner.users.new(user_params)
-            # user.generate_confirmation_instructions!
-            if @user.save
-              #Invoke email function here
-              if invitation.destroy
-                render json: {user: @user }, status: :created
+            if params[:user][:access_token].to_s.downcase == invitation.access_token.to_s.downcase
+              @user = @owner.users.new(user_params)
+              # user.generate_confirmation_instructions!
+              if @user.save
+                #Invoke email function here
+                if invitation.destroy
+                  render json: {user: @user }, status: :created
+                else
+                  render json: {error: "An error occured while deleting the invitation"}, status: :bad_request
+                end
               else
-                render json: {error: "An error occured while deleting the invitation"}, status: :bad_request
+                render json: {errors: user.errors.full_messages}, status: :bad_request
               end
             else
-              render json: {errors: user.errors.full_messages}, status: :bad_request
+              render json: {errors: "Invalid access token"}, status: :bad_request
             end
           else
             render json: {errors: "User invited, but email not confirmed"}, status: :unauthorized
@@ -36,9 +39,7 @@ class Api::V1::UsersController < Api::V1::BaseController
       else
         render json: {error: @owner.errors.full_messages}
       end
-    else
-      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
-    end
+
     # @tenant = @owner.create_tenant(name: tenant_params[:company_name])
   end
 
