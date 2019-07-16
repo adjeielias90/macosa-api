@@ -4,7 +4,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
   # before_action :authenticate_request!, except: [:show, :index]
 
   # configure wrap parameters on model
-  wrap_parameters :invitation, include: %i[email firstname lastname is_admin]
+  # wrap_parameters :invitation, include: %i[email firstname lastname is_admin]
 
   before_action :authenticate_request!, except: [:show, :index]
   def index
