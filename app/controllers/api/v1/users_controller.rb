@@ -5,7 +5,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def index
     @users = User.all
-    render json: @users
+    render json: @users, status: :ok
   end
 
   def create
@@ -116,7 +116,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     if @current_user.is_admin?
       if @user.email != @owner.email
         if @user.update(update_params)
-          render json: @user
+          render json: @user, status: :ok
         else
           render json: {error: @user.errors}, status: :unprocessable_entity
         end
@@ -125,7 +125,7 @@ class Api::V1::UsersController < Api::V1::BaseController
           render json: {errors: "You cannot change privileges for the master account"}, status: :unauthorized
         elsif params[:is_admin]
           if @user.update(update_params)
-            render json: @user
+            render json: @user, status: :ok
           else
             render json: {error: @user.errors}, status: :unprocessable_entity
           end
@@ -213,7 +213,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     if @user.email != @owner.email
       if @current_user.is_admin?
         @user.destroy
-        render json: @user
+        render json: @user, status: :ok
       else
         render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
       end
