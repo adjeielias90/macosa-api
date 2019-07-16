@@ -5,7 +5,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def index
     @users = User.all
-    render json: {users: @users }
+    render json: @users
   end
 
   def create
@@ -20,7 +20,7 @@ class Api::V1::UsersController < Api::V1::BaseController
               if @user.save
                 #Invoke email function here
                 if invitation.destroy
-                  render json: {user: @user }, status: :created
+                  render json: @user, status: :created
                 else
                   render json: {error: "An error occured while deleting the invitation"}, status: :bad_request
                 end
@@ -73,7 +73,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def show
-    render json: {user: @user}, status: :ok
+    render json: @user, status: :ok
   end
 
   def add_admin
@@ -116,7 +116,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     if @current_user.is_admin?
       if @user.email != @owner.email
         if @user.update(update_params)
-          render json: {user: @user}
+          render json: @user
         else
           render json: {error: @user.errors}, status: :unprocessable_entity
         end
@@ -125,7 +125,7 @@ class Api::V1::UsersController < Api::V1::BaseController
           render json: {errors: "You cannot change privileges for the master account"}, status: :unauthorized
         elsif params[:is_admin]
           if @user.update(update_params)
-            render json: {user: @user}
+            render json: @user
           else
             render json: {error: @user.errors}, status: :unprocessable_entity
           end
@@ -201,7 +201,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     if @user && @user.reset_token_valid?
       # auth_token = JsonWebToken.encode({subscriber_id: subscriber.id})
-      render json: {user: @user}, status: :ok
+      render json: @user, status: :ok
     else
       render json: {error: 'Invalid or Expired token, redirecting to password reset...'}, status: :unauthorized
     end
@@ -213,7 +213,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     if @user.email != @owner.email
       if @current_user.is_admin?
         @user.destroy
-        render json: {user: @user}
+        render json: @user
       else
         render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
       end
