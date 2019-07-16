@@ -21,7 +21,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
       end
     elsif !params[:token]
       @invitations = Invitation.all
-      render json: {invitations: @invitations }, status: :ok
+      render json:  @invitations, status: :ok
     end
   end
 
