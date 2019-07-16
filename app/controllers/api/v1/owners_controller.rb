@@ -2,9 +2,9 @@ class Api::V1::OwnersController < Api::V1::BaseController
   def index
     @owner = Owner.all
     if @owner.blank?
-      render json: {owner: @owner}, status: :ok
+      render json: @owner, status: :ok
     else
-      render json: {owner: @owner}, status: :ok
+      render json: @owner, status: :ok
     end
   end
 
@@ -29,7 +29,7 @@ class Api::V1::OwnersController < Api::V1::BaseController
     @owner = Owner.first
 
     if @owner
-      render json: {owner: @owner}, status: :ok
+      render json: @owner, status: :ok
       # @user = @owner.users.new(user_params)
       # puts (user_params)
       # if @user.save
@@ -48,7 +48,7 @@ class Api::V1::OwnersController < Api::V1::BaseController
 
         if @user.save
           @user.set_as_admin!
-          render json: {owner: @user}, status: :created
+          render json:  @user, status: :created
           # 'Macosa account created along with admin account. Please login.'
         else
           render json: {data: @user.errors.full_messages}, status: :bad_request
