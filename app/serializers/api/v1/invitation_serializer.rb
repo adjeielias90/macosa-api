@@ -1,3 +1,3 @@
 class Api::V1::InvitationSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :email, :firstname, :lastname, :is_admin
 end
