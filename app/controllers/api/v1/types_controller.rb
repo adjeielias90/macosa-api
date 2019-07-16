@@ -5,12 +5,12 @@ class Api::V1::TypesController < Api::V1::BaseController
   # GET /types
   def index
     @types = Type.all
-    render json: {types: @types}, status: :ok
+    render json: @types, status: :ok
   end
 
   # GET /types/1
   def show
-    render json: {type: @type}, status: :ok
+    render json: @type, status: :ok
   end
 
   # POST /types
@@ -19,7 +19,7 @@ class Api::V1::TypesController < Api::V1::BaseController
       @type = Type.new(type_params)
 
       if @type.save
-        render json: {type: @type}, status: :created
+        render json: @type, status: :created
       else
         render json: {errors: @type.errors}, status: :unprocessable_entity
       end
@@ -32,7 +32,7 @@ class Api::V1::TypesController < Api::V1::BaseController
   def update
     if @current_user.is_admin?
       if @type.update(type_params)
-        render json: {type: @type}, status: :ok
+        render json: type: @type, status: :ok
       else
         render json: {errors: @type.errors}, status: :unprocessable_entity
       end
