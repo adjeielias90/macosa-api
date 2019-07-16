@@ -3,6 +3,7 @@ class Invitation < ApplicationRecord
 
   def generate_invitation_instructions!
     self.token = SecureRandom.hex(10)
+    self.access_token = SecureRandom.hex(4)
     self.confirmed = false
     save
   end
