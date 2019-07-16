@@ -32,7 +32,7 @@ class Api::V1::TypesController < Api::V1::BaseController
   def update
     if @current_user.is_admin?
       if @type.update(type_params)
-        render json: type: @type, status: :ok
+        render json: @type, status: :ok
       else
         render json: {errors: @type.errors}, status: :unprocessable_entity
       end
