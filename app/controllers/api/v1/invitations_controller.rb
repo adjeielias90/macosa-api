@@ -39,7 +39,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
             @invitation = invitation
             #Invoke send invitation email function here
             if InvitationMailer.invite_email(@invitation).deliver_now
-              render json: {invitation: @invitation}, status: :created
+              render json: @invitation, status: :created
             else
               render json: {status: 'An error occured while trying to send invitation mail'}, status: :bad_request
             end
@@ -62,7 +62,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
       @invitation = Invitation.find_by(token: params[:id].to_s.downcase)
       if @invitation
         if @invitation.email_confirmed?
-          render json: {invitation: @invitation}, status: :ok
+          render json: @invitation, status: :ok
         else
           render json: {errors: "Email not verified"}, status: :unauthorized
         end
