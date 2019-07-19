@@ -61,4 +61,6 @@ class User < ApplicationRecord
   end
 
 
+  # seach model method for later use
+
 end
