@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   namespace :api do
     namespace :v1 do
       post 'owners', to: 'owners#register'
@@ -11,6 +10,7 @@ Rails.application.routes.draw do
       resources :account_managers
       resources :customers
       resources :manufacturers
+      resources :business_units
       resources :users do#, only: [:create, :index, :delete, :update, :show] do
         collection do
           post 'login'
