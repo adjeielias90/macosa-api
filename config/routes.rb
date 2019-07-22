@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :account_managers
   resources :types
   namespace :api do
     namespace :v1 do
