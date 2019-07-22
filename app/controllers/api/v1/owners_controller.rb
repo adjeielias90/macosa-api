@@ -4,7 +4,7 @@ class Api::V1::OwnersController < Api::V1::BaseController
     if @owner.blank?
       render json: @owner, status: :ok
     else
-      render json: {owner: @owner}, status: :ok
+      render json: @owner, status: :ok
     end
   end
 
