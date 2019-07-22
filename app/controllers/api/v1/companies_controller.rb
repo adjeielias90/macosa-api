@@ -6,7 +6,7 @@ class Api::V1::CompaniesController < Api::V1::BaseController
   # GET /companies
   def index
     @companies = Company.all
-    render json: {companies: @companies}, status: :ok
+    render json:  @companies, status: :ok
   end
 
   # GET /companies/1
