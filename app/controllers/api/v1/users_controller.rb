@@ -47,10 +47,14 @@ class Api::V1::UsersController < Api::V1::BaseController
   def login
     if @user = User.find_by(email: params[:email].to_s.downcase)
       if @user && @user.authenticate(params[:password])
-        auth_token = JsonWebToken.encode({user_id: @user.id})
+        @auth_token = JsonWebToken.encode({user_id: @user.id})
         # use the reverse of this statement to extract user_id from token
-        render json: {access_token: auth_token}, status: :ok
+        # render json: {[access_token: auth_token, user: @user]}, status: :ok
         # render json: {user: @user}, status: :ok
+        # @user = [firstname: @user.firstname, lastname: @user.lastname, email: @user.email, is_admin: @user.is_admin, owner_id: @user.owner_id]
+
+
+        render json: { access_token: [@auth_token, @user.id] }, status: :ok
       else
         render json: {error: 'Invalid username/password'}, status: :unauthorized
       end
