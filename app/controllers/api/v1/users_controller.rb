@@ -53,8 +53,8 @@ class Api::V1::UsersController < Api::V1::BaseController
         # render json: {user: @user}, status: :ok
 
 
-        response = { :user => @user, :access_token => auth_token }
-        render json: { response }, status: :ok
+        @response = { :user => @user, :access_token => auth_token }
+        render json: { data: @response }, status: :ok
       else
         render json: {error: 'Invalid username/password'}, status: :unauthorized
       end
