@@ -1,10 +1,10 @@
 class Api::V1::OwnersController < Api::V1::BaseController
   def index
-    @owner = Owner.all
-    if @owner.blank?
-      render json: {owner: @owner}, status: :ok
+    @owners = Owner.all
+    if @owners.blank?
+      render json: @owners, status: :ok
     else
-      render json: {owner: @owner}, status: :ok
+      render json: @owners, status: :ok
     end
   end
 
