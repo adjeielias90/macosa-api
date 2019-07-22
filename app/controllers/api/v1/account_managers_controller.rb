@@ -1,4 +1,4 @@
-class Api::V1::AccountManagersController < BaseController
+class Api::V1::AccountManagersController < Api::V1::BaseController
   before_action :set_account_manager, only: [:show, :update, :destroy]
 
   # GET /account_managers

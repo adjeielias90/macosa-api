@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :account_managers
+
   resources :types
   namespace :api do
     namespace :v1 do
@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :companies
       resources :contacts
       resources :types
+      resources :account_managers
       resources :users do#, only: [:create, :index, :delete, :update, :show] do
         collection do
           post 'login'

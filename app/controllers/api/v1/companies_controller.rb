@@ -1,4 +1,4 @@
-class Api::V1::CompaniesController < ApplicationController
+class Api::V1::CompaniesController < Api::V1::BaseController
   before_action :set_company, only: [:show, :update, :destroy]
 
   # Authorize request before processing
