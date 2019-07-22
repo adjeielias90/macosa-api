@@ -51,6 +51,7 @@ class Api::V1::UsersController < Api::V1::BaseController
         # use the reverse of this statement to extract user_id from token
         # render json: {[access_token: auth_token, user: @user]}, status: :ok
         # render json: {user: @user}, status: :ok
+        @user = [@user.firstname, @user.lastname, @user.email, @user.is_admin, @user.owner_id]
 
 
         render json: { access_token: [@auth_token, @user] }, status: :ok
