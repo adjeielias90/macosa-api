@@ -1,2 +1,3 @@
 class AccountManager < ApplicationRecord
+  has_many :orders
 end

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :types
   namespace :api do
     namespace :v1 do
       post 'owners', to: 'owners#register'
@@ -8,7 +7,12 @@ Rails.application.routes.draw do
       resources :companies
       resources :contacts
       resources :types
+      resources :industries
       resources :account_managers
+      resources :customers
+      resources :manufacturers
+      resources :business_units
+      resources :orders
       resources :users do#, only: [:create, :index, :delete, :update, :show] do
         collection do
           post 'login'
