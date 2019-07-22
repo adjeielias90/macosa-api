@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :types
       resources :industries
       resources :account_managers
+      resources :customers
       resources :users do#, only: [:create, :index, :delete, :update, :show] do
         collection do
           post 'login'
