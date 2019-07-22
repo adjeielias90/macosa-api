@@ -5,7 +5,7 @@ class Api::V1::AccountManagersController < Api::V1::BaseController
   def index
     @account_managers = AccountManager.all
 
-    render json: @account_managers
+    render json: @account_managers, status: :ok
   end
 
   # GET /account_managers/1
@@ -18,7 +18,7 @@ class Api::V1::AccountManagersController < Api::V1::BaseController
     @account_manager = AccountManager.new(account_manager_params)
 
     if @account_manager.save
-      render json: @account_manager, status: :created, location: @account_manager
+      render json: @account_manager, status: :created
     else
       render json: @account_manager.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Api::V1::AccountManagersController < Api::V1::BaseController
   # PATCH/PUT /account_managers/1
   def update
     if @account_manager.update(account_manager_params)
-      render json: @account_manager
+      render json: @account_manager, status: :ok
     else
       render json: @account_manager.errors, status: :unprocessable_entity
     end
