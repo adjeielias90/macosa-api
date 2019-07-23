@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  #
   has_secure_password
   # Do not move has_secure_password below the validations
   # doing this causes a validation error to trigger on the hashing of the password.
