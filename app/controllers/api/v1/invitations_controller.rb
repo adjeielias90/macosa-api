@@ -50,7 +50,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
         end
       end
     else
-      render json: {errors:'You are not authorized to perform this action.'}, status: :bad_request
+      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
   end
 
