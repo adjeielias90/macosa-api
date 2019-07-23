@@ -54,6 +54,9 @@ class Api::V1::InvitationsController < Api::V1::BaseController
     end
   end
 
+  def update
+    render json: {error: "You cannot edit an invitation"}, status: :unauthorized
+  end
 
 
   def show
