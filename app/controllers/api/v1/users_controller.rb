@@ -19,9 +19,12 @@ class Api::V1::UsersController < Api::V1::BaseController
               # user.generate_confirmation_instructions!
               if @user.save
                 #Invoke email function here
-                if invitation.destroy
+                if invitation.is_admin == true
+                  @user.set_as_admin!
+                  invitation.destroy
                   render json: @user, status: :created
                 else
+                  invitation.destroy
                   render json: {error: "An error occured while deleting the invitation"}, status: :bad_request
                 end
               else
