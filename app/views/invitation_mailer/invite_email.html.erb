@@ -2,7 +2,7 @@
   <p>
     You have received an invitation to sign up to Macosa,
     Follow this link to confirm your email:<br>
-    <p>https://macosa-api.herokuapp.com/api/v1/users/confirm_email?token=<%=@invitation.token%></p>
+    <p><a href="https://macosa-api.herokuapp.com/api/v1/users/confirm_email?token=<%=@invitation.token%>"/></p>
   </p>
   <p>Use this code to validate your sign up request: </p> <h3><b><%=@invitation.access_token%><b></h3>
 <p>If you have any problems with this email contact your administrator</p>
