@@ -25,7 +25,7 @@ class Api::V1::UsersController < Api::V1::BaseController
                   render json: {error: "An error occured while deleting the invitation"}, status: :bad_request
                 end
               else
-                render json: {errors: user.errors.full_messages}, status: :bad_request
+                render json: {errors: @user.errors.full_messages}, status: :bad_request
               end
             else
               render json: {errors: "Invalid access token"}, status: :bad_request
