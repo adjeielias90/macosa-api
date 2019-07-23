@@ -1,6 +1,6 @@
 class Api::V1::CompaniesController < Api::V1::BaseController
   before_action :set_company, only: [:show, :update, :destroy]
-
+  before_action :authenticate_request!
   # Authorize request before processing
   before_action :authenticate_request!
   # GET /companies

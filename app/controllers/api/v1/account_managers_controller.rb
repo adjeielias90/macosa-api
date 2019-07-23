@@ -1,6 +1,6 @@
 class Api::V1::AccountManagersController < Api::V1::BaseController
   before_action :set_account_manager, only: [:show, :update, :destroy]
-
+  before_action :authenticate_request!
   # GET /account_managers
   def index
     @account_managers = AccountManager.all

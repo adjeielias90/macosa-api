@@ -1,6 +1,6 @@
 class Api::V1::IndustriesController < Api::V1::BaseController
   before_action :set_industry, only: [:show, :update, :destroy]
-
+  before_action :authenticate_request!
   # GET /industries
   def index
     @industries = Industry.all
