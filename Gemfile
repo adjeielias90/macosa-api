@@ -19,6 +19,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'will_paginate'
+gem 'api-pagination'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
