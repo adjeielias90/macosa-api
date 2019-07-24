@@ -5,7 +5,8 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def index
     @users = User.all
-    render json: @users, status: :ok
+    paginate json: @users, per_page: 1
+    # render json: @users, status: :ok
   end
 
   def create
