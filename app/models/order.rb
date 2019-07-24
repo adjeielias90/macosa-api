@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   belongs_to :account_manager
 
   def set_date!
-    self.date = Date.now.utc
+    self.reset_sent_at = Time.now.utc
   end
 
   def generate_order_number!
