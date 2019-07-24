@@ -16,7 +16,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # POST /orders
   def create
     @order = Order.new(order_params)
-
+    @order.set_date!
     if @order.save
       render json: @order, status: :created
     else
