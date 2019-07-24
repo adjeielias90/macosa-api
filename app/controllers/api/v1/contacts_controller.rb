@@ -7,7 +7,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
   # GET /contacts
   def index
     @contacts = Contact.all
-    render json: {contacts: @contacts}, status: :ok
+    render json: @contacts, status: :ok
   end
 
   # GET /contacts/1
@@ -34,7 +34,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
   def update
     if @current_user.is_admin?
       if @contact.update(contact_params)
-        render json: @contact
+        render json: @contact, status: :ok
       else
         render json: @contact.errors, status: :unprocessable_entity
       end
