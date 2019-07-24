@@ -5,8 +5,11 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def index
     @users = User.all
-    paginate json: @users, per_page: 1
+    # paginate json: @users, per_page: 1
     # render json: @users, status: :ok
+
+    @users = current_user.todos.paginate(page: params[:page], per_page: 2)
+    json_response(@users)
   end
 
   def create
