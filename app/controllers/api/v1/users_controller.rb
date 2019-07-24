@@ -4,11 +4,11 @@ class Api::V1::UsersController < Api::V1::BaseController
   before_action :authenticate_request!, except: [:password_reset, :verify_reset_email, :verify_token, :password_update, :login, :confirm_email, :create]
 
   def index
-    @users = User.all
+    @pagy = User.all
     # paginate json: @users, per_page: 1
     # render json: @users, status: :ok
 
-    @users = current_user.todos.paginate(page: params[:page], per_page: 2)
+    @users = @pagy.paginate(page: params[:page], per_page: 2)
     json_response(@users)
   end
 
