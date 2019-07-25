@@ -20,7 +20,8 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username:  p496rueDFN
   password: z4oZv2BKPc
-  database:  p496rueDFN
+  host: remotemysql.com
+  # database:  p496rueDFN
   # socket: /var/run/mysqld/mysqld.sock
 
 development:
@@ -54,7 +55,7 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  # <<: *default
+  <<: *default
   database: p496rueDFN
   username: p496rueDFN
   password: z4oZv2BKPc
