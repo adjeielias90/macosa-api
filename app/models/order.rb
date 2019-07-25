@@ -3,6 +3,7 @@ class Order < ApplicationRecord
   belongs_to :account_manager
   has_many :manufacturer_orders, dependent: :destroy
   has_many :business_unit_orders, dependent: :destroy
+  belongs_to :user
   # belongs_to :user
   accepts_nested_attributes_for :business_unit_orders, :allow_destroy => true
   accepts_nested_attributes_for :manufacturer_orders, :allow_destroy => true
