@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+# push update to github
   namespace :api do
     namespace :v1 do
       post 'owners', to: 'owners#register'
