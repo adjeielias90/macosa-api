@@ -18,7 +18,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
     @customer = Customer.new(customer_params)
 
     if @customer.save
-      render json: @customer, status: :created, location: @customer
+      render json: @customer, status: :created
     else
       render json: @customer.errors, status: :unprocessable_entity
     end
