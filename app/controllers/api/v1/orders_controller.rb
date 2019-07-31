@@ -47,6 +47,6 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def order_params
-      params.require(:order).permit(:order_no, :date, :description, :amount, :profit, :customer_id, :account_manager_id, :user_id, business_unit_orders_attributes: [ :id, :business_unit_id, :amount, :date, :order_id], manufacturer_orders_attributes: [:id, :manufacturer_id, :amount, :date, :order_id])
+      params.require(:order).permit(:order_no, :date, :description, :amount, :profit, :customer_id, :account_manager_id, :user_id, :currency_id, business_unit_orders_attributes: [ :id, :business_unit_id, :amount, :date, :order_id], manufacturer_orders_attributes: [:id, :manufacturer_id, :amount, :date, :order_id])
     end
 end
