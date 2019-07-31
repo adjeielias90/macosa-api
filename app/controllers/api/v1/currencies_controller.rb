@@ -1,6 +1,6 @@
-class Api::V1::ContactsController < Api::V1::BaseController
+class Api::V1::CurrenciesController < Api::V1::BaseController
   before_action :set_currency, only: [:show, :update, :destroy]
-
+  before_action :authenticate_request!
   # GET /currencies
   def index
     @currencies = Currency.all
