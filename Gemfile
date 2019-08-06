@@ -21,6 +21,7 @@ gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'will_paginate'
 gem 'api-pagination'
+gem 'sidekiq'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
