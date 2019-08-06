@@ -20,7 +20,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     @order = @user.orders.new(order_params)
     # @order.set_date!
     if @order.save
-      @order.generate_order_number!
+      # @order.generate_order_number!
       render json: @order, status: :created
     else
       render json: @order.errors, status: :unprocessable_entity
