@@ -1,6 +1,7 @@
 class Api::V1::OrdersController < Api::V1::BaseController
   before_action :set_order, only: [:show, :update, :destroy]
   before_action :authenticate_request!
+  before_action :set_user, only: [:create]
   # GET /orders
   def index
     @orders = Order.all
@@ -15,8 +16,8 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   # POST /orders
   def create
-    # @current_user = current_user
-    @order = current_user.orders.new(order_params)
+
+    @order = @user.orders.new(order_params)
     # @order.set_date!
     @order.generate_order_number!
     if @order.save
@@ -42,6 +43,11 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
+    def set_user
+      @user = @current_user  
+    end
+
     def set_order
       @order = Order.find(params[:id])
     end
