@@ -1,7 +1,7 @@
 class Api::V1::OrdersController < Api::V1::BaseController
   before_action :set_order, only: [:show, :update, :destroy]
   before_action :authenticate_request!
-  before_action :set_user, only: [:create]
+  # before_action :set_user, only: [:create]
   # GET /orders
   def index
     @orders = Order.all
@@ -16,9 +16,6 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   # POST /orders
   def create
-    @customer = Customer.find(params[:customer_id])
-    @account_manager = AccountManager.find(params[:account_manager_id])
-    @currency = Currency.find(params[:currency_id])
     @order = @current_user.orders.create(order_params)
     @order.generate_order_number!
     # @order.set_date!
