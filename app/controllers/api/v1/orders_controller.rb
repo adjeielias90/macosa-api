@@ -16,7 +16,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   # POST /orders
   def create
-    @order = Order.delay.create_order!(order_params)
+    @order = @current_user.delay.create_order!(order_params)
   end
 
   # PATCH/PUT /orders/1
