@@ -16,7 +16,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   # POST /orders
   def create
-    @order = @current_user.order.new(order_params)
+    @order = @current_user.orders.create(order_params)
     @order.generate_order_number!
     # @order.set_date!
     if @order.save
