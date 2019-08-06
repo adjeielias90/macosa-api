@@ -17,6 +17,11 @@ class Order < ApplicationRecord
     self.order_no = SecureRandom.hex(3)
   end
 
+
+  # def create_order(order_params, @current_user)
+
+  # end
+
   # Modify function to check if at least 1 business_unit_order or manifucturer order exists
 
 
