@@ -16,12 +16,11 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   # POST /orders
   def create
-
     @order = @user.orders.new(order_params)
     # @order.set_date!
+    render json: @order, status: :created
     if @order.save
-      # @order.generate_order_number!
-      render json: @order, status: :created
+      @order.generate_order_number!
     else
       render json: @order.errors, status: :unprocessable_entity
     end
