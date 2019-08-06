@@ -18,9 +18,9 @@ class Order < ApplicationRecord
   end
 
 
-  def create_order(params)
+  def create_order!(params)
     @order = Order.new(params)
-    @order.generate_order_number!
+    self.order_no = SecureRandom.hex(3)
     # @order.set_date!
     if @order.save
       render json: @order, status: :created
