@@ -18,6 +18,18 @@ class Order < ApplicationRecord
   end
 
 
+  def create_order(params)
+    @order = Order.new(params)
+    @order.generate_order_number!
+    # @order.set_date!
+    if @order.save
+      render json: @order, status: :created
+    else
+      render json: @order.errors, status: :unprocessable_entity
+    end
+  end
+
+
   # Modify function to check if at least 1 business_unit_order or manifucturer order exists
 
 
