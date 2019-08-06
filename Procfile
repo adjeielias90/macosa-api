@@ -1,1 +1,0 @@
-orderworker: bundle exec sidekiq -c 2

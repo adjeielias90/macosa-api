@@ -17,7 +17,13 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # POST /orders
   def create
     @order = Order.new(order_params)
-    OrdersWorker.perform_async(@order)
+    @order.generate_order_number!
+    # @order.set_date!
+    if @order.save
+      render json: @order, status: :created
+    else
+      render json: @order.errors, status: :unprocessable_entity
+    end
   end
 
   # PATCH/PUT /orders/1
