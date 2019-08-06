@@ -16,6 +16,9 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   # POST /orders
   def create
+    @customer = Customer.find(params[:customer_id])
+    @account_manager = AccountManager.find(params[:account_manager_id])
+    @currency = Currency.find(params[:currency_id])
     @order = @current_user.orders.create(order_params)
     @order.generate_order_number!
     # @order.set_date!

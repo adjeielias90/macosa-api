@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
-  belongs_to :customer
-  belongs_to :account_manager
-  belongs_to :currency
+  belongs_to :customer, optional: :true
+  belongs_to :account_manager, optional: :true
+  belongs_to :currency, optional: :true
   has_many :manufacturer_orders, dependent: :destroy
   has_many :business_unit_orders, dependent: :destroy
   belongs_to :user
