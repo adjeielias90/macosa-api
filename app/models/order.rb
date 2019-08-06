@@ -17,19 +17,6 @@ class Order < ApplicationRecord
     self.order_no = SecureRandom.hex(3)
   end
 
-
-  def create_order!(params)
-    @order = Order.new(params)
-    self.order_no = SecureRandom.hex(3)
-    # @order.set_date!
-    if @order.save
-      render json: @order, status: :created
-    else
-      render json: @order.errors, status: :unprocessable_entity
-    end
-  end
-
-
   # Modify function to check if at least 1 business_unit_order or manifucturer order exists
 
 
