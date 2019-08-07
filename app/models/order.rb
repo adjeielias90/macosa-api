@@ -17,6 +17,8 @@ class Order < ApplicationRecord
     self.order_no = SecureRandom.hex(3)
   end
 
+  scope :includes(:user)
+
 
   # def create_order(order_params, @current_user)
 
