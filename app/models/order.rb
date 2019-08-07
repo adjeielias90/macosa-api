@@ -34,7 +34,7 @@ class Order < ApplicationRecord
       # since it's not an error on a single field we add an error to :base
       # self.errors.add :base, "Order must come from at least one business unit"
       # (of course you could be much more specific in your handling)
-    end
+    # end
   end
 
   # def has_manufacturer_order
