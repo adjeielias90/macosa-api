@@ -28,22 +28,22 @@ class Order < ApplicationRecord
   # validate :has_manufacturer_order
   # private # <-- not required, but conventional
 
-  # def has_business_unit_order
-  #   unless self.business_unit_order.exists?
-  #     # since it's not an error on a single field we add an error to :base
-  #     self.errors.add :base, "Order must come from at least one business unit"
-  #     # (of course you could be much more specific in your handling)
-  #   end
-  # end
+  def has_business_unit_order
+    unless self.business_unit_order_attributes.exists?
+      # since it's not an error on a single field we add an error to :base
+      self.errors.add :base, "Order must come from at least one business unit"
+      # (of course you could be much more specific in your handling)
+    end
+  end
 
 
-  # def has_manufacturer_order
-  #   unless self.manufacturer_order.exists?
-  #     # since it's not an error on a single field we add an error to :base
-  #     self.errors.add :base, "Order must come from at least one manufacturer"
-  #     # (of course you could be much more specific in your handling)
-  #   end
-  # end
+  def has_manufacturer_order
+    unless self.manufacturer_order.exists?
+      # since it's not an error on a single field we add an error to :base
+      self.errors.add :base, "Order must come from at least one manufacturer"
+      # (of course you could be much more specific in your handling)
+    end
+  end
 
 
 
