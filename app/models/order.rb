@@ -2,7 +2,7 @@ class Order < ApplicationRecord
   belongs_to :customer #,optional: :true
   belongs_to :account_manager #,optional: :true
   belongs_to :currency #,optional: :true
-  has_many :manufacturer_orders, through: :manifucturers, dependent: :destroy
+  has_many :manufacturer_orders, through: :manufacturers, dependent: :destroy
   has_many :business_unit_orders, dependent: :destroy
   belongs_to :user
   # belongs_to :user
