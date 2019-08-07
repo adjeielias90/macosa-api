@@ -1,6 +1,7 @@
 class Api::V1::OrdersController < Api::V1::BaseController
   before_action :set_order, only: [:show, :update, :destroy]
   before_action :authenticate_request!
+
   # before_action :set_user, only: [:create]
   # GET /orders
   def index
@@ -18,7 +19,8 @@ class Api::V1::OrdersController < Api::V1::BaseController
   def create
   # todo: Assign create action to service worker due to cost of execution causing a timeout.
   # Also rewrite double validation method in the order model
-    @order = @current_user.orders.create!(order_params)
+    # @order = @current_user.orders.create!(order_params)
+    @order = Order.new(order_params).includes(:customer, :account_manager, :user).limit(1)
     @order.generate_order_number!
     # @order.set_date!
     if @order.save
