@@ -4,7 +4,7 @@ class Order < ApplicationRecord
   belongs_to :currency, counter_cache: :orders_count #,optional: :true
   has_many :manufacturer_orders, dependent: :destroy
   has_many :business_unit_orders, dependent: :destroy
-  belongs_to :user
+  belongs_to :user, counter_cache: :orders_count
   # belongs_to :user
   accepts_nested_attributes_for :business_unit_orders, :allow_destroy => true
   accepts_nested_attributes_for :manufacturer_orders, :allow_destroy => true
