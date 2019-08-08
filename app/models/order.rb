@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
-  belongs_to :customer, counter_cache: true #,optional: :true
-  belongs_to :account_manager, counter_cache: true #,optional: :true
-  belongs_to :currency, counter_cache: true #,optional: :true
+  belongs_to :customer, counter_cache: :orders_count#,optional: :true
+  belongs_to :account_manager, counter_cache: :orders_count #,optional: :true
+  belongs_to :currency, counter_cache: :orders_count #,optional: :true
   has_many :manufacturer_orders, dependent: :destroy
   has_many :business_unit_orders, dependent: :destroy
   belongs_to :user
