@@ -24,7 +24,8 @@ class Order < ApplicationRecord
   # Modify function to check if at least 1 business_unit_order or manifucturer order exists
 
 
-  validate :has_business_unit_order  # the name of a method we'll define below
+  validate :has_business_unit_order  
+  # the name of a method we'll define below
   validate :has_manufacturer_order
   # private # <-- not required, but conventional
 
