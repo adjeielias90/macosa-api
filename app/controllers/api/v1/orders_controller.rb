@@ -23,7 +23,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     # @order = @current_user.orders.create!(order_params)
     # @user = User.find(params[:user_id])
     @order = Order.new(order_params)
-    @order.generate_order_number!
+    # @order.generate_order_number!
     # @order.set_date!
     if @order.save
       render json: @order, status: :created
