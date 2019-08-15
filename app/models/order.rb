@@ -13,8 +13,7 @@ class Order < ApplicationRecord
     self.date = Time.now.utc
   end
 
-
-  after_validation do
+  def generate_order_number!
     self.order_no = SecureRandom.hex(3)
   end
 

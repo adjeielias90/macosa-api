@@ -23,6 +23,8 @@ gem 'will_paginate'
 gem 'api-pagination'
 gem 'sidekiq'
 gem 'delayed_job_active_record'
+gem 'hiredis'
+gem 'redis'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
