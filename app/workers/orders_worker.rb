@@ -3,7 +3,7 @@ class OrdersWorker < Api::V1::OrdersController
   sidekiq_options retry: false
 
   def perform(order)
-    @order = Order.new(order.to_h)
+    @order = Order.new(order)
     # @order.generate_order_number!
     # @order.set_date!
     if @order.save
