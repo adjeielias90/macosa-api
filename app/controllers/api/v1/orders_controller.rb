@@ -23,13 +23,15 @@ class Api::V1::OrdersController < Api::V1::BaseController
     # @order = @current_user.orders.create!(order_params)
     # @user = User.find(params[:user_id])
     @order = Order.new(order_params)
+    OrdersWorker.perform_async(@order)
     # @order.generate_order_number!
     # @order.set_date!
-    if @order.save
-      render json: @order, status: :created
-    else
-      render json: @order.errors, status: :unprocessable_entity
-    end
+
+    # if @order.save
+    #   render json: @order, status: :created
+    # else
+    #   render json: @order.errors, status: :unprocessable_entity
+    # end
   end
 
   # PATCH/PUT /orders/1
