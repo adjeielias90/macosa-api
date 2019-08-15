@@ -22,7 +22,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # Also rewrite double validation method in the order model
     # @order = @current_user.orders.create!(order_params)
     # @user = User.find(params[:user_id])
-    @order = Order.new(order_params)
+    @order = Order.create!(order_params)
     OrdersWorker.perform_async(@order)
     # @order.generate_order_number!
     # @order.set_date!
