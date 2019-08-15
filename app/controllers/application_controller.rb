@@ -40,6 +40,8 @@ class ApplicationController < ActionController::API
 
     # Sets the @current_user with the user_id from payload
     def load_current_user!
-      @current_user = User.find_by(id: payload[0]['user_id'])
+      @user_id = payload[0]['user_id']
+      # @current_user = User.find_by(id: @user_id)
+      @current_user= User.includes(:orders).includes(:business_units).includes(:manufacturers).find_by(id: @user_id)
     end
 end
