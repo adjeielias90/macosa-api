@@ -3,7 +3,7 @@ class OrdersWorker
   sidekiq_options retry: false
 
   def perform(order)
-    order.generate_order_number!
+    # order.generate_order_number!
     # @order.set_date!
     if order.save
       render json: order, status: :created
