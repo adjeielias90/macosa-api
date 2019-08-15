@@ -2,7 +2,8 @@ class OrdersWorker < Api::V1::OrdersController
   include Sidekiq::Worker
   sidekiq_options retry: false
 
-  def perform(order)
+  def perform(order_params)
+    order = Order.new(order_params)
     # @order.generate_order_number!
     # @order.set_date!
     if order.save
