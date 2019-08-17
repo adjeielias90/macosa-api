@@ -1,1 +1,1 @@
-ordersworker: bundle exec sidekiq -c 2
+rails job:work
