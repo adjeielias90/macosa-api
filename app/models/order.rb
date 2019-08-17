@@ -14,7 +14,7 @@ class Order < ApplicationRecord
   end
 
   def generate_order_number!
-    self.order_no = SecureRandom.hex
+    self.order_no = SecureRandom.hex(8)
   end
 
   # def create_order(order_params, @current_user)
