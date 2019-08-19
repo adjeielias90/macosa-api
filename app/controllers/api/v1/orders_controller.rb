@@ -6,8 +6,8 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # GET /orders
   def index
     @orders = Order.all
-
-    render json: @orders
+    paginate json: @orders, per_page: 10
+    # render json: @orders
   end
 
   # GET /orders/1
