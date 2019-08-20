@@ -13,7 +13,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
 
 
-  @orders = Order.filter(params.slice(:customer_id))
+  @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id))
 
 
 
