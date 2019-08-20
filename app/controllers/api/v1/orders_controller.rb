@@ -5,21 +5,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # before_action :set_user, only: [:create]
   # GET /orders
   def index
-  # order_date, user_id, account_manager_id, customer_id,
-  # @orders = Order.where(nil)
-  # filtering_params(params).each do |key, value|
-  #   @orders = @orders.public_send(key, value) if key.present? && value.present?
-  # end
-
-
-
-  @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id))
-
-
-
-    # if params[:order_date] && params[:account_manager_id] && params[:customer_id]
-    #   @orders = Order.where("order_date LIKE (%?%) AND account_manager_id LIKE (%?%) AND customer_id LIKE (%?%)", params[:order_date].to_date, params[:account_manager_id], params[:customer_id])
-    # elsif params[:order_date]
+    @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id))
     paginate json: @orders, per_page: 10
   end
 
@@ -30,11 +16,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   # POST /orders
   def create
-    # todo: Assign create action to service worker due to cost of execution causing a timeout.
-    # Also rewrite double validation method in the order model
     @order = @current_user.orders.create(order_params)
-    # @user = User.find(params[:user_id])
-    # @order = Order.new(order_params)
     # @order.set_date!
     if @order.save
       @order.generate_order_number!
@@ -60,7 +42,6 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-
     def set_user
       @user = @current_user  
     end
