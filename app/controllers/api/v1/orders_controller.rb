@@ -80,4 +80,9 @@ class Api::V1::OrdersController < Api::V1::BaseController
     def order_params
       params.require(:order).permit(:id, :order_no, :date, :description, :amount, :profit, :customer_id, :account_manager_id, :user_id, :currency_id, business_unit_orders_attributes: [ :id, :business_unit_id, :amount, :date, :order_id], manufacturer_orders_attributes: [:id, :manufacturer_id, :amount, :date, :order_id])
     end
+
+    # A list of the param names that can be used for filtering the Order list
+    def filtering_params(params)
+      params.slice(:order_date, :user_id, :account_manager_id, :customer_id)
+    end
 end
