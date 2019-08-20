@@ -6,7 +6,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # GET /orders
   def index
   # order_date, user_id, account_manager_id, customer_id,
-  @orders = Order.where(nil)
+  # @orders = Order.where(nil)
   # filtering_params(params).each do |key, value|
   #   @orders = @orders.public_send(key, value) if key.present? && value.present?
   # end
@@ -86,15 +86,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     end
 
     # A list of the param names that can be used for filtering the Order list
-    # def filtering_params(params)
-    #   # sanitized_parameters = []
-    #   # params.each do |param|
-    #   allowed_keys = [:order_date, :user_id, :account_manager_id, :customer_id]
-    #   allowed_keys.each do |key|
-    #     if params.has_key?(key)
-    #       return params.slice(:key)
-    #     end
-    #     # params.slice(sanitized_parameters)
-    #   end
-    # end
+    def filtering_params(params)
+      params.slice(:order_date, :user_id, :account_manager_id, :customer_id,)
+    end
 end
