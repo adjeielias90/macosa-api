@@ -12,10 +12,12 @@ class Order < ApplicationRecord
 
   def set_date!
     self.date = Time.now.utc
+    save
   end
 
   def generate_order_number!
     self.order_no = SecureRandom.hex(8)
+    save
   end
 
   # def create_order(order_params, @current_user)

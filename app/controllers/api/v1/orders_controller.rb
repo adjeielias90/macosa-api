@@ -9,8 +9,12 @@ class Api::V1::OrdersController < Api::V1::BaseController
       # if 'to' and 'from' present,
       # Call the interval scope with:
       # Order.interval('from_datetime_obj: 2015-07-09', 'to_datetime_obj: 2015-07-09')
-    # 
-    @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id))
+    #
+    # if params[:to].present? && params[:from].present?
+      # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
+    # else
+      @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id))
+    # end
     paginate json: @orders, per_page: 10
   end
 
