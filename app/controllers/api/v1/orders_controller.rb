@@ -20,18 +20,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     # if params[:order_date] && params[:account_manager_id] && params[:customer_id]
     #   @orders = Order.where("order_date LIKE (%?%) AND account_manager_id LIKE (%?%) AND customer_id LIKE (%?%)", params[:order_date].to_date, params[:account_manager_id], params[:customer_id])
     # elsif params[:order_date]
-
-    # else
-    #   @orders = Order.all
-    # end
-
-
     paginate json: @orders, per_page: 10
-
-
-    # @orders = Order.all
-
-    # render json: @orders
   end
 
   # GET /orders/1
