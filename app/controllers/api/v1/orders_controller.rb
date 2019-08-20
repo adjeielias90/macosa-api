@@ -87,6 +87,6 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
     # A list of the param names that can be used for filtering the Order list
     def filtering_params(params)
-      params.slice(:order_date if params[:order_date].present?, :user_id if params[:user_id].present?, :account_manager_id if params[:account_manager_id].present?, :customer_id if params[:customer_id].present?)
+      params.slice(:order_date if (params[:order_date].present?), :user_id if (params[:user_id].present?), :account_manager_id if (params[:account_manager_id].present?), :customer_id if (params[:customer_id].present?))
     end
 end
