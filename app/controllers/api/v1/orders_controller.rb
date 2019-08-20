@@ -89,7 +89,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     def filtering_params(params)
       # sanitized_parameters = []
       # params.each do |param|
-      allowed_keys = {:order_date, :user_id, :account_manager_id, :customer_id}
+      allowed_keys = [:order_date, :user_id, :account_manager_id, :customer_id]
       allowed_keys.each do |key|
         if params.has_key?(key)
           return params.slice(key)
