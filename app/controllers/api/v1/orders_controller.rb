@@ -5,8 +5,28 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # before_action :set_user, only: [:create]
   # GET /orders
   def index
-    @orders = Order.all
+  # order_date, user_id, account_manager_id, customer_id,
+  @orders = Order.where(nil)
+  filtering_params(params).each do |key, value|
+    @orders = @products.public_send(key, value) if value.present?
+  end
+
+
+
+    # if params[:order_date] && params[:account_manager_id] && params[:customer_id]
+    #   @orders = Order.where("order_date LIKE (%?%) AND account_manager_id LIKE (%?%) AND customer_id LIKE (%?%)", params[:order_date].to_date, params[:account_manager_id], params[:customer_id])
+    # elsif params[:order_date]
+
+    # else
+    #   @orders = Order.all
+    # end
+
+
     paginate json: @orders, per_page: 10
+
+
+    # @orders = Order.all
+
     # render json: @orders
   end
 
