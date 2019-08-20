@@ -57,6 +57,16 @@ class Order < ApplicationRecord
   scope :user_id, -> (user_id) { where user_id: user_id }
   scope :account_manager_id, -> (account_manager_id) { where account_manager_id: account_manager_id }
   scope :order_date, -> (order_date) {where("order_date like ?", "#{order_date}%")}
+
+  # scope :interval, -> (start_date, end_date) 
+  # {
+  #   where('order_date <= ? AND order_date => ?',
+  #     to.to_date, from.to_date
+  #   )
+  # }
+
+
+
   # scope :starts_with, -> (name) { where("name like ?", "#{name}%")}
 
 

@@ -5,6 +5,11 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # before_action :set_user, only: [:create]
   # GET /orders
   def index
+    # Test condition here to find interval scope
+      # if 'to' and 'from' present,
+      # Call the interval scope with:
+      # Order.interval('from_datetime_obj: 2015-07-09', 'to_datetime_obj: 2015-07-09')
+    # 
     @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id))
     paginate json: @orders, per_page: 10
   end
@@ -57,6 +62,6 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
     # A list of the param names that can be used for filtering the Order list
     def filtering_params(params)
-      params.slice(:order_date, :user_id, :account_manager_id, :customer_id,)
+      params.slice(:order_date, :user_id, :account_manager_id, :customer_id)
     end
 end
