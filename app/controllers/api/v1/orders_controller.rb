@@ -10,7 +10,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # filtering_params(params).each do |key, value|
   #   @orders = @orders.public_send(key, value) if value.present?
   # end
-  @orders = Order.filter(params.slice(:order_date, :user_id, :account_manager_id, :customer_id))
+  @orders = Order.filter(params.slice(:customer_id))
 
 
 
