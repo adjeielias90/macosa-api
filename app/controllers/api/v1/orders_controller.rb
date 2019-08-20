@@ -8,7 +8,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # order_date, user_id, account_manager_id, customer_id,
   @orders = Order.where(nil)
   filtering_params(params).each do |key, value|
-    @orders = @products.public_send(key, value) if value.present?
+    @orders = @orders.public_send(key, value) if value.present?
   end
 
 
