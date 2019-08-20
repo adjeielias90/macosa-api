@@ -96,4 +96,5 @@ class Api::V1::OrdersController < Api::V1::BaseController
         end
       # params.slice(sanitized_parameters)
       end
+    end
 end
