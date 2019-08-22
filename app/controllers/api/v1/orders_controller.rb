@@ -13,7 +13,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     # if params[:to].present? && params[:from].present?
       # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
     # else
-      @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id))
+      @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id))
     # end
     paginate json: @orders, per_page: 10
   end
@@ -66,6 +66,6 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
     # A list of the param names that can be used for filtering the Order list
     def filtering_params(params)
-      params.slice(:order_date, :user_id, :account_manager_id, :customer_id)
+      params.slice(:order_date, :user_id, :account_manager_id, :customer_id, :currency_id)
     end
 end
