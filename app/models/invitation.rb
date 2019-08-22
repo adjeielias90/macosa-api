@@ -25,8 +25,6 @@ class Invitation < ApplicationRecord
     end
   end
 
-
-
   validates :email, uniqueness: true
   validates :email, presence: true
   validates :firstname, presence: true

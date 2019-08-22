@@ -8,9 +8,6 @@ class User < ApplicationRecord
   validates_format_of :email, with: /@/
 
   has_many :orders
-
-
-
   before_save :downcase_email
   # before_create :generate_confirmation_instructions
 
