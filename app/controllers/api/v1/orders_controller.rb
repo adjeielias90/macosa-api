@@ -1,4 +1,5 @@
 class Api::V1::OrdersController < Api::V1::BaseController
+  include PrettyApi
   before_action :set_order, only: [:show, :update, :destroy]
   before_action :authenticate_request!
 
