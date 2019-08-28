@@ -64,6 +64,9 @@ class Api::V1::OrdersController < Api::V1::BaseController
     # Only allow a trusted parameter "white list" through.
     def order_params
       params.require(:order).permit(:id, :order_no, :date, :description, :amount, :profit, :customer_id, :account_manager_id, :user_id, :currency_id, business_unit_orders_attributes: [ :id, :business_unit_id, :amount, :date, :order_id], manufacturer_orders_attributes: [:id, :manufacturer_id, :amount, :date, :order_id])
+      order_params[:business_unit_orders_attributes] = order_params.delete :business_unit_orders
+      order_params[:manufacturer_orders_attributes] = order_params.delete :manufacturer_orders      
+      order_params.permit!
     end
 
     # A list of the param names that can be used for filtering the Order list
