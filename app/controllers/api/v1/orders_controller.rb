@@ -54,7 +54,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     # Use callbacks to share common setup or constraints between actions.
   def order_params
     PrettyApi.with_nested_attributes(pretty_order_params,
-      :business_unit_orders, :manufacturer_orders)
+      [:business_unit_orders, :manufacturer_orders])
   end
 
     def set_user
