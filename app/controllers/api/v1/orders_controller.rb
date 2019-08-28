@@ -1,4 +1,5 @@
 class Api::V1::OrdersController < Api::V1::BaseController
+  include PrettyApi
   before_action :set_order, only: [:show, :update, :destroy]
   before_action :authenticate_request!
 
@@ -51,6 +52,11 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+  def order_params
+    PrettyApi.with_nested_attributes(pretty_order_params,
+      :business_unit_orders, :manufacturer_orders)
+  end
+
     def set_user
       @user = @current_user  
     end
@@ -62,8 +68,8 @@ class Api::V1::OrdersController < Api::V1::BaseController
     # Merge pretty order params
 
     # Only allow a trusted parameter "white list" through.
-    def order_params
-      params.require(:order).permit(:id, :order_no, :date, :description, :amount, :profit, :customer_id, :account_manager_id, :user_id, :currency_id, business_unit_orders_attributes: [ :id, :business_unit_id, :amount, :date, :order_id], manufacturer_orders_attributes: [:id, :manufacturer_id, :amount, :date, :order_id])
+    def pretty_order_params
+      params.require(:order).permit(:id, :order_no, :date, :description, :amount, :profit, :customer_id, :account_manager_id, :user_id, :currency_id, business_unit_orders: [ :id, :business_unit_id, :amount, :date, :order_id], manufacturer_orders: [:id, :manufacturer_id, :amount, :date, :order_id])
     end
 
     # A list of the param names that can be used for filtering the Order list
