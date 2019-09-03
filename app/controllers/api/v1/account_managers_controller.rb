@@ -35,7 +35,7 @@ class Api::V1::AccountManagersController < Api::V1::BaseController
 
   # DELETE /account_managers/1
   def destroy
-    @account_manager.destroy
+    @account_manager.destroy, status: :ok
   end
 
   private
