@@ -1,5 +1,5 @@
 class Api::V1::OrderSerializer < ActiveModel::Serializer
-  attributes :id, :order_no, :date, :description, :amount, :profit, :business_unit_orders_attributes
+  attributes :id, :order_no, :date, :description, :amount, :profit, :business_unit_orders_attributes, :manufacturer_orders_attributes
   def business_unit_orders_attributes
     object.business_unit_orders.collect do |ov|
       {
