@@ -5,7 +5,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # before_action :set_user, only: [:create]
   # GET /orders
   def index
-    if params.any?
+    if params.present?
       # Test condition here to find interval scope
         # if 'to' and 'from' present,
         # Call the interval scope with:
