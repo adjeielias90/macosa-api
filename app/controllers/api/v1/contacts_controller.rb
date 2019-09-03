@@ -47,7 +47,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
   def destroy
     if @current_user.is_admin?
       @contact.destroy
-      reder json: {success: "Contact deleted"}, status: :ok
+      render json: {success: "Contact deleted"}, status: :ok
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end

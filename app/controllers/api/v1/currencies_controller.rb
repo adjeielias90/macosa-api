@@ -35,7 +35,8 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
 
   # DELETE /currencies/1
   def destroy
-    @currency.destroy, status: :ok
+    @currency.destroy
+    render json: {success: "Currency deleted"}, status: :ok
   end
 
   private

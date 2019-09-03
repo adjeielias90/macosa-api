@@ -222,7 +222,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     if @user.email != @owner.email
       if @current_user.is_admin?
         @user.destroy
-        render json: @user, status: :ok
+        render json: {success: "User deleted"}, status: :ok
       else
         render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
       end

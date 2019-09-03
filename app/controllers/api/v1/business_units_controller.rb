@@ -35,7 +35,8 @@ class Api::V1::BusinessUnitsController < Api::V1::BaseController
 
   # DELETE /business_units/1
   def destroy
-    @business_unit.destroy, status: :ok
+    @business_unit.destroy
+      render json: {success: "Business unit deleted"}, status: :ok
   end
 
   private

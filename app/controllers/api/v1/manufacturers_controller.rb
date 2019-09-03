@@ -35,7 +35,8 @@ class Api::V1::ManufacturersController < Api::V1::BaseController
 
   # DELETE /manufacturers/1
   def destroy
-    @manufacturer.destroy, status: :ok
+    @manufacturer.destroy
+    render json: {success: "Manufacturer deleted"}, status: :ok
   end
 
   private

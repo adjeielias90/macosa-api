@@ -47,7 +47,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # DELETE /orders/1
   def destroy
     @order.destroy
-    render json: @order, status: :ok
+    render json: {success: "Order deleted"}, status: :ok
   end
 
   private

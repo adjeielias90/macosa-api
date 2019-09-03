@@ -35,7 +35,8 @@ class Api::V1::AccountManagersController < Api::V1::BaseController
 
   # DELETE /account_managers/1
   def destroy
-    @account_manager.destroy, status: :ok
+    @account_manager.destroy
+    render json: {success: "Account manager deleted"}, status: :ok
   end
 
   private

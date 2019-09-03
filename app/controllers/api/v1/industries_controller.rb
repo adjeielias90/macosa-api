@@ -35,7 +35,8 @@ class Api::V1::IndustriesController < Api::V1::BaseController
 
   # DELETE /industries/1
   def destroy
-    @industry.destroy, status: :ok
+    @industry.destroy
+    render json: {success: "Industry deleted"}, status: :ok
   end
 
   private

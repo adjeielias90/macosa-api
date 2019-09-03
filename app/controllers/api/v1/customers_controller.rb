@@ -35,7 +35,8 @@ class Api::V1::CustomersController < Api::V1::BaseController
 
   # DELETE /customers/1
   def destroy
-    @customer.destroy, status: :ok
+    @customer.destroy
+    render json: {success: "Customer deleted"}, status: :ok
   end
 
   private

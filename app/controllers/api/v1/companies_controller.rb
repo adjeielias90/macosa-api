@@ -46,7 +46,8 @@ class Api::V1::CompaniesController < Api::V1::BaseController
   # DELETE /companies/1
   def destroy
     if @current_user.is_admin
-      @company.destroy, status: :ok
+      @company.destroy
+      render json: {success: "Company deleted"}, status: :ok
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end
