@@ -35,7 +35,7 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
 
   # DELETE /currencies/1
   def destroy
-    @currency.destroy
+    @currency.destroy, status: :ok
   end
 
   private
