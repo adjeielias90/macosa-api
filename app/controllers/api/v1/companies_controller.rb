@@ -17,7 +17,8 @@ class Api::V1::CompaniesController < Api::V1::BaseController
   # POST /companies
   def create
     if @current_user.is_admin?
-      @company = Company.new(company_params)
+      @owner = Owner.first
+      @company = owner.companies.new(company_params)
 
       if @company.save
         render json: @company, status: :created
