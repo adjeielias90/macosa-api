@@ -50,17 +50,17 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   # DELETE /orders/1
   def destroy
-
-    @comment = @user.comments.with_deleted.find(params[:id])
+    @order = Order.with_deleted.find(params[:id])
     if params[:type] == 'normal'
-      @comment.destroy
+      @order.destroy
+      render json: {success: "Order deleted and archived"}, status: :ok
     elsif params[:type] == 'forever'
-      @comment.really_destroy!
+      @order.really_destroy!
+      render json: {success: "Order permanently deleted"}, status: :ok
     elsif params[:type] == 'undelete'
-      @comment.restore
+      @order.restore
+      render json: {success: "Order restored"}, status: :ok
     end
-    @order.destroy
-    render json: {success: "Order deleted"}, status: :ok
   end
 
   private
