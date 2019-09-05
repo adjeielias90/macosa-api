@@ -25,6 +25,7 @@ gem 'sidekiq'
 gem 'delayed_job_active_record'
 gem 'hiredis'
 gem 'redis'
+gem 'paranoia'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
