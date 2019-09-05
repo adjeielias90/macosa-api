@@ -1,5 +1,5 @@
 class Api::V1::OrdersController < Api::V1::BaseController
-  before_action :set_order, only: [:show, :update, :destroy]
+  before_action :set_order, only: [:show, :update] #, :destroy]
   before_action :authenticate_request!
 
   # before_action :set_user, only: [:create]
@@ -50,6 +50,15 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   # DELETE /orders/1
   def destroy
+
+    @comment = @user.comments.with_deleted.find(params[:id])
+    if params[:type] == 'normal'
+      @comment.destroy
+    elsif params[:type] == 'forever'
+      @comment.really_destroy!
+    elsif params[:type] == 'undelete'
+      @comment.restore
+    end
     @order.destroy
     render json: {success: "Order deleted"}, status: :ok
   end
