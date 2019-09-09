@@ -71,7 +71,7 @@ class Api::V1::OwnersController < Api::V1::BaseController
   private
 
     def user_params
-      params.require(:user).permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :is_admin, :owner_id)
+      params.require(:owner).permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :is_admin, :owner_id)
     end
 
     def owner_params
