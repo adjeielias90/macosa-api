@@ -71,12 +71,12 @@ class Api::V1::OwnersController < Api::V1::BaseController
   private
 
     def user_params
-      params.permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :is_admin, :owner_id)
+      params.require(:user).permit(:firstname, :lastname, :phone, :email, :password, :password_confirmation, :is_admin, :owner_id)
     end
 
     def owner_params
       # fix app still crashing on postman. append params .require(:modelName) if app crashes in
       # production
-      params.permit(:email, :password, :name, :website)
+      params.require(:owner).permit(:email, :password, :name, :website)
     end
 end
