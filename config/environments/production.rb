@@ -107,7 +107,7 @@ Rails.application.configure do
   user_name:            'macosa.apotica@gmail.com',
   password:             '*.*macosa',
   authentication:       'plain',
-  enable_starttls_auto: true
+  # enable_starttls_auto: true
   }
 
 
