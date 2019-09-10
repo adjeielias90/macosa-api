@@ -200,7 +200,7 @@ class Api::V1::UsersController < Api::V1::BaseController
       # render json: {redirect: "redirecting to frontend with token..."}, status: :ok
       redirect_to "https://macosa.herokuapp.com/password/"+user.reset_token
     else
-      redirect_to "https://macosa.herokuapp.com/password/reset"
+      redirect_to "https://macosa.herokuapp.com/password/new"
     end
   end
 
