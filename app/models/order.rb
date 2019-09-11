@@ -1,19 +1,5 @@
 class Order < ApplicationRecord
   include Filterable
-  
-  # Public activity gem handles notifications for CRUD actions.
-  # to activate on heroku:
-  # heroku run bundle install
-  # heroku run rails db:migrate
-  # enjoy.
-  include PublicActivity::Model
-  tracked
-  # Also in your controller:
-  # notifications_controller.rb
-  # def index
-  #   @activities = PublicActivity::Activity.all
-  # end
-  
   acts_as_paranoid
   belongs_to :customer, counter_cache: :orders_count#,optional: :true
   belongs_to :account_manager, counter_cache: :orders_count #,optional: :true
