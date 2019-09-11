@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   include Filterable
+  acts_as_paranoid
   belongs_to :customer, counter_cache: :orders_count#,optional: :true
   belongs_to :account_manager, counter_cache: :orders_count #,optional: :true
   belongs_to :currency, counter_cache: :orders_count #,optional: :true
