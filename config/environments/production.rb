@@ -86,7 +86,35 @@ Rails.application.configure do
 
   # action mailer configs
 
+  #Sendgrid 
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: "http://macosa-app.herokuapp.com" }
+# config/initializers/smtp.rb
+  # ActionMailer::Base.smtp_settings = {
+  #   address: 'smtp.sendgrid.net',
+  #   port: 587,
+  #   domain: 'yourdomain.com',
+  #   user_name: ENV['SENDGRID_USERNAME'],
+  #   password: ENV['SENDGRID_PASSWORD'],
+  #   authentication: :login,
+  #   enable_starttls_auto: true
+  # }
+
+
+  #if you are using the API key
+  ActionMailer::Base.smtp_settings = {
+    domain: 'http://macosa-app.herokuapp.com',
+    address:        "smtp.sendgrid.net",
+    port:            587,
+    authentication: :plain,
+    user_name:      'apikey',
+    password:       ENV['SENDGRID_API_KEY']
+  }
+
+
+  # Gmail
+
+  # config.action_mailer.delivery_method = :smtp
   # Defaults to:
   # config.action_mailer.sendmail_settings = {
   #   location: '/usr/sbin/sendmail',
@@ -95,20 +123,20 @@ Rails.application.configure do
 
   # if you run into any login issues with gmail, use this link to allow access to your account
   # http://www.google.com/accounts/DisplayUnlockCaptcha
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: 'mailer.macosa@gmail.com'}
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.default_options = {from: 'mailer.macosa@gmail.com'}
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-  address:              'smtp.gmail.com',
-  port:                 587,
-  # domain:               'example.com',
-  user_name:            'macosa.apotica@gmail.com',
-  password:             '*.*macosa',
-  authentication:       'plain',
-  enable_starttls_auto: true
-  }
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  # address:              'smtp.gmail.com',
+  # port:                 587,
+  # # domain:               'example.com',
+  # user_name:            'macosa.apotica@gmail.com',
+  # password:             '*.*macosa',
+  # authentication:       'plain'
+  # # enable_starttls_auto: true
+  # }
 
 
 end
