@@ -4,12 +4,6 @@ class ApplicationController < ActionController::API
   helper_method :current_user
 
 
-  def current_user
-    load_current_user!
-  end
-    
-
-
   protected
     # Validates the token and user and sets the current_user scope
     def authenticate_request!
