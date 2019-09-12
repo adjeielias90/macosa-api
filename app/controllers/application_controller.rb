@@ -3,13 +3,13 @@ class ApplicationController < ActionController::API
   require 'json_web_token'
   include PublicActivity::StoreController
   include ActionController::Helpers
-  
+
   def current_user
     @current_user ||= User.find_by(id: payload[:user_id]) if payload[:user_id]
   end
 
   helper_method :current_user
-  hide_action :current_user
+  # hide_action :current_user
 
   protected
     # Validates the token and user and sets the current_user scope
