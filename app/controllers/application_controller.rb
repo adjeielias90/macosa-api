@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::API
-  include ActionController::Helpers
+
   require 'json_web_token'
-  helper_method :current_user
 
 
   protected
