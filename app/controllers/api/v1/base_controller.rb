@@ -10,8 +10,6 @@ class Api::V1::BaseController < ApplicationController
     routing_error
   end
 
-
-
   protected
     def allow_access
       return true
@@ -52,11 +50,5 @@ class Api::V1::BaseController < ApplicationController
         :message => "Exception occured",
         :exception => exception.inspect
       }.to_json
-    end
-
-  private
-    def current_user
-      @user_id = payload[0]['user_id']
-      current_user = User.find_by(id: @user_id)
     end
 end
