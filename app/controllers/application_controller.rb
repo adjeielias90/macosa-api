@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   include ActionController::Helpers
   require 'json_web_token'
-  helper_method :load_current_user!
+  helper_method :current_user
 
 
   protected
@@ -51,5 +51,10 @@ class ApplicationController < ActionController::API
       @user_id = payload[0]['user_id']
       current_user = User.find_by(id: @user_id)
       # current_user= User.includes(:orders).find_by(id: @user_id)
+    end
+
+    def current_user
+      @user_id = payload[0]['user_id']
+      current_user = User.find_by(id: @user_id)
     end
 end
