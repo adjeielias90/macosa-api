@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
 
 
   def current_user
-    load_current_user!
+    self.load_current_user!
   end
 
 
@@ -54,7 +54,7 @@ class ApplicationController < ActionController::API
     # Sets the current_user with the user_id from payload
     def load_current_user!
       @user_id = payload[0]['user_id']
-      current_user = User.find_by(id: @user_id)
+      @current_user = User.find_by(id: @user_id)
       # current_user= User.includes(:orders).find_by(id: @user_id)
     end
 end
