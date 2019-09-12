@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   include ActionController::Helpers
   require 'json_web_token'
-  helper_method :get_current_user
+  helper :current_user
 
 
 
@@ -10,10 +10,10 @@ class ApplicationController < ActionController::API
   protected
     # Validates the token and user and sets the current_user scope
 
-    def get_current_user
+    def current_user
       if authenticate_request!
-        @user_id = payload[0]['user_id']
-        current_user = User.find_by(id: @user_id)
+        # @user_id = payload[0]['user_id']
+        @current_user = User.find_by(id: payload[0]['user_id']) if payload[0]['user_id']
       else
         return invalid_authentication
       end
