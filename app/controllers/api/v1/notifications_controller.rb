@@ -1,4 +1,4 @@
-  class Api::V1::OrdersController < Api::V1::BaseController
+  class Api::V1::NotificationsController < Api::V1::BaseController
     before_action :authenticate_request!
 
     # Also in your controller:
