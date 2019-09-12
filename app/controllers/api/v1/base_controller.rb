@@ -12,9 +12,9 @@ class Api::V1::BaseController < ApplicationController
     routing_error
   end
 
-  # def current_user
-  #   load_current_user!
-  # end
+  def current_user
+    load_current_user!
+  end
     
 
 
