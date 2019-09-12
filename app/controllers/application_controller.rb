@@ -13,9 +13,9 @@ class ApplicationController < ActionController::API
     def current_user
       if !payload
         @user_id = payload[0]['user_id']
-        @current_user = User.find_by(id: @user_id)
+        current_user = User.find_by(id: @user_id)
       else
-        invalid_authentication
+        return invalid_authentication 
       end
 
     end
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::API
       end
 
       load_current_user!
-      invalid_authentication unless current_user
+      invalid_authentication unless @current_user
     end
 
     # Returns 401 response. To handle malformed / invalid requests.
