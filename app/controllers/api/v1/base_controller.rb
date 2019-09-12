@@ -53,4 +53,10 @@ class Api::V1::BaseController < ApplicationController
         :exception => exception.inspect
       }.to_json
     end
+
+  private
+    def current_user
+      @user_id = payload[0]['user_id']
+      current_user = User.find_by(id: @user_id)
+    end
 end
