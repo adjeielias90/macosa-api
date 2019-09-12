@@ -52,7 +52,7 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      user = @current_user
+      @user = @current_user
     end
 
     def set_currency
