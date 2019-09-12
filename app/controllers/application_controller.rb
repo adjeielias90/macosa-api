@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
     def current_user
       if authenticate_request!
         # @user_id = payload[0]['user_id']
-        current_user = User.find_by(id: payload[0]['user_id']) if payload[0]['user_id']
+        @current_user = User.find_by(id: payload[0]['user_id']) if payload[0]['user_id']
       else
         return invalid_authentication
       end
