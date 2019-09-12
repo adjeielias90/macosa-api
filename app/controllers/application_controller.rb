@@ -5,8 +5,8 @@ class ApplicationController < ActionController::API
   include ActionController::Helpers
 
   def current_user
-        @user_id = payload[0]['user_id']
-      @current_user = User.find_by(id: @user_id)
+    @user_id = payload[0]['user_id'].to_i
+    @current_user = User.find_by(id: @user_id)
   end
 
   helper_method :current_user
