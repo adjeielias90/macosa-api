@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::API
-
   include ActionController::Helpers
   require 'json_web_token'
   helper_method :current_user
@@ -12,7 +11,7 @@ class ApplicationController < ActionController::API
     # Validates the token and user and sets the current_user scope
 
     def current_user
-      if JsonWebToken.valid_payload(payload.first)
+      if authenticate_request!
         @user_id = payload[0]['user_id']
         current_user = User.find_by(id: @user_id)
       else
