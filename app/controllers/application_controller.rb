@@ -11,12 +11,13 @@ class ApplicationController < ActionController::API
     # Validates the token and user and sets the current_user scope
 
     def current_user
-      if authenticate_request!
+      if JsonWebToken.valid_payload(payload.first)
         @user_id = payload[0]['user_id']
         current_user = User.find_by(id: @user_id)
       else
         return invalid_authentication
       end
+
     end
 
 
@@ -31,7 +32,7 @@ class ApplicationController < ActionController::API
       end
 
       load_current_user!
-      invalid_authentication unless current_user
+      invalid_authentication unless @current_user
     end
 
     # Returns 401 response. To handle malformed / invalid requests.
@@ -67,4 +68,5 @@ class ApplicationController < ActionController::API
       @current_user = User.find_by(id: @user_id)
       # current_user= User.includes(:orders).find_by(id: @user_id)
     end
+
 end
