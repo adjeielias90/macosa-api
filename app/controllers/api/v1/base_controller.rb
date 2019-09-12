@@ -10,10 +10,6 @@ class Api::V1::BaseController < ApplicationController
     routing_error
   end
 
-  def current_user
-    @user_id = payload[0]['user_id']
-    current_user = User.find_by(id: @user_id)
-  end
 
 
   protected

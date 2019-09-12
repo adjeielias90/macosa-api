@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::API
   require 'json_web_token'
+  helper_method :current_user
+
 
   protected
     # Validates the token and user and sets the @current_user scope
@@ -28,6 +30,11 @@ class ApplicationController < ActionController::API
 
 
   private
+    def current_user
+      @user_id = payload[0]['user_id']
+      current_user = User.find_by(id: @user_id)
+    end
+
     # Deconstructs the Authorization header and decodes the JWT token.
     def payload
       auth_header = request.headers['Authorization']
