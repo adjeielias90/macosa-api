@@ -35,8 +35,17 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
 
   # DELETE /currencies/1
   def destroy
-    @currency.destroy
-    render json: {success: "Currency deleted"}, status: :ok
+    @currency = Currency.with_deleted.find(params[:id])
+    if params[:type] == 'normal'
+      @currency.destroy
+      render json: {success: "Currency deleted and archived"}, status: :ok
+    elsif params[:type] == 'forever'
+      @currency.really_destroy!
+      render json: {success: "Currency permanently deleted"}, status: :ok
+    elsif params[:type] == 'undelete'
+      @currency.restore
+      render json: {success: "Currency restored"}, status: :ok
+    end
   end
 
   private

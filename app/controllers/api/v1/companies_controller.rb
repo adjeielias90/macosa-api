@@ -46,8 +46,17 @@ class Api::V1::CompaniesController < Api::V1::BaseController
   # DELETE /companies/1
   def destroy
     if @current_user.is_admin
-      @company.destroy
-      render json: {success: "Company deleted"}, status: :ok
+      @company = Company.with_deleted.find(params[:id])
+      if params[:type] == 'normal'
+        @company.destroy
+        render json: {success: "Company deleted and archived"}, status: :ok
+      elsif params[:type] == 'forever'
+        @company.really_destroy!
+        render json: {success: "Company permanently deleted"}, status: :ok
+      elsif params[:type] == 'undelete'
+        @company.restore
+        render json: {success: "Company restored"}, status: :ok
+      end
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
     end

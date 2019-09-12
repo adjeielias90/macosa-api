@@ -221,8 +221,17 @@ class Api::V1::UsersController < Api::V1::BaseController
     @owner = Owner.first
     if @user.email != @owner.email
       if @current_user.is_admin?
-        @user.destroy
-        render json: {success: "User deleted"}, status: :ok
+        @user = User.with_deleted.find(params[:id])
+        if params[:type] == 'normal'
+          @user.destroy
+          render json: {success: "User deleted and archived"}, status: :ok
+        elsif params[:type] == 'forever'
+          @user.really_destroy!
+          render json: {success: "User permanently deleted"}, status: :ok
+        elsif params[:type] == 'undelete'
+          @user.restore
+          render json: {success: "User restored"}, status: :ok
+        end
       else
         render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
       end

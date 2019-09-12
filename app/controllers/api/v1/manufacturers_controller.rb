@@ -35,8 +35,17 @@ class Api::V1::ManufacturersController < Api::V1::BaseController
 
   # DELETE /manufacturers/1
   def destroy
-    @manufacturer.destroy
-    render json: {success: "Manufacturer deleted"}, status: :ok
+    @manufacturer = Manufacturer.with_deleted.find(params[:id])
+    if params[:type] == 'normal'
+      @manufacturer.destroy
+      render json: {success: "Manufacturer deleted and archived"}, status: :ok
+    elsif params[:type] == 'forever'
+      @manufacturer.really_destroy!
+      render json: {success: "Manufacturer permanently deleted"}, status: :ok
+    elsif params[:type] == 'undelete'
+      @manufacturer.restore
+      render json: {success: "Manufacturer restored"}, status: :ok
+    end
   end
 
   private

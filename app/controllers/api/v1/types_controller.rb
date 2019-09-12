@@ -45,10 +45,16 @@ class Api::V1::TypesController < Api::V1::BaseController
   # DELETE /types/1
   def destroy
     if @current_user.is_admin?
-      if @type.destroy
-        render json: {sucesss: "Type deleted"}, status: :ok
-      else
-        render json: @type.errors, status: :unprocessable_entity
+      @type = Type.with_deleted.find(params[:id])
+      if params[:type] == 'normal'
+        @type.destroy
+        render json: {success: "Type deleted and archived"}, status: :ok
+      elsif params[:type] == 'forever'
+        @type.really_destroy!
+        render json: {success: "Type permanently deleted"}, status: :ok
+      elsif params[:type] == 'undelete'
+        @type.restore
+        render json: {success: "Type restored"}, status: :ok
       end
     else
       render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized

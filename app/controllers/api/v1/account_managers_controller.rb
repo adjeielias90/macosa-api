@@ -35,8 +35,17 @@ class Api::V1::AccountManagersController < Api::V1::BaseController
 
   # DELETE /account_managers/1
   def destroy
-    @account_manager.destroy
-    render json: {success: "Account manager deleted"}, status: :ok
+    @account_manager = AccountManager.with_deleted.find(params[:id])
+    if params[:type] == 'normal'
+      @account_manager.destroy
+      render json: {success: "Account Manager deleted and archived"}, status: :ok
+    elsif params[:type] == 'forever'
+      @account_manager.really_destroy!
+      render json: {success: "Account Manager permanently deleted"}, status: :ok
+    elsif params[:type] == 'undelete'
+      @account_manager.restore
+      render json: {success: "Account Manager restored"}, status: :ok
+    end
   end
 
   private

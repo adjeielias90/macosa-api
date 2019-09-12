@@ -35,8 +35,17 @@ class Api::V1::CustomersController < Api::V1::BaseController
 
   # DELETE /customers/1
   def destroy
-    @customer.destroy
-    render json: {success: "Customer deleted"}, status: :ok
+    @customer = Customer.with_deleted.find(params[:id])
+    if params[:type] == 'normal'
+      @customer.destroy
+      render json: {success: "Customer deleted and archived"}, status: :ok
+    elsif params[:type] == 'forever'
+      @customer.really_destroy!
+      render json: {success: "Customer permanently deleted"}, status: :ok
+    elsif params[:type] == 'undelete'
+      @customer.restore
+      render json: {success: "Customer restored"}, status: :ok
+    end
   end
 
   private

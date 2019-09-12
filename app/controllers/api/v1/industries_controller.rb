@@ -35,8 +35,17 @@ class Api::V1::IndustriesController < Api::V1::BaseController
 
   # DELETE /industries/1
   def destroy
-    @industry.destroy
-    render json: {success: "Industry deleted"}, status: :ok
+    @industry = Industry.with_deleted.find(params[:id])
+    if params[:type] == 'normal'
+      @industry.destroy
+      render json: {success: "Industry deleted and archived"}, status: :ok
+    elsif params[:type] == 'forever'
+      @industry.really_destroy!
+      render json: {success: "Industry permanently deleted"}, status: :ok
+    elsif params[:type] == 'undelete'
+      @industry.restore
+      render json: {success: "Industry restored"}, status: :ok
+    end
   end
 
   private
