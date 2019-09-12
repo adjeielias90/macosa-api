@@ -11,16 +11,16 @@ class ApplicationController < ActionController::API
     # Validates the token and user and sets the current_user scope
 
     def current_user
-      if !payload
-        return invalid_token
-      elsif @user_id = payload[0]['user_id']
-        
-        if current_user = User.find_by(id: @user_id)
-          return current_user
-        else
-          return invalid_authentication
-        end
+      if authenticate_request!
+        @user_id = payload[0]['user_id']
+        current_user = User.find_by(id: @user_id)
+      else
+        return invalid_authentication
       end
+    end
+
+
+
     end
     
     def authenticate_request!
