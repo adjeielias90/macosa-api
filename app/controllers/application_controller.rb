@@ -13,10 +13,10 @@ class ApplicationController < ActionController::API
     def current_user
       if !payload
         return invalid_token
-      else
-        @user_id = payload[0]['user_id']
-        if @user_id
-          current_user = User.find_by(id: @user_id)
+      elsif @user_id = payload[0]['user_id']
+        
+        if current_user = User.find_by(id: @user_id)
+          return current_user
         else
           return invalid_authentication
         end
