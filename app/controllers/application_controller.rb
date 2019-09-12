@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+
   include ActionController::Helpers
   require 'json_web_token'
   helper_method :current_user
@@ -17,10 +18,6 @@ class ApplicationController < ActionController::API
       else
         return invalid_authentication
       end
-
-    end
-
-
 
     end
     
