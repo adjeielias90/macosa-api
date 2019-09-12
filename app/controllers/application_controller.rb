@@ -4,15 +4,16 @@ class ApplicationController < ActionController::API
   helper_method :current_user
 
 
-  def current_user
-    self.load_current_user!
-  end
+
 
 
   protected
     # Validates the token and user and sets the current_user scope
 
-
+    def current_user
+      self.load_current_user!
+    end
+    
     def authenticate_request!
       if !payload
         return invalid_token
