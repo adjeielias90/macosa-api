@@ -4,10 +4,7 @@ class ApplicationController < ActionController::API
   include PublicActivity::StoreController
   include ActionController::Helpers
 
-  def current_user
-    @user_id = payload[0]['user_id'].to_i
-    @current_user = User.find_by(id: @user_id)
-  end
+
 
   helper_method :current_user
   # hide_action :current_user
@@ -59,5 +56,9 @@ class ApplicationController < ActionController::API
       current_user = @current_user
       # current_user= User.includes(:orders).find_by(id: @user_id)
     end
-
+    
+    def current_user
+      @user_id = payload[0]['user_id'].to_i
+      @current_user = User.find_by(id: @user_id)
+    end
 end
