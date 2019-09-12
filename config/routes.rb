@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :business_units
       resources :orders
       resources :currencies
+      resources :notifications
       resources :users do#, only: [:create, :index, :delete, :update, :show] do
         collection do
           post 'login'
