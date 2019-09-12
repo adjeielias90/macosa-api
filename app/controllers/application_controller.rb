@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
   require 'json_web_token'
-  helper_method :current_user
+  # helper_method :current_user
 
 
   protected
@@ -30,10 +30,10 @@ class ApplicationController < ActionController::API
 
 
   private
-    def current_user
-      @user_id = payload[0]['user_id']
-      current_user = User.find_by(id: @user_id)
-    end
+    # def current_user
+    #   @user_id = payload[0]['user_id']
+    #   current_user = User.find_by(id: @user_id)
+    # end
 
     # Deconstructs the Authorization header and decodes the JWT token.
     def payload
@@ -48,7 +48,7 @@ class ApplicationController < ActionController::API
     # Sets the @current_user with the user_id from payload
     def load_current_user!
       @user_id = payload[0]['user_id']
-      @current_user = User.find_by(id: @user_id)
+      current_user = User.find_by(id: @user_id)
       # @current_user= User.includes(:orders).find_by(id: @user_id)
     end
 end
