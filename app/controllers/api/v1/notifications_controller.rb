@@ -5,5 +5,6 @@
     # notifications_controller.rb
     def index
       @activities = PublicActivity::Activity.all
+      render json: @activities
     end
   end
