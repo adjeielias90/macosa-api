@@ -4,22 +4,19 @@ class ApplicationController < ActionController::API
   helper_method :current_user
 
 
-
+  def current_user
+    if !payload
+      @user_id = payload[0]['user_id']
+      current_user = User.find_by(id: @user_id)
+    else
+      return invalid_authentication 
+    end
+  end
+    
 
 
   protected
     # Validates the token and user and sets the current_user scope
-
-    def current_user
-      if !payload
-        @user_id = payload[0]['user_id']
-        current_user = User.find_by(id: @user_id)
-      else
-        return invalid_authentication 
-      end
-
-    end
-    
     def authenticate_request!
       if !payload
         return invalid_token
