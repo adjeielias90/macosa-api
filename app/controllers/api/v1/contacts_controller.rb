@@ -17,7 +17,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
 
   # POST /contacts
   def create
-    if @current_user.is_admin?
+    if current_user.is_admin?
       @contact = Contact.new(contact_params)
 
       if @contact.save
@@ -32,7 +32,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
 
   # PATCH/PUT /contacts/1
   def update
-    if @current_user.is_admin?
+    if current_user.is_admin?
       if @contact.update(contact_params)
         render json: @contact, status: :ok
       else
@@ -45,7 +45,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
 
   # DELETE /contacts/1
   def destroy
-    if @current_user.is_admin?
+    if current_user.is_admin?
       @contact = Contact.with_deleted.find(params[:id])
       if params[:type] == 'normal'
         @contact.destroy

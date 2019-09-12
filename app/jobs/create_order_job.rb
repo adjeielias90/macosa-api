@@ -3,7 +3,7 @@ class CreateOrderJob < ApplicationJob
 
   def perform(order)
     # Do something later
-    @new_order = @current_user.orders.new(order)
+    @new_order = current_user.orders.new(order)
     @new_order.generate_order_number!
     # @order.set_date!
     if @new_order.save

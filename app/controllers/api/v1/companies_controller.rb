@@ -16,7 +16,7 @@ class Api::V1::CompaniesController < Api::V1::BaseController
 
   # POST /companies
   def create
-    if @current_user.is_admin?
+    if current_user.is_admin?
       @owner = Owner.first
       @company = @owner.companies.new(company_params)
 
@@ -32,7 +32,7 @@ class Api::V1::CompaniesController < Api::V1::BaseController
 
   # PATCH/PUT /companies/1
   def update
-    if @current_user.ia_admin?
+    if current_user.ia_admin?
       if @company.update(company_params)
         render json: @company
       else
@@ -45,7 +45,7 @@ class Api::V1::CompaniesController < Api::V1::BaseController
 
   # DELETE /companies/1
   def destroy
-    if @current_user.is_admin
+    if current_user.is_admin
       @company = Company.with_deleted.find(params[:id])
       if params[:type] == 'normal'
         @company.destroy

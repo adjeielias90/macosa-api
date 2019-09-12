@@ -39,7 +39,7 @@ class Order < ApplicationRecord
     save
   end
 
-  # def create_order(order_params, @current_user)
+  # def create_order(order_params, current_user)
 
   # end
 

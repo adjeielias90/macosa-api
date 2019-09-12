@@ -91,7 +91,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   # def invitation
   #   @owner = Owner.first
-  #   if @current_user.email == @owner.email
+  #   if current_user.email == @owner.email
   #   # @admin = current_user
   #     if Invitation.exists?(email: params[:email])
   #       render json: {duplicate: 'Invitation has been sent to this email already.'}, status: :ok
@@ -122,7 +122,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def update
     @owner = Owner.first
-    if @current_user.is_admin?
+    if current_user.is_admin?
       if @user.email != @owner.email
         if @user.update(update_params)
           render json: @user, status: :ok
@@ -220,7 +220,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   def destroy
     @owner = Owner.first
     if @user.email != @owner.email
-      if @current_user.is_admin?
+      if current_user.is_admin?
         @user = User.with_deleted.find(params[:id])
         if params[:type] == 'normal'
           @user.destroy
