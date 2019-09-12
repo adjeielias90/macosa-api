@@ -1,5 +1,5 @@
 class Invitation < ApplicationRecord
-  acts_as_paranoid
+  # acts_as_paranoid
   belongs_to :owner
 
   def generate_invitation_instructions!
