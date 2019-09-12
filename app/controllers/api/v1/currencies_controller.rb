@@ -15,6 +15,7 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
 
   # POST /currencies
   def create
+    current_user
     @currency = Currency.new(currency_params)
 
     if @currency.save
