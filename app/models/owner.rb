@@ -1,4 +1,5 @@
 class Owner < ApplicationRecord
+  acts_as_paranoid
   #Validations
   validates_presence_of :email, :password_digest
   validates :email, uniqueness: true

@@ -1,4 +1,5 @@
 class Type < ApplicationRecord
+  acts_as_paranoid
   before_save :downcase_name
   has_many :companies
 

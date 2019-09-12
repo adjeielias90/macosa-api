@@ -1,4 +1,5 @@
 class Company < ApplicationRecord
+  acts_as_paranoid
   belongs_to :type
   belongs_to :owner
   

@@ -1,4 +1,5 @@
 class Currency < ApplicationRecord
+  acts_as_paranoid
   has_many :orders
 
   validates :name, uniqueness: true
