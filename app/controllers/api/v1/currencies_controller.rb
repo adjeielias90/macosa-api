@@ -1,6 +1,7 @@
 class Api::V1::CurrenciesController < Api::V1::BaseController
   before_action :set_currency, only: [:show, :update, :destroy]
   before_action :authenticate_request!
+  before_action :get_current_user
   # GET /currencies
   def index
     @currencies = Currency.all
@@ -15,7 +16,6 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
 
   # POST /currencies
   def create
-    current_user
     @currency = Currency.new(currency_params)
 
     if @currency.save
@@ -51,6 +51,10 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_user
+      @user = current_user
+    end
+
     def set_currency
       @currency = Currency.find(params[:id])
     end
