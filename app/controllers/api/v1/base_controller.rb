@@ -6,15 +6,15 @@ class Api::V1::BaseController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound , :with => :raise_not_found_error
   #rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
   rescue_from ActionController::RoutingError, :with => :routing_error
-  helper_method :current_user
+  # helper_method :current_user
 
   def undefined_route
     routing_error
   end
 
-  def current_user
-    load_current_user!
-  end
+  # def current_user
+  #   load_current_user!
+  # end
     
 
 
