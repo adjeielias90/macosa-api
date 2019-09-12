@@ -15,7 +15,7 @@ class ApplicationController < ActionController::API
       end
 
       load_current_user!
-      invalid_authentication unless @current_user
+      invalid_authentication unless current_user
     end
 
     # Returns 401 response. To handle malformed / invalid requests.
