@@ -1,4 +1,6 @@
 class Currency < ApplicationRecord
+  include PublicActivity::Model
+  tracked
   acts_as_paranoid
   has_many :orders
 
