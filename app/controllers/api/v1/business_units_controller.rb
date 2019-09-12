@@ -46,9 +46,6 @@ class Api::V1::BusinessUnitsController < Api::V1::BaseController
       @business_unit.restore
       render json: {success: "Business Unit restored"}, status: :ok
     end
-
-    @business_unit.destroy
-      render json: {success: "Business unit deleted"}, status: :ok
   end
 
   private
