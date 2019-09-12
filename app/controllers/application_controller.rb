@@ -11,7 +11,8 @@ class ApplicationController < ActionController::API
     # Validates the token and user and sets the current_user scope
 
     def current_user
-      self.load_current_user!
+      @user_id = payload[0]['user_id']
+      current_user = User.find_by(id: @user_id)
     end
     
     def authenticate_request!
