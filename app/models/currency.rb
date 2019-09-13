@@ -1,6 +1,6 @@
 class Currency < ApplicationRecord
   include PublicActivity::Model
-  tracked owner: Proc.new { |controller, model| controller.current_user.firstname ? controller.current_user : nil }
+  tracked owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
   acts_as_paranoid
   has_many :orders
 
