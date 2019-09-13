@@ -30,4 +30,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activity:
+    currency:
+      create: 'Currency has been created'
+      update: 'Someone has edited the currency'
+      destroy: 'Some user removed a currency!'
+

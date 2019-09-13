@@ -50,10 +50,13 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
     end
   end
 
+
 # Implementing public_activity:
 # start with the migration:
-
-
+# rails g public_activity:migration
+# add these fields to the migration:
+    # add_column :currencies, :deleted_at, :datetime
+    # add_index :currencies, :deleted_at
 
 # model_name.rb
   # include PublicActivity::Model
@@ -65,6 +68,14 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
   #   current_user = @current_user
   # end
 
+
+# finally in config/locales/en.yml
+# en:
+#   activity:
+#     currency:
+#       create: 'Currency has been created'
+#       update: 'Someone has edited the currency'
+#       destroy: 'Some user removed a currency!'
 
 
 
