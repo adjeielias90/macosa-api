@@ -2,11 +2,11 @@ class ApplicationController < ActionController::API
 
   require 'json_web_token'
   include PublicActivity::StoreController
-  include ActionController::Helpers
+  # include ActionController::Helpers
 
 
 
-  helper_method :current_user
+  # helper_method :current_user
   # hide_action :current_user
 
   protected
@@ -53,12 +53,7 @@ class ApplicationController < ActionController::API
     def load_current_user!
       @user_id = payload[0]['user_id']
       @current_user = User.find_by(id: @user_id)
-      current_user = @current_user
+      # current_user = @current_user
       # current_user= User.includes(:orders).find_by(id: @user_id)
-    end
-    
-    def current_user
-      @user_id = payload[0]['user_id'].to_i
-      @current_user = User.find_by(id: @user_id)
     end
 end

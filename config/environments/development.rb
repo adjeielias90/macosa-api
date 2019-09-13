@@ -27,6 +27,7 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  config.require_master_key = true
 
 
 # action mailer configs

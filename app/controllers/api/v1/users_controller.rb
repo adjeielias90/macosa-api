@@ -2,7 +2,6 @@ class Api::V1::UsersController < Api::V1::BaseController
   before_action :set_user, only: [:show, :update, :destroy]
   # Authorize request before processing
   before_action :authenticate_request!, except: [:password_reset, :verify_reset_email, :verify_token, :password_update, :login, :confirm_email, :create]
-
   def index
     @users = User.all
     paginate json: @users, per_page: 10
@@ -67,6 +66,8 @@ class Api::V1::UsersController < Api::V1::BaseController
       render json: {error: 'User not found'}, status: :ok
     end
   end
+
+
 
   def confirm_email
     token = params[:token].to_s
@@ -263,6 +264,9 @@ class Api::V1::UsersController < Api::V1::BaseController
     def update_params
       params.require(:user).permit(:firstname, :lastname, :phone, :email, :is_admin, :owner_id)
     end
+
+
+
 
 
 end

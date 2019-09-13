@@ -1,7 +1,8 @@
 class Api::V1::CurrenciesController < Api::V1::BaseController
   before_action :set_currency, only: [:show, :update, :destroy]
   before_action :authenticate_request!
-  before_action :set_user
+  # helper_method :current_user
+  # before_action :set_user
   # GET /currencies
   def index
     @currencies = Currency.all
@@ -51,9 +52,9 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = @current_user
-    end
+    # def set_user
+    #   @user = @current_user
+    # end
 
     def set_currency
       @currency = Currency.find(params[:id])
@@ -63,4 +64,9 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
     def currency_params
       params.require(:currency).permit(:name, :symbol)
     end
+
+    # def current_user
+    #   @user_id = payload[0]['user_id']
+    #   @current_user = User.find_by(id: @user_id)
+    # end
 end
