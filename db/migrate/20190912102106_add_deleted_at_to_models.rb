@@ -33,9 +33,6 @@ class AddDeletedAtToModels < ActiveRecord::Migration[5.2]
     add_column :manufacturers, :deleted_at, :datetime
     add_index :manufacturers, :deleted_at
 
-    # add_column :owners, :deleted_at, :datetime
-    # add_index :owners, :deleted_at
-
     add_column :types, :deleted_at, :datetime
     add_index :types, :deleted_at
 
