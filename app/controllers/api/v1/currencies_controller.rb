@@ -50,6 +50,15 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
     end
   end
 
+
+
+  def current_user
+    # @user_id = payload[0]['user_id']
+    current_user = @current_user
+  end
+
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     # def set_user
@@ -63,10 +72,5 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
     # Only allow a trusted parameter "white list" through.
     def currency_params
       params.require(:currency).permit(:name, :symbol)
-    end
-
-    def current_user
-      @user_id = payload[0]['user_id']
-      @current_user = User.find_by(id: @user_id)
     end
 end

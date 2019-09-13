@@ -2,7 +2,7 @@ class Api::V1::BaseController < ApplicationController
   # Rescue exception to handle exceptions our own way ;)
   # rescue_from ::Exception, :with => :rescue_exception
   include PublicActivity::StoreController
-  include ActionController::Helpers
+  # include ActionController::Helpers
   rescue_from ActiveRecord::RecordNotFound , :with => :raise_not_found_error
   #rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
   rescue_from ActionController::RoutingError, :with => :routing_error
