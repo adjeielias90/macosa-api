@@ -1,7 +1,7 @@
 class Api::V1::CurrenciesController < Api::V1::BaseController
   before_action :set_currency, only: [:show, :update, :destroy]
   before_action :authenticate_request!
-  # helper_method :current_user
+  helper_method :current_user
   # before_action :set_user
   # GET /currencies
   def index
@@ -65,8 +65,8 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
       params.require(:currency).permit(:name, :symbol)
     end
 
-    # def current_user
-    #   @user_id = payload[0]['user_id']
-    #   @current_user = User.find_by(id: @user_id)
-    # end
+    def current_user
+      @user_id = payload[0]['user_id']
+      @current_user = User.find_by(id: @user_id)
+    end
 end
