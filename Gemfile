@@ -26,6 +26,8 @@ gem 'sidekiq'
 gem 'hiredis'
 gem 'redis'
 gem "paranoia"
+# Internationalization with i18n
+gem 'rails-i18n'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 gem 'dotenv'

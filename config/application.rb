@@ -19,6 +19,7 @@ Bundler.require(*Rails.groups)
 
 module MacosaApi
   class Application < Rails::Application
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
@@ -53,6 +54,9 @@ module MacosaApi
     #autoloads lib folder during development
     config.autoload_paths << Rails.root.join('lib')
     # [...]
+    config.i18n.available_locales = [:en, :ru]
+    config.i18n.default_locale = :en
+    
   end
 
 

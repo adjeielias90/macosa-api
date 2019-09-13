@@ -50,6 +50,22 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
     end
   end
 
+# Implementing public_activity:
+# start with the migration:
+
+
+
+# model_name.rb
+  # include PublicActivity::Model
+  # tracked owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
+
+# controller.rb
+  # def current_user
+  #   # @user_id = payload[0]['user_id']
+  #   current_user = @current_user
+  # end
+
+
 
 
   def current_user
