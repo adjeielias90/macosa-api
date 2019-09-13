@@ -54,7 +54,7 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
 
   def current_user
     # @user_id = payload[0]['user_id']
-    current_user = @current_user
+    current_user = @current_user.firstname
   end
 
 
