@@ -22,10 +22,10 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'will_paginate'
 gem 'api-pagination'
 gem 'sidekiq'
-gem 'delayed_job_active_record'
+# gem 'delayed_job_active_record'
 gem 'hiredis'
 gem 'redis'
-gem "paranoia", github: "rubysherpas/paranoia", branch: "rails5"
+gem "paranoia"
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 gem 'dotenv'
