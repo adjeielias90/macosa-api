@@ -1,5 +1,5 @@
 class Owner < ApplicationRecord
-  # acts_as_paranoid
+  #acts_as_paranoid
   #Validations
   # untracked
   validates_presence_of :email, :password_digest

@@ -25,7 +25,7 @@ gem 'sidekiq'
 gem 'delayed_job_active_record'
 gem 'hiredis'
 gem 'redis'
-gem 'paranoia'
+gem "paranoia", github: "rubysherpas/paranoia", branch: "rails5"
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 gem 'dotenv'
