@@ -23,8 +23,9 @@ class Api::V1::OrdersController < Api::V1::BaseController
     # @all_orders =
     @per_page = 10
     total_records = @orders.count
-    @all_orders = @orders.paginate(per_page: 10)
-
+    @all_orders = paginate @orders, per_page: 10
+    # @orders.paginate(page: 10)
+    
     if (total_records % @per_page) == 0
       total_pages = total_records/@per_page
     else
