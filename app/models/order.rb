@@ -88,7 +88,4 @@ class Order < ApplicationRecord
 
 
   # scope :starts_with, -> (name) { where("name like ?", "#{name}%")}
-
-
-
 end
