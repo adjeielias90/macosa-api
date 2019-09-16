@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   include PublicActivity::Model
   tracked
 
+  paginates_per 10
   # Also in your controller:
   # notifications_controller.rb
   # def index
