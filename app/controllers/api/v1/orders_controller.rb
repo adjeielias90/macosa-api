@@ -33,6 +33,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     end
 
     render json: {meta: { total_pages: total_pages, total_records: total_records }, orders: @all_orders }
+    # use a custom serializer to serialize this above:
     # paginate json: @orders, per_page: 10
   end
 
