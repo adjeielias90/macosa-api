@@ -1,5 +1,5 @@
 class Api::V1::TypesController < Api::V1::BaseController
-  before_action :set_type, only: [:show, :update, :destroy]
+  before_action :set_type, only: [:show, :update]#, :destroy]
   before_action :authenticate_request!
 
   # GET /types

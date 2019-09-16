@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update]#, :destroy]
   # Authorize request before processing
   before_action :authenticate_request!, except: [:password_reset, :verify_reset_email, :verify_token, :password_update, :login, :confirm_email, :create]
   def index

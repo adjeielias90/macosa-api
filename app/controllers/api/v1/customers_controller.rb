@@ -1,5 +1,5 @@
 class Api::V1::CustomersController < Api::V1::BaseController
-  before_action :set_customer, only: [:show, :update, :destroy]
+  before_action :set_customer, only: [:show, :update]#, :destroy]
   before_action :authenticate_request!
   # GET /customers
   def index
