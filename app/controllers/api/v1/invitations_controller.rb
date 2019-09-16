@@ -26,7 +26,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
 
   def create
     @owner = Owner.first
-    if current_user.email == @owner.email
+    if @current_user.email == @owner.email
     # @admin = current_user
       if Invitation.exists?(email: params[:email])
         render json: {duplicate: 'Invitation has been sent to this email already.'}, status: :ok

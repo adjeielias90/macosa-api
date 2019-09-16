@@ -54,9 +54,6 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
 # Implementing public_activity:
 # start with the migration:
 # rails g public_activity:migration
-# add these fields to the migration:
-    # add_column :currencies, :deleted_at, :datetime
-    # add_index :currencies, :deleted_at
 
 # model_name.rb
   # include PublicActivity::Model
@@ -78,6 +75,9 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
 #       destroy: 'Some user removed a currency!'
 
 
+
+# This method assigns logged in user as current_user, which is later used in the
+# model file to assign current_user as the owner of that CRUD action.
 
   def current_user
     # @user_id = payload[0]['user_id']

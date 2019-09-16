@@ -1,7 +1,7 @@
 class Api::V1::OwnersController < Api::V1::BaseController
   def index
     # change this action to return only first instance
-    @owners = Owner.all
+    @owners = Owner.without_deleted.all
     if @owners.blank?
       render json: @owners, status: :ok
     else

@@ -19,6 +19,10 @@ class Api::V1::OrdersController < Api::V1::BaseController
     else
       @orders = Order.all
     end
+
+    # @all_orders = @orders.paginate(per_page: 10)
+    # last_page = @orders.total_pages
+    # render json: {meta: { total_pages: last_page, total_records: @orders.count }, orders: @all_orders }
     paginate json: @orders, per_page: 10
   end
 
@@ -29,7 +33,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   # POST /orders
   def create
-    @order = current_user.orders.create(order_params)
+    @order = @current_user.orders.create(order_params)
     # @order.set_date!
     if @order.save
       @order.generate_order_number!
@@ -66,7 +70,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = current_user
+      @user = @current_user
     end
 
     def set_order
