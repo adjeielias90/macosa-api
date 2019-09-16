@@ -15,7 +15,7 @@ class Api::V1::TypesController < Api::V1::BaseController
 
   # POST /types
   def create
-    if current_user.is_admin?
+    if @current_user.is_admin?
       @type = Type.new(type_params)
 
       if @type.save
@@ -30,7 +30,7 @@ class Api::V1::TypesController < Api::V1::BaseController
 
   # PATCH/PUT /types/1
   def update
-    if current_user.is_admin?
+    if @current_user.is_admin?
       if @type.update(type_params)
         render json: @type, status: :ok
       else
@@ -44,7 +44,7 @@ class Api::V1::TypesController < Api::V1::BaseController
 
   # DELETE /types/1
   def destroy
-    if current_user.is_admin?
+    if @current_user.is_admin?
       @type = Type.with_deleted.find(params[:id])
       if params[:type] == 'normal'
         @type.destroy
