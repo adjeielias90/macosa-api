@@ -9,6 +9,12 @@ class Order < ApplicationRecord
   include PublicActivity::Model
   tracked
 
+  # Also in your controller:
+  # notifications_controller.rb
+  # def index
+  #   @activities = PublicActivity::Activity.all
+  # end
+
 
   belongs_to :customer, counter_cache: :orders_count#,optional: :true
   belongs_to :account_manager, counter_cache: :orders_count #,optional: :true
@@ -19,14 +25,6 @@ class Order < ApplicationRecord
   # belongs_to :user
   accepts_nested_attributes_for :business_unit_orders, :allow_destroy => true
   accepts_nested_attributes_for :manufacturer_orders, :allow_destroy => true
-
-  # Also in your controller:
-  # notifications_controller.rb
-  # def index
-  #   @activities = PublicActivity::Activity.all
-  # end
-
-
 
 
   def set_date!
