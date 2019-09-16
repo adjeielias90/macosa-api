@@ -20,10 +20,17 @@ class Api::V1::OrdersController < Api::V1::BaseController
       @orders = Order.all
     end
 
-    # @all_orders = 
-    last_page = @orders.page_count
-    render json: {meta: { total_pages: last_page, total_records: @orders.count }, orders: @orders.paginate(per_page: 10) }
-    
+    # @all_orders =
+    @per_page = 10
+    total_records = @orders.count
+
+    if (total_records%per_page) == 0
+      total_pages = total_records/@per_page
+    else
+      total_pages = (total_records/per_page) + 1
+    end
+
+    render json: {meta: { total_pages: last_page, total_records: @orders.count }, orders: @orders.paginate(per_page: @per_page) }
     # paginate json: @orders, per_page: 10
   end
 
