@@ -18,31 +18,31 @@ class Api::V1::OrdersController < Api::V1::BaseController
         @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).page params[:page] if params.has_key?(:page)
       # Custom Pagination
         @per_page = 10
-        total_records = Order.count
-        total_pages = Order.total_pages
+        total_records = @orders.count
         # @orders = Order.all.page params[:page]
-      # if (total_records % @per_page) == 0
-      #   total_pages = total_records/@per_page
-      # else
-      #   total_pages = (total_records/@per_page) + 1
-      # end
+
+      if (total_records % @per_page) == 0
+        total_pages = total_records/@per_page
+      else
+        total_pages = (total_records/@per_page) + 1
+      end
       @meta = { total_pages: total_pages, total_records: total_records }
       # end
     else
-      # if params.has_key?(:page)
-      @orders = Order.all.page params[:page]
-      # else
-      #   @orders = Order.all
-      # end
+      if params.has_key?(:page)
+        @orders = Order.order(:created_at).page params[:page]
+      else
+        @orders = Order.all
+      end
+
+
       @per_page = 10
       total_records = Order.count
-      total_pages = Order.total_pages
-      
-      # if (total_records % @per_page) == 0
-      #   total_pages = total_records/@per_page
-      # else
-      #   total_pages = (total_records/@per_page) + 1
-      # end
+      if (total_records % @per_page) == 0
+        total_pages = total_records/@per_page
+      else
+        total_pages = (total_records/@per_page) + 1
+      end
       @meta = { total_pages: total_pages, total_records: total_records }
     end
 
