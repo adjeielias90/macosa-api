@@ -20,39 +20,23 @@ class Api::V1::OrdersController < Api::V1::BaseController
       @orders = Order.all
     end
 
-    # @all_orders =
+    # Custom Pagination
     @per_page = 10
     total_records = @orders.count
     @orders = Order.all.page params[:page]
-    # @all_orders = paginate @orders, per_page: 10
-    # @orders = Order.all.paginate(per_page:=> 10)
-    # @orders.paginate(page: 10)
     
     if (total_records % @per_page) == 0
       total_pages = total_records/@per_page
     else
       total_pages = (total_records/@per_page) + 1
     end
-
     @meta = { total_pages: total_pages, total_records: total_records }
 
-    # paginate json: @orders, per_page: 10
-    # render json: {, @orders}
-
-    # complex = Complex.find(params[:id])
-    # search_params = {complex_id: complex._id}
-    # fields = Field.where(search_params)
-
-    # render json: { complex: complex, fields: fields, search_params: search_params }, status: :ok
-  #  render json: {
-  #    orders: ActiveModel::Serializer::CollectionSerializer.new(@orders, each_serializer: OrderSerializer),
-  #    meta: @meta 
-
-  #   }
-    render json: @orders, meta: @meta, status: :ok #,  meta: @meta}, status: :ok
-
-    # use a custom serializer to serialize this above:
-    # paginate json: @orders, per_page: 10
+    # Don't forget to set per_page in the model model:
+      # per_page: 10
+    
+    # Finally, render pretty json lol
+    render json: @orders, meta: @meta, status: :ok
   end
 
   # GET /orders/1
