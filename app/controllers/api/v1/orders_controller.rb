@@ -29,13 +29,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
       @meta = { total_pages: total_pages, total_records: total_records }
       # end
     else
-      if params.has_key?(:page)
-        @orders = Order.order(:created_at).page params[:page]
-      else
-        @orders = Order.all
-      end
-
-
+      @orders = Order.all
       @per_page = 10
       total_records = Order.count
       if (total_records % @per_page) == 0
