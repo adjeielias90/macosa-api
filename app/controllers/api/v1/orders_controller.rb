@@ -44,8 +44,12 @@ class Api::V1::OrdersController < Api::V1::BaseController
     # fields = Field.where(search_params)
 
     # render json: { complex: complex, fields: fields, search_params: search_params }, status: :ok
- 
-    render json: @orders, meta: @meta, status: :ok #,  meta: @meta}, status: :ok
+  #  render json: {
+  #    orders: ActiveModel::Serializer::CollectionSerializer.new(@orders, each_serializer: OrderSerializer),
+  #    meta: @meta
+
+  #   }
+    render json: meta: @meta, @orders, status: :ok #,  meta: @meta}, status: :ok
 
     # use a custom serializer to serialize this above:
     # paginate json: @orders, per_page: 10
