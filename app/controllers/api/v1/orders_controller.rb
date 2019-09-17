@@ -30,7 +30,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     else 
       @orders = Order.all.page params[:page]
       @per_page = 10
-      total_records = @orders.count
+      total_records = Order.all.count
       
       if (total_records % @per_page) == 0
         total_pages = total_records/@per_page
