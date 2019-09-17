@@ -5,37 +5,44 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # before_action :set_user, only: [:create]
   # GET /orders
   def index
+
     if params.present?
-    # Test condition here to find interval scope
-      # if 'to' and 'from' present,
-      # Call the interval scope with:
-      # Order.interval('from_datetime_obj: 2015-07-09', 'to_datetime_obj: 2015-07-09')
-    #
-    # if params[:to].present? && params[:from].present?
-      # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
-    # else
-      @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).page params[:page]
-    # Custom Pagination
-      @per_page = 10
-      total_records = @orders.count
-      # @orders = Order.all.page params[:page]
-      if (total_records % @per_page) == 0
-        total_pages = total_records/@per_page
-      else
-        total_pages = (total_records/@per_page) + 1
-      end
+      # Test condition here to find interval scope
+        # if 'to' and 'from' present,
+        # Call the interval scope with:
+        # Order.interval('from_datetime_obj: 2015-07-09', 'to_datetime_obj: 2015-07-09')
+      #
+      # if params[:to].present? && params[:from].present?
+        # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
+      # else
+        @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).page params[:page] if params.has_key?(:page)
+      # Custom Pagination
+        @per_page = 10
+        total_records = Order.count
+        total_pages = Order.total_pages
+        # @orders = Order.all.page params[:page]
+      # if (total_records % @per_page) == 0
+      #   total_pages = total_records/@per_page
+      # else
+      #   total_pages = (total_records/@per_page) + 1
+      # end
       @meta = { total_pages: total_pages, total_records: total_records }
       # end
-    else 
+    else
+      # if params.has_key?(:page)
       @orders = Order.all.page params[:page]
+      # else
+      #   @orders = Order.all
+      # end
       @per_page = 10
       total_records = Order.count
+      total_pages = Order.total_pages
       
-      if (total_records % @per_page) == 0
-        total_pages = total_records/@per_page
-      else
-        total_pages = (total_records/@per_page) + 1
-      end
+      # if (total_records % @per_page) == 0
+      #   total_pages = total_records/@per_page
+      # else
+      #   total_pages = (total_records/@per_page) + 1
+      # end
       @meta = { total_pages: total_pages, total_records: total_records }
     end
 
