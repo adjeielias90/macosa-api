@@ -23,7 +23,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     # @all_orders =
     @per_page = 10
     total_records = @orders.count
-    @orders = Order.order(:created_at).page params[:page]
+    @orders = Order.all.page params[:page]
     # @all_orders = paginate @orders, per_page: 10
     # @orders = Order.all.paginate(per_page:=> 10)
     # @orders.paginate(page: 10)
