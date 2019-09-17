@@ -34,7 +34,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
       total_pages = (total_records/@per_page) + 1
     end
 
-    @meta = :meta => { total_pages: total_pages, total_records: total_records }
+    @meta = { total_pages: total_pages, total_records: total_records }
 
     # paginate json: @orders, per_page: 10
     # render json: {, @orders}
@@ -49,7 +49,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   #    meta: @meta 
 
   #   }
-    render json: {@meta, @orders}, status: :ok #,  meta: @meta}, status: :ok
+    render json: @orders, meta: @meta, status: :ok #,  meta: @meta}, status: :ok
 
     # use a custom serializer to serialize this above:
     # paginate json: @orders, per_page: 10
