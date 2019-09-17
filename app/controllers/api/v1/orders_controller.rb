@@ -1,4 +1,5 @@
 class Api::V1::OrdersController < Api::V1::BaseController
+  include ActionController::Serialization
   before_action :set_order, only: [:show, :update] #, :destroy]
   before_action :authenticate_request!
 
@@ -44,7 +45,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     # fields = Field.where(search_params)
 
     # render json: { complex: complex, fields: fields, search_params: search_params }, status: :ok
-
+ 
     render json: { meta: @meta, orders: @orders, each_serializer: OrderSerializer }, status: :ok
 
     # use a custom serializer to serialize this above:
