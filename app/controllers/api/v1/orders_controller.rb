@@ -20,6 +20,9 @@ class Api::V1::OrdersController < Api::V1::BaseController
       else
         @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id))
       end
+
+
+      
       # Custom Pagination
         @per_page = 10
         total_records = Order.count
@@ -32,6 +35,8 @@ class Api::V1::OrdersController < Api::V1::BaseController
       end
       @meta = { total_pages: total_pages, total_records: total_records }
       # end
+
+
     else
       @orders = Order.all
       @per_page = 10
