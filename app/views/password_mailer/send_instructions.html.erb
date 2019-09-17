@@ -1,7 +1,7 @@
 <h3>Hello, <%= @user.firstname %></h3>
   <p>
-    We have received a request to reset your password on Macosa,
-    <p>If you did not initiate this request, please ignore this email.</p>
+    We have received a request to reset your password on Macosa.
+    <p>If you did not initiate this request, please disregard this email.</p>
     <br>
     <p><a href="https://macosa-app.herokuapp.com/api/v1/users/verify_reset_email?token=<%=@user.reset_token%>">Follow this link to reset your password</a></p>
   </p>
