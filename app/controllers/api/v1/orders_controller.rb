@@ -34,7 +34,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
       total_pages = (total_records/@per_page) + 1
     end
 
-    @meta = { total_pages: total_pages, total_records: total_records }
+    @meta = meta: { total_pages: total_pages, total_records: total_records }
 
     # paginate json: @orders, per_page: 10
     # render json: {, @orders}
@@ -46,10 +46,10 @@ class Api::V1::OrdersController < Api::V1::BaseController
     # render json: { complex: complex, fields: fields, search_params: search_params }, status: :ok
   #  render json: {
   #    orders: ActiveModel::Serializer::CollectionSerializer.new(@orders, each_serializer: OrderSerializer),
-  #    meta: @meta
+  #    meta: @meta 
 
   #   }
-    render json: meta: @meta, @orders, status: :ok #,  meta: @meta}, status: :ok
+    render json: @meta, @orders status: :ok #,  meta: @meta}, status: :ok
 
     # use a custom serializer to serialize this above:
     # paginate json: @orders, per_page: 10
