@@ -49,7 +49,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   #    meta: @meta 
 
   #   }
-    render json: @meta, @orders status: :ok #,  meta: @meta}, status: :ok
+    render json: @meta, @orders, status: :ok #,  meta: @meta}, status: :ok
 
     # use a custom serializer to serialize this above:
     # paginate json: @orders, per_page: 10
