@@ -16,13 +16,14 @@ class Api::V1::OrdersController < Api::V1::BaseController
         # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
       # else
       if params.has_key?(:page)
+        # use filtering params here instead of hardcoding them like this:
         @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).page params[:page]
       else
         @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id))
       end
 
 
-      
+
       # Custom Pagination
         @per_page = 10
         total_records = Order.count
