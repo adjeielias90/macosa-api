@@ -2,6 +2,7 @@ class ApplicationController < ActionController::API
 
   require 'json_web_token'
   include PublicActivity::StoreController
+  include ActionController::Serialization
   # include ActionController::Helpers
 
 

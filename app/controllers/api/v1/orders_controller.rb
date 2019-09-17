@@ -1,5 +1,4 @@
 class Api::V1::OrdersController < Api::V1::BaseController
-  include ActionController::Serialization
   before_action :set_order, only: [:show, :update] #, :destroy]
   before_action :authenticate_request!
 
