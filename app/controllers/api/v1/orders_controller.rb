@@ -45,7 +45,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
     # render json: { complex: complex, fields: fields, search_params: search_params }, status: :ok
  
-    render json: {orders: [@orders, :each_serializer => OrderSerializer],  meta: @meta}, status: :ok
+    render json: {orders: [@orders, each_serializer: ::Api::OrderSerializer],  meta: @meta}, status: :ok
 
     # use a custom serializer to serialize this above:
     # paginate json: @orders, per_page: 10
