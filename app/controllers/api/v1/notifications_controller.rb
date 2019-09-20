@@ -16,23 +16,21 @@
     # Also in your controller:
     # notifications_controller.rb
 
-
-
+    def index
       # Custom Pagination
       @per_page = 10
       total_records = PublicActivity::Activity.count
       # @orders = Order.all.page params[:page]
 
-    if (total_records % @per_page) == 0
-      total_pages = total_records/@per_page
-    else
-      total_pages = (total_records/@per_page) + 1
-    end
-    @meta = { total_pages: total_pages, total_records: total_records }
-    # end
+      if (total_records % @per_page) == 0
+        total_pages = total_records/@per_page
+      else
+        total_pages = (total_records/@per_page) + 1
+      end
+      @meta = { total_pages: total_pages, total_records: total_records }
+      # end
 
 
-    def index
       @activities = PublicActivity::Activity.all.order(created_at: :DESC).page(params[:page]).per(10)
       # render json: @activities
       render json: @activities, meta: @meta, status: :ok
