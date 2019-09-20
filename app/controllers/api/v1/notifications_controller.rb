@@ -18,7 +18,7 @@
 
     def index
       # Custom Pagination
-      @per_page = 10
+      @per_page = 50
       total_records = PublicActivity::Activity.count
       # @orders = Order.all.page params[:page]
 
@@ -31,7 +31,7 @@
       # end
 
 
-      @activities = PublicActivity::Activity.all.order(created_at: :DESC).page(params[:page]).per(10)
+      @activities = PublicActivity::Activity.all.order(created_at: :DESC).page(params[:page]).per(50)
       # render json: @activities
       render json: @activities, meta: @meta, status: :ok
     end
