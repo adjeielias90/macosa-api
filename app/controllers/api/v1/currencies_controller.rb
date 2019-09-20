@@ -84,6 +84,11 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
     current_user = @current_user
   end
 
+  def current_record
+    set_currency
+    current_record = @currency if @currency
+  end
+
 
 
   private
