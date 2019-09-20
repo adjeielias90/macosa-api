@@ -1,6 +1,7 @@
 class Api::V1::CurrenciesController < Api::V1::BaseController
   before_action :set_currency, only: [:show, :update]
   before_action :authenticate_request!
+  after_create :set_currency
   # helper_method :current_user
   # before_action :set_user
   # GET /currencies
@@ -85,7 +86,6 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
   end
 
   def current_record
-    set_currency
     current_record = @currency if @currency
   end
 
