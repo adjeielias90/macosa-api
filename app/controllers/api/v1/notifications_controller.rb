@@ -5,7 +5,7 @@
     # [How to] Set the Activity's owner to current_user by default
       # Include PublicActivity::StoreController in your ApplicationController like this:
       # class ApplicationController < ActionController::Base
-      #   include PublicActivity::StoreController 
+      #   include PublicActivity::StoreController
       # end
       # Use Proc in :owner attribute for tracked class method in your desired model. For example:
       # class Article < ActiveRecord::Base
@@ -16,7 +16,7 @@
     # Also in your controller:
     # notifications_controller.rb
     def index
-      @activities = PublicActivity::Activity.all
+      @activities = PublicActivity::Activity.all.order(created_at: :DESC).per(10).page params[:page]
       render json: @activities
     end
   end
