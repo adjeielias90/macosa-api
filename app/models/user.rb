@@ -1,5 +1,10 @@
 class User < ApplicationRecord
+  include PublicActivity::Model
   acts_as_paranoid
+
+  # Refer to controller to understand the implementation of current_user
+  tracked owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
+
   has_secure_password
   # Do not move has_secure_password below the validations
   # doing this causes a validation error to trigger on the hashing of the password.
