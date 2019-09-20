@@ -1,7 +1,7 @@
 class Api::V1::CurrenciesController < Api::V1::BaseController
   before_action :set_currency, only: [:show, :update]
   before_action :authenticate_request!
-  after_save :set_currency
+  after_action :set_currency, only: [:create]
   # helper_method :current_user
   # before_action :set_user
   # GET /currencies
