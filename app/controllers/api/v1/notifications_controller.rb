@@ -16,7 +16,7 @@
     # Also in your controller:
     # notifications_controller.rb
     def index
-      @activities = PublicActivity::Activity.all.order(created_at: :DESC).page.per(10) params[:page]
+      @activities = PublicActivity::Activity.all.order(created_at: :DESC).page(params[:page]).per(10)
       render json: @activities
     end
   end
