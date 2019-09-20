@@ -17,9 +17,9 @@ class Api::V1::OrdersController < Api::V1::BaseController
       # else
       if params.has_key?(:page)
         # Only allow a trusted parameter "white list" through.
-        @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id, :order_no)).order(created_at: :DESC).page params[:page]
+        @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC).page params[:page]
       else
-        @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id, :order_no)).order(created_at: :DESC)
+        @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC)
       end
 
 
@@ -141,6 +141,6 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
     # A list of the param names that can be used for filtering the Order list
     def filtering_params(params)
-      params.slice(:order_date, :user_id, :account_manager_id, :customer_id, :currency_id, :order_no)
+      params.slice(:order_date, :user_id, :account_manager_id, :customer_id, :currency_id)
     end
 end
