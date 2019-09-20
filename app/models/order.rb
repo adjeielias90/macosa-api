@@ -1,14 +1,15 @@
 class Order < ApplicationRecord
   include Filterable
   acts_as_paranoid
-  
+
   # Public activity gem handles notifications for CRUD actions.
   # to activate on heroku:
   # heroku run bundle install
   # heroku run rails db:migrate
   include PublicActivity::Model
-  tracked
 
+  # Refer to controller to understand the implementation of current_user
+  tracked owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
   paginates_per 10
   # Also in your controller:
   # notifications_controller.rb
@@ -79,7 +80,7 @@ class Order < ApplicationRecord
   scope :account_manager_id, -> (account_manager_id) { where account_manager_id: account_manager_id }
   scope :order_date, -> (order_date) {where("order_date like ?", "#{order_date}%")}
 
-  # scope :interval, -> (start_date, end_date) 
+  # scope :interval, -> (start_date, end_date)
   # {
   #   where('order_date <= ? AND order_date => ?',
   #     to.to_date, from.to_date

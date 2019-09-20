@@ -54,7 +54,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     #   @per_page = 10
     #   total_records = @orders.count
     #   @orders = Order.all.page params[:page]
-      
+
     #   if (total_records % @per_page) == 0
     #     total_pages = total_records/@per_page
     #   else
@@ -64,7 +64,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
       # Don't forget to set per_page in the model model:
         # per_page: 10
-      
+
     # Finally, render pretty json lol
     render json: @orders, meta: @meta, status: :ok
   end
@@ -115,6 +115,11 @@ class Api::V1::OrdersController < Api::V1::BaseController
       @order.restore
       render json: {success: "Order restored"}, status: :ok
     end
+  end
+
+  def current_user
+    # @user_id = payload[0]['user_id']
+    current_user = @current_user
   end
 
   private
