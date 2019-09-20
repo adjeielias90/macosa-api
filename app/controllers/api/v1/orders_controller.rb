@@ -19,7 +19,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
         # Only allow a trusted parameter "white list" through.
         @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC).page params[:page]
       else
-        @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id))
+        @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC)
       end
 
 
@@ -39,7 +39,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
 
     else
-      @orders = Order.all
+      @orders = Order.all.order(created_at: :DESC)
       @per_page = 10
       total_records = Order.count
       if (total_records % @per_page) == 0
