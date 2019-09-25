@@ -20,7 +20,7 @@ class Api::V1::SupplierOrdersController < ApplicationController
 
     if @supplier_order.save
       @supplier.set_order_number
-      render json: @supplier_order, status: :created, location: @supplier_order
+      render json: @supplier_order, status: :created
     else
       render json: @supplier_order.errors, status: :unprocessable_entity
     end

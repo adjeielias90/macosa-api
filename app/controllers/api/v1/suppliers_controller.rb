@@ -18,7 +18,7 @@ class Api::V1::SuppliersController < ApplicationController
     @supplier = Supplier.new(supplier_params)
 
     if @supplier.save
-      render json: @supplier, status: :created, location: @supplier
+      render json: @supplier, status: :created
     else
       render json: @supplier.errors, status: :unprocessable_entity
     end
