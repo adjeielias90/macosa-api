@@ -9,7 +9,7 @@ class Api::V1::CompaniesController < Api::V1::BaseController
 
     # Custom Pagination
     @per_page = 10
-    total_records = User.count
+    total_records = Company.count
     # @orders = Order.all.page params[:page]
 
     if (total_records % @per_page) == 0

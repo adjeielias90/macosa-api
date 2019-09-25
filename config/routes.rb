@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
 # push update to github
   namespace :api do
     namespace :v1 do
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
       resources :orders
       resources :currencies
       resources :notifications
+      resources :supplier_orders
+      resources :suppliers
       resources :users do#, only: [:create, :index, :delete, :update, :show] do
         collection do
           post 'login'
