@@ -1,5 +1,5 @@
 class Api::V1::SupplierOrdersController < ApplicationController
-  before_action :set_supplier_order, only: [:show, :update, :destroy]
+  before_action :set_supplier_order, only: [:show, :update]#, :destroy]
   before_action :authenticate_request!
 
   # GET /supplier_orders
@@ -47,13 +47,13 @@ class Api::V1::SupplierOrdersController < ApplicationController
     @supplier_order = SupplierOrder.with_deleted.find(params[:id])
     if params[:type] == 'normal'
       @supplier_order.destroy
-      render json: {success: "Industry deleted and archived"}, status: :ok
+      render json: {success: "Supplier Order deleted and archived"}, status: :ok
     elsif params[:type] == 'forever'
       @supplier_order.really_destroy!
-      render json: {success: "Industry permanently deleted"}, status: :ok
+      render json: {success: "Supplier Order permanently deleted"}, status: :ok
     elsif params[:type] == 'undelete'
       @supplier_order.restore
-      render json: {success: "Industry restored"}, status: :ok
+      render json: {success: "Supplier Order restored"}, status: :ok
     end
   end
 

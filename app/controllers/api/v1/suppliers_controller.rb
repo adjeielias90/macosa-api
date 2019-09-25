@@ -39,13 +39,13 @@ class Api::V1::SuppliersController < ApplicationController
     @supplier = Supplier.with_deleted.find(params[:id])
     if params[:type] == 'normal'
       @supplier.destroy
-      render json: {success: "Industry deleted and archived"}, status: :ok
+      render json: {success: "Supplier deleted and archived"}, status: :ok
     elsif params[:type] == 'forever'
       @supplier.really_destroy!
-      render json: {success: "Industry permanently deleted"}, status: :ok
+      render json: {success: "Supplier permanently deleted"}, status: :ok
     elsif params[:type] == 'undelete'
       @supplier.restore
-      render json: {success: "Industry restored"}, status: :ok
+      render json: {success: "Supplier restored"}, status: :ok
     end
   end
 
