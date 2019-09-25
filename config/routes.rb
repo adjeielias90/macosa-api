@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :suppliers
 # push update to github
   namespace :api do
     namespace :v1 do
