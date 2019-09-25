@@ -19,7 +19,7 @@ class Api::V1::CompaniesController < Api::V1::BaseController
     end
     @meta = { total_pages: total_pages, total_records: total_records }
 
-    render json: @companies, meta: @meta status: :ok
+    render json: @companies, meta: @meta, status: :ok
   end
 
   # GET /companies/1

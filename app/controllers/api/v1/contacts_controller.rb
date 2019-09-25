@@ -20,7 +20,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
     end
     @meta = { total_pages: total_pages, total_records: total_records }
 
-    render json: @contacts, meta: @meta status: :ok
+    render json: @contacts, meta: @meta, status: :ok
   end
 
   # GET /contacts/1

@@ -17,7 +17,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
     end
     @meta = { total_pages: total_pages, total_records: total_records }
 
-    render json: @customers, meta: @meta status: :ok
+    render json: @customers, meta: @meta, status: :ok
   end
 
   # GET /customers/1

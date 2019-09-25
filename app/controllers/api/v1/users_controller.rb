@@ -17,7 +17,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
     @meta = { total_pages: total_pages, total_records: total_records }
 
-    render json: @users, meta: @meta status: :ok
+    render json: @users, meta: @meta, status: :ok
     # render json: @users, status: :ok
 
     # @users = @pagy.paginate(page: params[:page], per_page: 2)
