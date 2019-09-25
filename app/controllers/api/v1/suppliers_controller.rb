@@ -1,6 +1,6 @@
 class Api::V1::SuppliersController < ApplicationController
   before_action :set_supplier, only: [:show, :update, :destroy]
-
+  before_action :authenticate_request!
   # GET /suppliers
   def index
     @suppliers = Supplier.all

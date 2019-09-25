@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order: one
+  supplier: one
+  supplier_no: MyString
+  order_no: MyString
+  order_date: 2019-09-25 10:37:47
+  amount: 9.99
+  eta: 2019-09-25 10:37:47
+  delivered: 2019-09-25 10:37:47
+
+two:
+  order: two
+  supplier: two
+  supplier_no: MyString
+  order_no: MyString
+  order_date: 2019-09-25 10:37:47
+  amount: 9.99
+  eta: 2019-09-25 10:37:47
+  delivered: 2019-09-25 10:37:47
