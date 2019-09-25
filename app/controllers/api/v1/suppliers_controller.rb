@@ -1,5 +1,5 @@
 class Api::V1::SuppliersController < ApplicationController
-  before_action :set_supplier, only: [:show, :update, :destroy]
+  before_action :set_supplier, only: [:show, :update]#:destroy]
   before_action :authenticate_request!
   # GET /suppliers
   def index
@@ -35,7 +35,18 @@ class Api::V1::SuppliersController < ApplicationController
 
   # DELETE /suppliers/1
   def destroy
-    @supplier.destroy
+    # @supplier.destroy
+    @supplier = Supplier.with_deleted.find(params[:id])
+    if params[:type] == 'normal'
+      @supplier.destroy
+      render json: {success: "Industry deleted and archived"}, status: :ok
+    elsif params[:type] == 'forever'
+      @supplier.really_destroy!
+      render json: {success: "Industry permanently deleted"}, status: :ok
+    elsif params[:type] == 'undelete'
+      @supplier.restore
+      render json: {success: "Industry restored"}, status: :ok
+    end
   end
 
   private

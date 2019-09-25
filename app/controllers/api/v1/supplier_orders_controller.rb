@@ -19,9 +19,16 @@ class Api::V1::SupplierOrdersController < ApplicationController
     @supplier_order = SupplierOrder.new(supplier_order_params)
 
     if @supplier_order.save
+      @supplier.set_order_number
       render json: @supplier_order, status: :created, location: @supplier_order
     else
       render json: @supplier_order.errors, status: :unprocessable_entity
+    end
+
+
+    def set_order_number
+      @order = Order.find(params[:order_id])
+      @supplier_order.order_no = @order.order_no
     end
   end
 
@@ -36,7 +43,18 @@ class Api::V1::SupplierOrdersController < ApplicationController
 
   # DELETE /supplier_orders/1
   def destroy
-    @supplier_order.destroy
+    # @supplier_order.destroy
+    @supplier_order = SupplierOrder.with_deleted.find(params[:id])
+    if params[:type] == 'normal'
+      @supplier_order.destroy
+      render json: {success: "Industry deleted and archived"}, status: :ok
+    elsif params[:type] == 'forever'
+      @supplier_order.really_destroy!
+      render json: {success: "Industry permanently deleted"}, status: :ok
+    elsif params[:type] == 'undelete'
+      @supplier_order.restore
+      render json: {success: "Industry restored"}, status: :ok
+    end
   end
 
   private
