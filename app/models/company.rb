@@ -10,4 +10,5 @@ class Company < ApplicationRecord
 
   # remove 'dependent: :destroy' to enforce FK constraint
   has_many :contacts, dependent: :destroy
+  paginates_per 10
 end

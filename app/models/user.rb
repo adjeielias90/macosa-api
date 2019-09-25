@@ -73,5 +73,5 @@ class User < ApplicationRecord
   #     scoped
   #   end
   # end
-
+  paginates_per 10
 end

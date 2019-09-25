@@ -6,8 +6,21 @@ class Api::V1::ContactsController < Api::V1::BaseController
 
   # GET /contacts
   def index
-    @contacts = Contact.all
-    render json: @contacts, status: :ok
+    @contacts = Contact.all.order(created_at: :DESC).page params[:page]
+
+    # Custom Pagination
+    @per_page = 10
+    total_records = Contact.count
+    # @orders = Order.all.page params[:page]
+
+    if (total_records % @per_page) == 0
+      total_pages = total_records/@per_page
+    else
+      total_pages = (total_records/@per_page) + 1
+    end
+    @meta = { total_pages: total_pages, total_records: total_records }
+
+    render json: @contacts, meta: @meta status: :ok
   end
 
   # GET /contacts/1

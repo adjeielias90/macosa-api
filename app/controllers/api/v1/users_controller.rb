@@ -3,8 +3,21 @@ class Api::V1::UsersController < Api::V1::BaseController
   # Authorize request before processing
   before_action :authenticate_request!, except: [:password_reset, :verify_reset_email, :verify_token, :password_update, :login, :confirm_email, :create]
   def index
-    @users = User.all
-    paginate json: @users, per_page: 10
+    @users = User.all.order(created_at: :DESC).page params[:page]
+
+    # Custom Pagination
+    @per_page = 10
+    total_records = User.count
+    # @orders = Order.all.page params[:page]
+
+    if (total_records % @per_page) == 0
+      total_pages = total_records/@per_page
+    else
+      total_pages = (total_records/@per_page) + 1
+    end
+    @meta = { total_pages: total_pages, total_records: total_records }
+
+    render json: @users, meta: @meta status: :ok
     # render json: @users, status: :ok
 
     # @users = @pagy.paginate(page: params[:page], per_page: 2)

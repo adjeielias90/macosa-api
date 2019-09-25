@@ -10,4 +10,5 @@ class Customer < ApplicationRecord
 
   validates :name, uniqueness: true
   validates :name, presence: true
+  paginates_per 10
 end

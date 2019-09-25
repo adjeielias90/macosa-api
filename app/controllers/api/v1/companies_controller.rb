@@ -5,8 +5,21 @@ class Api::V1::CompaniesController < Api::V1::BaseController
   before_action :authenticate_request!
   # GET /companies
   def index
-    @companies = Company.all
-    render json:  @companies, status: :ok
+    @companies = Company.all.order(created_at: :DESC).page params[:page]
+
+    # Custom Pagination
+    @per_page = 10
+    total_records = User.count
+    # @orders = Order.all.page params[:page]
+
+    if (total_records % @per_page) == 0
+      total_pages = total_records/@per_page
+    else
+      total_pages = (total_records/@per_page) + 1
+    end
+    @meta = { total_pages: total_pages, total_records: total_records }
+
+    render json: @companies, meta: @meta status: :ok
   end
 
   # GET /companies/1

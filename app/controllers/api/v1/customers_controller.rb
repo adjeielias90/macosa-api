@@ -3,9 +3,21 @@ class Api::V1::CustomersController < Api::V1::BaseController
   before_action :authenticate_request!
   # GET /customers
   def index
-    @customers = Customer.all
+    @customers = Customer.all.order(created_at: :DESC).page params[:page]
 
-    render json: @customers
+    # Custom Pagination
+    @per_page = 10
+    total_records = Customer.count
+    # @orders = Order.all.page params[:page]
+
+    if (total_records % @per_page) == 0
+      total_pages = total_records/@per_page
+    else
+      total_pages = (total_records/@per_page) + 1
+    end
+    @meta = { total_pages: total_pages, total_records: total_records }
+
+    render json: @customers, meta: @meta status: :ok
   end
 
   # GET /customers/1
