@@ -20,7 +20,7 @@ class Api::V1::SupplierOrdersController < ApplicationController
     @order = Order.find(params[:order_id])
     @supplier_order.order_no = @order.order_no
     if @supplier_order.save
-      # @supplier.set_order_number
+      @supplier.generate_order_number!
       render json: @supplier_order, status: :created
     else
       render json: @supplier_order.errors, status: :unprocessable_entity
