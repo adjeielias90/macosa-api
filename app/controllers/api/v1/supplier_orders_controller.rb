@@ -66,6 +66,6 @@ class Api::V1::SupplierOrdersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def supplier_order_params
-      params.require(:supplier_order).permit(:order_id, :supplier_id, :supplier_no, :order_no, :order_date, :amount, :eta, :delivered)
+      params.require(:supplier_order).permit(:order_id, :manufacturer_id, :supplier_no, :order_no, :order_date, :amount, :eta, :delivered)
     end
 end
