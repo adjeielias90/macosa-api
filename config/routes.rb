@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       resources :currencies
       resources :notifications
       resources :supplier_orders
-      resources :suppliers
+      # resources :suppliers
       resources :users do#, only: [:create, :index, :delete, :update, :show] do
         collection do
           post 'login'
