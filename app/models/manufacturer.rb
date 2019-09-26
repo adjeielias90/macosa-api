@@ -6,5 +6,5 @@ class Manufacturer < ApplicationRecord
   tracked owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
   tracked recipient: ->(controller, model) { model && model }
   has_many :manufacturer_orders, dependent: :destroy
-  has_many :supplier_orders, dependent: :destroy
+  has_many :supplier_orders
 end
