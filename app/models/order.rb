@@ -31,7 +31,7 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :manufacturer_orders, :allow_destroy => true
 
 
-  has_many :suppliers, through: :supplier_orders
+  has_many :manufacturers, through: :supplier_orders
 
 
   def set_date!
