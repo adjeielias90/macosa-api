@@ -4,9 +4,20 @@ class Api::V1::SupplierOrdersController < ApplicationController
 
   # GET /supplier_orders
   def index
-    @supplier_orders = SupplierOrder.all
+    @supplier_orders = SupplierOrder.all.order(created_at: :DESC)
+    # Custom Pagination
+    @per_page = 10
+    total_records = SupplierOrder.count
+    # @orders = Order.all.page params[:page]
 
-    render json: @supplier_orders
+    if (total_records % @per_page) == 0
+      total_pages = total_records/@per_page
+    else
+      total_pages = (total_records/@per_page) + 1
+    end
+    @meta = { total_pages: total_pages, total_records: total_records }
+
+    render json: @supplier_orders, meta: @meta, status: :ok
   end
 
   # GET /supplier_orders/1
