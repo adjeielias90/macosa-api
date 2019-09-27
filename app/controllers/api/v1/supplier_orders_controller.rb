@@ -4,7 +4,7 @@ class Api::V1::SupplierOrdersController < ApplicationController
 
   # GET /supplier_orders
   def index
-    @supplier_orders = SupplierOrder.all.order(created_at: :DESC)
+    @supplier_orders = SupplierOrder.all.order(created_at: :DESC).page params[:page]
     # Custom Pagination
     @per_page = 10
     total_records = SupplierOrder.count
