@@ -74,8 +74,6 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
 
 
-
-
   # GET /orders/1
   def show
     render json: @order
