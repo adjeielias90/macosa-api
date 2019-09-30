@@ -1,4 +1,5 @@
 class SupplierOrder < ApplicationRecord
+  include Filterable
   belongs_to :order
   belongs_to :manufacturer
   acts_as_paranoid
@@ -8,5 +9,8 @@ class SupplierOrder < ApplicationRecord
     self.supplier_no = SecureRandom.hex(6)
     save
   end
+
+# Model Scopes
+  scope :manufacturer_id, -> (manufacturer_id) { where manufacturer_id: manufacturer_id }
 
 end

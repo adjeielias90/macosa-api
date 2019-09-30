@@ -4,7 +4,28 @@ class Api::V1::SupplierOrdersController < ApplicationController
 
   # GET /supplier_orders
   def index
-    @supplier_orders = SupplierOrder.all.order(created_at: :DESC).page params[:page]
+
+    if params.present?
+      # Test condition here to find interval scope
+        # if 'to' and 'from' present,
+        # Call the interval scope with:
+        # Order.interval('from_datetime_obj: 2015-07-09', 'to_datetime_obj: 2015-07-09')
+      #
+      # if params[:to].present? && params[:from].present?
+        # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
+      # else
+      if params.has_key?(:page)
+        # Only allow a trusted parameter "white list" through.
+        # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC).page params[:page]
+        @supplier_orders = SupplierOrder.filter(params.slice(:manufacturer_id)).order(created_at: :DESC).page params[:page]
+      else
+        # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC)
+        @supplier_orders = SupplierOrder.filter(params.slice(:manufacturer_id)).order(created_at: :DESC)
+      end
+    else
+      @supplier_orders = Order.all.order(created_at: :DESC)
+    end
+
     # Custom Pagination
     @per_page = 10
     total_records = SupplierOrder.count
@@ -79,4 +100,12 @@ class Api::V1::SupplierOrdersController < ApplicationController
     def supplier_order_params
       params.require(:supplier_order).permit(:order_id, :manufacturer_id, :supplier_no, :order_no, :order_date, :amount, :comments, :eta, :description, :delivered )
     end
+
+    # A list of the param names that can be used for filtering the Supplier Order list
+    def filtering_params(params)
+      params.slice(:manufacturer_id)
+    end
 end
+
+# filtering patams
+# manufacturer_id
