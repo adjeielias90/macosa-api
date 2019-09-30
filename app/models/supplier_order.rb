@@ -10,6 +10,10 @@ class SupplierOrder < ApplicationRecord
     save
   end
 
+  def set_default_delivered!
+    self.delivered = false
+  end
+
 # Model Scopes
   scope :manufacturer_id, -> (manufacturer_id) { where manufacturer_id: manufacturer_id }
 
