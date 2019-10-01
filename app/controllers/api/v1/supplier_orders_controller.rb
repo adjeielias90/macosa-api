@@ -1,4 +1,4 @@
-class Api::V1::SupplierOrdersController < ApplicationController
+class Api::V1::SupplierOrdersController < Api::V1::BaseController
   before_action :set_supplier_order, only: [:show, :update]#, :destroy]
   before_action :authenticate_request!
 
