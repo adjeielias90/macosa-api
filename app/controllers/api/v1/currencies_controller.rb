@@ -97,9 +97,9 @@ class Api::V1::CurrenciesController < Api::V1::BaseController
     #   @user = @current_user
     # end
 
-    # def set_currency
-    #   @currency = Currency.find(params[:id])
-    # end
+    def set_currency
+      @currency = Currency.find(params[:id])
+    end
 
     # Only allow a trusted parameter "white list" through.
     def currency_params
