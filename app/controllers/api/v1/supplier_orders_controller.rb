@@ -4,7 +4,6 @@ class Api::V1::SupplierOrdersController < Api::V1::BaseController
 
   # GET /supplier_orders
   def index
-
     if params.present?
       # Test condition here to find interval scope
         # if 'to' and 'from' present,
@@ -38,6 +37,7 @@ class Api::V1::SupplierOrdersController < Api::V1::BaseController
     end
     @meta = { total_pages: total_pages, total_records: total_records }
 
+
     render json: @supplier_orders, meta: @meta, status: :ok
   end
 
@@ -49,6 +49,7 @@ class Api::V1::SupplierOrdersController < Api::V1::BaseController
   # POST /supplier_orders
   def create
     @supplier_order = SupplierOrder.new(supplier_order_params)
+
     if @order = Order.find_by(id: params[:supplier_order][:order_id])
       @supplier_order.order_no = @order.order_no
       if @supplier_order.save
@@ -62,11 +63,6 @@ class Api::V1::SupplierOrdersController < Api::V1::BaseController
       render json: {error: 'Customer order not found'}, status: :unprocessable_entity
     end
 
-
-    # def set_order_number
-    #   @order = Order.find(params[:order_id])
-    #   @supplier_order.order_no = @order.order_no
-    # end
   end
 
   # PATCH/PUT /supplier_orders/1
