@@ -49,7 +49,7 @@ class Api::V1::SupplierOrdersController < Api::V1::BaseController
   # POST /supplier_orders
   def create
     @supplier_order = SupplierOrder.new(supplier_order_params)
-    @order = Order.find(params[:order_id])
+    @order = Order.find_by(id: params[:order_id])
     @supplier_order.order_no = @order.order_no
     if @supplier_order.save
       @supplier_order.generate_order_number!
