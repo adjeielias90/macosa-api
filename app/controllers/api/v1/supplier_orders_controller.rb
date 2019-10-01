@@ -49,14 +49,17 @@ class Api::V1::SupplierOrdersController < Api::V1::BaseController
   # POST /supplier_orders
   def create
     @supplier_order = SupplierOrder.new(supplier_order_params)
-    @order = Order.find_by(id: params[:supplier_order][:order_id])
-    @supplier_order.order_no = @order.order_no
-    if @supplier_order.save
-      @supplier_order.generate_order_number!
-      @supplier_order.set_default_delivered!
-      render json: @supplier_order, status: :created
+    if @order = Order.find_by(id: params[:supplier_order][:order_id])
+      @supplier_order.order_no = @order.order_no
+      if @supplier_order.save
+        @supplier_order.generate_order_number!
+        @supplier_order.set_default_delivered!
+        render json: @supplier_order, status: :created
+      else
+        render json: @supplier_order.errors, status: :unprocessable_entity
+      end
     else
-      render json: @supplier_order.errors, status: :unprocessable_entity
+      render json: {error: 'Customer order not found'}, status: :unprocessable_entity
     end
 
 
