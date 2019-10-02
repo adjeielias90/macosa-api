@@ -12,6 +12,7 @@ class SupplierOrder < ApplicationRecord
 
   def set_default_delivered!
     self.delivered = false
+    save
   end
 
 # Model Scopes
