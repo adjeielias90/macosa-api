@@ -64,7 +64,7 @@ class Api::V1::SupplierOrdersController < Api::V1::BaseController
         render json: @supplier_order.errors, status: :unprocessable_entity
       end
     else
-      render json: {error: 'Customer order not found'}, status: :unprocessable_entity
+      render json: {error: 'Customer order not found to make supplier order'}, status: :unprocessable_entity
     end
 
   end
