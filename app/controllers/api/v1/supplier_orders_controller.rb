@@ -54,7 +54,7 @@ class Api::V1::SupplierOrdersController < Api::V1::BaseController
       @supplier_order.order_no = @order.order_no
       if @supplier_order.save
         @supplier_order.generate_order_number!
-        if params.has_key params[:supplier_order][:delivered] == true
+        if params[:supplier_order][:delivered] == true
           render json: @supplier_order, status: :created
         else
           @supplier_order.set_default_delivered!
