@@ -28,11 +28,15 @@
         total_pages = (total_records/@per_page) + 1
       end
       @meta = { total_pages: total_pages, total_records: total_records }
+
       # end
-
-
-      @activities = PublicActivity::Activity.all.order(created_at: :DESC).page(params[:page]).per(25)
+      if params.has_key?(:user_id)
+        @activities = PublicActivity::Activity.find_by(user_id: params[:user_id]).page(params[:page]).per(25)
+      else
+        @activities = PublicActivity::Activity.all.order(created_at: :DESC).page(params[:page]).per(25)
+      end
       # render json: @activities
       render json: @activities, meta: @meta, status: :ok
+
     end
   end
