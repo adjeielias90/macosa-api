@@ -20,7 +20,7 @@
 
       # end
       if params.has_key?(:user_id)
-        unless params[:user_id].present?
+        if params[:user_id] != ''
           @activities = PublicActivity::Activity.where(owner_id: params[:user_id]).page(params[:page])
           @per_page = 25
           total_records = PublicActivity::Activity.where(owner_id: params[:user_id]).count
