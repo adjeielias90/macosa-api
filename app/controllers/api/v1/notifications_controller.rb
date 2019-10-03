@@ -19,7 +19,7 @@
 
 
       # end
-      if params.has_key?(:user_id) != nil
+      if params.has_key?(:user_id)
         if params[:user_id] != nil
           @activities = PublicActivity::Activity.where(owner_id: params[:user_id]).page(params[:page])
           @per_page = 25
