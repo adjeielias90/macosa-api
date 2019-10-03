@@ -18,8 +18,17 @@
 
     def index
       # Custom Pagination
+
+
+      # end
+      if params.has_key?(:user_id)
+        @activities = PublicActivity::Activity.where(owner_id: params[:user_id]).page(params[:page]).per(25)
+      else
+        @activities = PublicActivity::Activity.all.order(created_at: :DESC).page(params[:page]).per(25)
+      end
+
       @per_page = 25
-      total_records = PublicActivity::Activity.count
+      total_records = @activities.count
       # @orders = Order.all.page params[:page]
 
       if (total_records % @per_page) == 0
@@ -28,13 +37,6 @@
         total_pages = (total_records/@per_page) + 1
       end
       @meta = { total_pages: total_pages, total_records: total_records }
-
-      # end
-      if params.has_key?(:user_id)
-        @activities = PublicActivity::Activity.where(owner_id: params[:user_id]).page(params[:page]).per(25)
-      else
-        @activities = PublicActivity::Activity.all.order(created_at: :DESC).page(params[:page]).per(25)
-      end
       # render json: @activities
       render json: @activities, meta: @meta, status: :ok
 
