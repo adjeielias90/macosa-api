@@ -23,7 +23,7 @@
         if params[:user_id] != nil
           @activities = PublicActivity::Activity.where(owner_id: params[:user_id]).page(params[:page])
           @per_page = 25
-          total_records = @activities.count
+          total_records = PublicActivity::Activity.where(owner_id: params[:user_id]).count
           # @orders = Order.all.page params[:page]
 
           if (total_records % @per_page) == 0
