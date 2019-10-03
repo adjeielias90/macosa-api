@@ -10,7 +10,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
 
     # Custom Pagination
     @per_page = 10
-    total_records = Contact.count
+    total_records = @contacts.count
     # @orders = Order.all.page params[:page]
 
     if (total_records % @per_page) == 0
