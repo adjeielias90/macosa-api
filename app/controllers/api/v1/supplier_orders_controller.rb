@@ -22,7 +22,7 @@ class Api::V1::SupplierOrdersController < Api::V1::BaseController
         @supplier_orders = SupplierOrder.filter(params.slice(:manufacturer_id)).order(created_at: :DESC)
       end
     else
-      @supplier_orders = Order.all.order(created_at: :DESC)
+      @supplier_orders = SupplierOrder.all.order(created_at: :DESC)
     end
 
     # Custom Pagination

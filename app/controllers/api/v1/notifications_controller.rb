@@ -19,7 +19,6 @@
       # end
       if params.has_key?(:user_id)
         if params[:user_id] != ''
-
           @activities = PublicActivity::Activity.where(owner_id: params[:user_id]).page(params[:page])
 
           @per_page = 25
@@ -34,7 +33,6 @@
           @meta = { total_pages: total_pages, total_records: total_records }
 
         else
-
           @activities = PublicActivity::Activity.all.order(created_at: :DESC).page(params[:page]).per(25)
 
           @per_page = 25
@@ -70,4 +68,8 @@
       render json: @activities, meta: @meta, status: :ok
 
     end
+
+
+
+
   end
