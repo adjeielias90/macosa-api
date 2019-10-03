@@ -4,7 +4,7 @@ class Api::V1::SupplierOrdersController < Api::V1::BaseController
 
   # GET /supplier_orders
   def index
-    if params.present?
+    if !params.blank?
       # Test condition here to find interval scope
         # if 'to' and 'from' present,
         # Call the interval scope with:
