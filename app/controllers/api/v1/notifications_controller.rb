@@ -36,7 +36,7 @@
           @activities = PublicActivity::Activity.all.order(created_at: :DESC).page(params[:page]).per(25)
 
           @per_page = 25
-          total_records = @activities.count
+          total_records = PublicActivity::Activity.count
           # @orders = Order.all.page params[:page]
 
           if (total_records % @per_page) == 0
