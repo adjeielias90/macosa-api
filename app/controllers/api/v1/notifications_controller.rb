@@ -31,7 +31,7 @@
 
       # end
       if params.has_key?(:user_id)
-        @activities = PublicActivity::Activity.find_by(owner_id: params[:user_id]).page(params[:page]).per(25)
+        @activities = PublicActivity::Activity.find_by(owner_id: params[:user_id]).page(params[:page]) if params[:page].per(25)
       else
         @activities = PublicActivity::Activity.all.order(created_at: :DESC).page(params[:page]).per(25)
       end
