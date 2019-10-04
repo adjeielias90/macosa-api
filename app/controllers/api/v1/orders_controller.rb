@@ -25,13 +25,13 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
 
       # Custom Pagination
-        @per_page = 10
-        if params.has_key?(:page)
-          total_records = Order.count
-        else
-          total_records = @orders.count
-        end
-        # @orders = Order.all.page params[:page]
+      @per_page = 10
+      if params.has_key?(:page)
+        total_records = Order.count
+      else
+        total_records = @orders.count
+      end
+      # @orders = Order.all.page params[:page]
 
       if (total_records % @per_page) == 0
         total_pages = total_records/@per_page
