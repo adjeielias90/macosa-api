@@ -8,7 +8,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     # Custom Pagination
     @per_page = 10
     total_records = @users.count
-    # @orders = Order.all.page params[:page]
 
     if (total_records % @per_page) == 0
       total_pages = total_records/@per_page
@@ -23,6 +22,18 @@ class Api::V1::UsersController < Api::V1::BaseController
     # @users = @pagy.paginate(page: params[:page], per_page: 2)
     # json_response(@users)
   end
+
+  # def meta(per_page, model)
+  #   total_records = model.count
+  #   if (total_records % per_page) == 0
+  #     total_pages = total_records/per_page
+  #   else
+  #     total_pages = (total_records/per_page) + 1
+  #   end
+  #   @meta = { total_pages: total_pages, total_records: total_records }
+  # end
+
+
 
   def create
     @owner = Owner.first
