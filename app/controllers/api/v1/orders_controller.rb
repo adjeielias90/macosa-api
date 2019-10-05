@@ -26,7 +26,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
       # Custom Pagination
       @per_page = 10
-      if params.has_key?(:page)
+      if !params.present?
         total_records = Order.count
       else
         total_records = @orders.count
