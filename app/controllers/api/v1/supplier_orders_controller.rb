@@ -28,7 +28,7 @@ class Api::V1::SupplierOrdersController < Api::V1::BaseController
     # Custom Pagination
     @per_page = 10
     if params.has_key?(:page)
-      total_records = Order.count
+      total_records = SupplierOrder.count
     else
       total_records = @supplier_orders.count
     end
