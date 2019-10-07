@@ -15,6 +15,10 @@ class Api::V1::OrdersController < Api::V1::BaseController
       # if params[:to].present? && params[:from].present?
         # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
       # else
+
+      # Initialize order_count to later use it to paginate
+      @order_count =  Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).count
+
       if params.has_key?(:page)
         # Only allow a trusted parameter "white list" through.
         @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC).page params[:page]
@@ -34,7 +38,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
 
 # Reverse custom pagination code to testfix pagination bug
-      # Custom Pagination
+      # Special Custom Pagination for models with query params
       @per_page = 10
       if params.has_key?(:order_date) ||
         params.has_key?(:user_id) ||
@@ -42,7 +46,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
         params.has_key?(:customer_id) ||
         params.has_key?(:currency_id)
 
-        total_records = @orders.count
+        total_records = @order_count
       else
         total_records = Order.count
       end
