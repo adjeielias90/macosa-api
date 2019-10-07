@@ -36,7 +36,12 @@ class Api::V1::OrdersController < Api::V1::BaseController
 # Reverse custom pagination code to testfix pagination bug
       # Custom Pagination
       @per_page = 10
-      if params.has_key?(:order_date, :user_id, :account_manager_id, :customer_id, :currency_id)
+      if params.has_key?(:order_date) ||
+        params.has_key?(:user_id) ||
+        params.has_key?(:account_manager_id) ||
+        params.has_key?(:customer_id) ||
+        params.has_key?(:currency_id)
+
         total_records = @orders.count
       else
         total_records = Order.count
