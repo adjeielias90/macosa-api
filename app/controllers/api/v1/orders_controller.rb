@@ -18,19 +18,30 @@ class Api::V1::OrdersController < Api::V1::BaseController
       if params.has_key?(:page)
         # Only allow a trusted parameter "white list" through.
         @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC).page params[:page]
-      else
+      else params.has_key?(:page)
         @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC)
       end
 
 
 
       # Custom Pagination
+      # @per_page = 10
+      # if params.has_key?(:page)
+      #   total_records = Order.count
+      # else
+      #   total_records = @orders.count
+      # end
+
+
+# Reverse custom pagination code to testfix pagination bug
+      # Custom Pagination
       @per_page = 10
-      if params.has_key?(:page)
-        total_records = Order.count
-      else
+      if params.has_key?(:order_date, :user_id, :account_manager_id, :customer_id, :currency_id)
         total_records = @orders.count
+      else
+        total_records = Order.count
       end
+
       # @orders = Order.all.page params[:page]
 
       if (total_records % @per_page) == 0
@@ -142,6 +153,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     end
 
     # A list of the param names that can be used for filtering the Order list
+    # TO prevent SQL injection, Always sanitize parameters
     def filtering_params(params)
       params.slice(:order_date, :user_id, :account_manager_id, :customer_id, :currency_id)
     end
