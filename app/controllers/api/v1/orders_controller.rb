@@ -15,12 +15,36 @@ class Api::V1::OrdersController < Api::V1::BaseController
       # if params[:to].present? && params[:from].present?
         # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
       # else
+        @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC)
+      # end
+
+
+      # Custom Pagination, with query params
+      @per_page = 10
+
       if params.has_key?(:page)
         # Only allow a trusted parameter "white list" through.
-        @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC).page params[:page]
-      else
-        @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC)
+        # Test for extra parameters here
+        if params.has_key?(:order_date) ||
+          params.has_key?(:user_id) ||
+          params.has_key?(:account_manager_id) ||
+          params.has_key?(:customer_id) ||
+          params.has_key?(:currency_id)
+        # Calculate total record instance based on conditions above
+          total_records = @orders.count
+        else
+          # Default case to revert to when nost at least one condition is met
+          total_records = Order.count
+        end
+
+        # reassign instance to move through pages
+        @orders = @orders.page params[:page]
       end
+
+
+
+
+
 
 
 
@@ -33,19 +57,19 @@ class Api::V1::OrdersController < Api::V1::BaseController
       # end
 
 
-# Reverse custom pagination code to testfix pagination bug
+      # Reverse custom pagination code to testfix pagination bug
       # Custom Pagination
-      @per_page = 10
-      if params.has_key?(:order_date) ||
-        params.has_key?(:user_id) ||
-        params.has_key?(:account_manager_id) ||
-        params.has_key?(:customer_id) ||
-        params.has_key?(:currency_id)
+      # @per_page = 10
+      # if params.has_key(:page) && params.has_key?(:order_date) ||
+      #   params.has_key?(:user_id) ||
+      #   params.has_key?(:account_manager_id) ||
+      #   params.has_key?(:customer_id) ||
+      #   params.has_key?(:currency_id)
 
-        total_records = @orders.count
-      else
-        total_records = Order.count
-      end
+      #   total_records = @orders.count
+      # else
+      #   total_records = Order.count
+      # end
 
       # @orders = Order.all.page params[:page]
 
@@ -56,10 +80,8 @@ class Api::V1::OrdersController < Api::V1::BaseController
       end
       @meta = { total_pages: total_pages, total_records: total_records }
       # end
-
-
     else
-      @orders = Order.all.order(created_at: :DESC)
+      @orders = Order.all.order(created_at: :DESC).page
       @per_page = 10
       total_records = Order.count
       if (total_records % @per_page) == 0
