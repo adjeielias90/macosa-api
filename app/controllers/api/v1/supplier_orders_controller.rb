@@ -13,6 +13,7 @@ class Api::V1::SupplierOrdersController < Api::V1::BaseController
       # if params[:to].present? && params[:from].present?
         # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
       # else
+      @supplier_count = SupplierOrder.filter(params.slice(:manufacturer_id)).count
       if params.has_key?(:page)
         # Only allow a trusted parameter "white list" through.
         # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC).page params[:page]
@@ -36,7 +37,7 @@ class Api::V1::SupplierOrdersController < Api::V1::BaseController
     # Custom Pagination
     @per_page = 10
     if params.has_key?(:manufacturer_id)
-      total_records = @supplier_orders.count
+      total_records = @supplier_count
     else
       total_records = SupplierOrder.count
     end
