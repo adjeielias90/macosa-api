@@ -1,5 +1,6 @@
 class SupplierOrder < ApplicationRecord
   include Filterable
+  include PublicActivity::Model
   belongs_to :order
   belongs_to :manufacturer
   acts_as_paranoid
