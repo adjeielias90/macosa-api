@@ -149,14 +149,18 @@ class Api::V1::UsersController < Api::V1::BaseController
     @owner = Owner.first
     if @current_user.is_admin?
       if @user.email != @owner.email
-        if @user.update(update_params)
-          render json: @user, status: :ok
+        if @user.email == @current_user.email
+          render json: {error: "You cannot change privileges for your own account"}, status: :unprocessable_entity
         else
-          render json: {error: @user.errors}, status: :unprocessable_entity
+          if @user.update(update_params)
+            render json: @user, status: :ok
+          else
+            render json: {error: @user.errors}, status: :unprocessable_entity
+          end
         end
       elsif @user.email ==  @owner.email
         if !params[:is_admin]
-          render json: {errors: "You cannot change privileges for the master account"}, status: :unauthorized
+          render json: {error: "You cannot change privileges for this account"}, status: :unauthorized
         elsif params[:is_admin]
           if @user.update(update_params)
             render json: @user, status: :ok
@@ -166,7 +170,7 @@ class Api::V1::UsersController < Api::V1::BaseController
         end
       end
     else
-      render json: {errors:'You are not authorized to perform this action.'}, status: :unauthorized
+      render json: {error:'You are not authorized to perform this action.'}, status: :unauthorized
     end
   end
 
