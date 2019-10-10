@@ -248,9 +248,9 @@ class Api::V1::UsersController < Api::V1::BaseController
   # DELETE /types/2
   def destroy
     @owner = Owner.first
+    @user = User.with_deleted.find(params[:id])
     if @user.email != @owner.email
       if @current_user.is_admin?
-        @user = User.with_deleted.find(params[:id])
         if params[:type] == 'normal'
           @user.destroy
           render json: {success: "User deleted and archived"}, status: :ok
