@@ -14,8 +14,13 @@ class Api::V1::OrdersController < Api::V1::BaseController
       #
 
       # if params[:to].present? && params[:from].present?
-        # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
+        # if params.has_key?(:page)
+          # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from]).page params[:page]
+        # else
+          # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
+        # end
       # else
+
         # Initialize order_count to later use it to paginate
         @order_count =  Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).count
 
