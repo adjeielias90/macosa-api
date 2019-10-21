@@ -144,6 +144,26 @@ class Api::V1::OrdersController < Api::V1::BaseController
     current_user = @current_user
   end
 
+
+  def trash
+    @order = Order.only_deleted.find(params[:id])
+    if @order
+      render json: @order, status: :ok
+    else
+      render json: {error: "Order not found or permanently deleted"}, status: :not_found
+    end
+  end
+
+  def all_trash
+    @orders = Order.only_deleted.all
+    if @orders
+      render json: @orders, status: :ok
+    else
+      render json: {error: "Order not found or permanently deleted"}, status: :unprocessable_entity
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
