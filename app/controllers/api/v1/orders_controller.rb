@@ -144,6 +144,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     current_user = @current_user
   end
 
+  # Trash Implementation
 
   def trash
     @order = Order.only_deleted.find(params[:id])
