@@ -87,8 +87,8 @@ class Order < ApplicationRecord
 
   scope :interval, -> (start_date, end_date)
   {
-    where('order_date <= ? AND order_date => ?',
-      to.to_date, from.to_date
+    where("order_date <= ? AND order_date => ?",
+      "#{to.to_date, from.to_date}%"
     )
   }
 
