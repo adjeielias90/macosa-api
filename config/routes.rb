@@ -37,8 +37,13 @@ Rails.application.routes.draw do
       match '*a', to: 'base#undefined_route', via: :all
 
       # API endpoints for trash
+      # follow this format for each controller
       # get ':controller/trash/:id', :action => :trash
       # get ':controller/trash', :action => :all_trash
+
+      # for Orders:
+      get 'orders/trash/:id', :action => :trash
+      get 'orders/trash', :action => :all_trash
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
