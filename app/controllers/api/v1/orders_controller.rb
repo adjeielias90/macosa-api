@@ -13,13 +13,14 @@ class Api::V1::OrdersController < Api::V1::BaseController
         # Order.interval('from_datetime_obj: 2015-07-09', 'to_datetime_obj: 2015-07-09')
       #
 
-      # if params[:to].present? && params[:from].present?
-        # if params.has_key?(:page)
-          # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from]).page params[:page]
-        # else
-          # @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
-        # end
-      # else
+      if params[:to].present? && params[:from].present?
+        if params.has_key?(:page)
+          @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from]).page params[:page]
+        else
+          @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
+        end
+        @order_count = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from]).count
+      else
 
         # Initialize order_count to later use it to paginate
         @order_count =  Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).count
@@ -30,7 +31,8 @@ class Api::V1::OrdersController < Api::V1::BaseController
         else
           @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id, :currency_id)).order(created_at: :DESC)
         end
-      # end
+
+      end
 
 
       # Custom Pagination
