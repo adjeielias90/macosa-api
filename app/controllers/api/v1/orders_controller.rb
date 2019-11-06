@@ -19,7 +19,8 @@ class Api::V1::OrdersController < Api::V1::BaseController
         else
           @orders = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from])
         end
-        @order_count = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from]).count
+        # @order_count = Order.filter(params.slice(:customer_id, :order_date, :user_id, :account_manager_id)).interval(params[:to], params[:from]).count
+        @order_count = @orders.count
       else
 
         # Initialize order_count to later use it to paginate
